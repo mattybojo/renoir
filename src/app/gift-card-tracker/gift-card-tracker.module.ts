@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { GiftCardTrackerPageRoutingModule } from './gift-card-tracker-routing.module';
 
 import { GiftCardTrackerPage } from './gift-card-tracker.page';
+import { HeaderModule } from '../header/header.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    GiftCardTrackerPageRoutingModule
+    GiftCardTrackerPageRoutingModule,
+    HeaderModule
   ],
   declarations: [GiftCardTrackerPage]
 })
-export class GiftCardTrackerPageModule {}
+export class GiftCardTrackerPageModule { }

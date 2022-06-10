@@ -1,0 +1,20 @@
+.input-label {
+  min-width: 150px;
+}
+
+.item-spacing {
+  margin-bottom: 10px;
+}
+
+.item2 {
+  text-align: right;
+}
+
+.cheaper,
+.equal {
+  color: var(--ion-color-success);
+}
+
+.costlier {
+  color: var(--ion-color-danger);
+}
