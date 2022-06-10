@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "renoir-339f8": {
+      "hosting": {
+        "app": [
+          "renoir-339f8"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "renoir-339f8"
+  }
+}
