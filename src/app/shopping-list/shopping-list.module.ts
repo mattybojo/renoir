@@ -8,6 +8,7 @@ import { ShoppingListPageRoutingModule } from './shopping-list-routing.module';
 
 import { ShoppingListPage } from './shopping-list.page';
 import { HeaderModule } from '../header/header.module';
+import { ShoppingListItemFormComponent } from './shopping-list-item-form/shopping-list-item-form.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,6 @@ import { HeaderModule } from '../header/header.module';
     ShoppingListPageRoutingModule,
     HeaderModule
   ],
-  declarations: [ShoppingListPage]
+  declarations: [ShoppingListPage, ShoppingListItemFormComponent]
 })
 export class ShoppingListPageModule { }
