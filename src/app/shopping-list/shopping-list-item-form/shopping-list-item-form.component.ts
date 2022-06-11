@@ -1,9 +1,10 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { DocumentData, DocumentReference } from '@angular/fire/firestore';
-import { ToastController } from '@ionic/angular';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Components } from '@ionic/core';
 import { SubSink } from 'subsink';
 import { ShoppingListService } from '../shopping-list.service';
+import { AppService } from './../../app.service';
 import { ShoppingListItem } from './../shopping-list.beans';
 
 @Component({
@@ -17,33 +18,44 @@ export class ShoppingListItemFormComponent implements OnInit, OnDestroy {
   @Input() modal: Components.IonModal;
 
   title = 'Add New Item';
-
-  modalItem: ShoppingListItem;
+  listItemForm: FormGroup;
 
   private subs = new SubSink();
 
-  constructor(private shoppingListService: ShoppingListService, private toastController: ToastController) { }
+  constructor(private shoppingListService: ShoppingListService, private appService: AppService) { }
 
   ngOnInit() {
     if (!!this.item) {
       this.title = `Edit "${this.item.name}"`;
-      this.modalItem = Object.assign({}, this.item);
     }
+
+    this.listItemForm = new FormGroup({
+      id: new FormControl(this.item?.id),
+      name: new FormControl(this.item?.name, [Validators.required]),
+      quantity: new FormControl(this.item?.quantity, [Validators.required]),
+      isShopped: new FormControl(this.item?.isShopped)
+    });
   }
 
   saveItem() {
+    const item: ShoppingListItem = this.listItemForm.value;
     if (this.title.includes('Add')) {
-      this.subs.sink = this.shoppingListService.addItemToList(this.modalItem).subscribe((resp: DocumentReference<DocumentData>) => {
-        this.modalItem.id = resp.id;
-        this.modal.dismiss(this.modalItem);
+      this.subs.sink = this.shoppingListService.addItemToList(item).subscribe((resp: DocumentReference<DocumentData>) => {
+        this.appService.presentToast({
+          color: 'success', message: 'Item saved successfully!', duration: 1000
+        });
+        this.modal.dismiss();
       }, () => {
-        this.toastController.create({ color: 'danger', message: 'Error saving item!' });
+        this.appService.presentToast({ color: 'danger', message: 'Error saving item!', duration: 1000 });
       });
     } else {
-      this.subs.sink = this.shoppingListService.updateListItem(this.modalItem).subscribe(() => {
-        this.modal.dismiss(this.modalItem);
+      this.subs.sink = this.shoppingListService.updateListItem(item).subscribe(() => {
+        this.appService.presentToast({
+          color: 'success', message: 'Item saved successfully!', duration: 1000
+        });
+        this.modal.dismiss();
       }, () => {
-        this.toastController.create({ color: 'danger', message: 'Error saving item!' });
+        this.appService.presentToast({ color: 'danger', message: 'Error saving item!', duration: 1000 });
       });
     }
   }

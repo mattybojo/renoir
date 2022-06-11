@@ -1,8 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { IonItemSliding, ModalController, ToastController, ViewWillEnter } from '@ionic/angular';
+import { Component, OnDestroy } from '@angular/core';
+import { IonItemSliding, ModalController, ViewWillEnter } from '@ionic/angular';
 import { SubSink } from 'subsink';
+import { AppService } from './../app.service';
+import { HeaderAction } from './../header/header.beans';
 import { ShoppingListItemFormComponent } from './shopping-list-item-form/shopping-list-item-form.component';
-import { OverlayEventDetail, ShoppingListItem } from './shopping-list.beans';
+import { ShoppingListItem } from './shopping-list.beans';
 import { ShoppingListService } from './shopping-list.service';
 
 @Component({
@@ -10,19 +12,34 @@ import { ShoppingListService } from './shopping-list.service';
   templateUrl: './shopping-list.page.html',
   styleUrls: ['./shopping-list.page.scss'],
 })
-export class ShoppingListPage implements OnInit, OnDestroy, ViewWillEnter {
+export class ShoppingListPage implements OnDestroy, ViewWillEnter {
 
   shoppingList: ShoppingListItem[] = [];
+  headerActions: HeaderAction[];
 
   private subs = new SubSink();
 
   constructor(private shoppingListService: ShoppingListService, protected modalController: ModalController,
-    private toastController: ToastController) { }
-
-  ngOnInit() { }
+    private appService: AppService) {
+    this.headerActions = [{
+      type: 'add',
+      slot: 'start',
+      icon: 'add'
+    }];
+  }
 
   ionViewWillEnter(): void {
     this.loadShoppingListData();
+  }
+
+  actionHandler(actionType: string) {
+    switch (actionType) {
+      case 'add':
+        this.presentModal();
+        break;
+      default:
+        console.error(`Unknown action type: ${actionType}`);
+    }
   }
 
   loadShoppingListData(): void {
@@ -31,7 +48,7 @@ export class ShoppingListPage implements OnInit, OnDestroy, ViewWillEnter {
     });
   }
 
-  async presentModal(item) {
+  async presentModal(item?: ShoppingListItem) {
     const modal = await this.modalController.create({
       component: ShoppingListItemFormComponent,
       componentProps: {
@@ -41,20 +58,7 @@ export class ShoppingListPage implements OnInit, OnDestroy, ViewWillEnter {
       canDismiss: true
     });
 
-    modal.onWillDismiss().then((data: OverlayEventDetail<ShoppingListItem>) => {
-      if (!!data.data) {
-        this.createSaveSuccessToast();
-      }
-    });
-
     return await modal.present();
-  }
-
-  async createSaveSuccessToast() {
-    const toast = await this.toastController.create({
-      color: 'success', message: 'Item saved successfully!', duration: 1000
-    });
-    await toast.present();
   }
 
   updateItem(item: ShoppingListItem, slidingItem: IonItemSliding) {
@@ -63,7 +67,15 @@ export class ShoppingListPage implements OnInit, OnDestroy, ViewWillEnter {
   }
 
   deleteItem(item: ShoppingListItem) {
-    this.subs.sink = this.shoppingListService.deleteListItem(item).subscribe(() => { });
+    this.subs.sink = this.shoppingListService.deleteListItem(item).subscribe(() => {
+      this.appService.presentToast({
+        color: 'success', message: 'Item deleted successfully!', duration: 1000
+      });
+    }, () => {
+      this.appService.presentToast({
+        color: 'danger', message: 'Error deleting item!', duration: 1000
+      });
+    });
   }
 
   ngOnDestroy(): void {
