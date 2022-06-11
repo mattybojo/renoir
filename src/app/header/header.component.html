@@ -1,5 +1,13 @@
 <ion-header class="header-margin">
   <ion-toolbar>
+    <ion-buttons slot="start" *ngIf="startActions.length > 0">
+      <ion-button
+        *ngFor="let action of startActions"
+        (click)="actionType.emit(action.type)"
+      >
+        <ion-icon slot="icon-only" [name]="action.icon"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title class="ion-text-center">Renoir</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="router.navigate(['/tabs/auth'])">
