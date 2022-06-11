@@ -1,14 +1,13 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
-
-import { GiftCardTrackerPageRoutingModule } from './gift-card-tracker-routing.module';
-
-import { GiftCardTrackerPage } from './gift-card-tracker.page';
 import { HeaderModule } from '../header/header.module';
+import { SharedModule } from './../shared/shared.module';
 import { GiftCardFormComponent } from './gift-card-form/gift-card-form.component';
+import { GiftCardTotalsComponent } from './gift-card-totals/gift-card-totals.component';
+import { GiftCardTrackerPageRoutingModule } from './gift-card-tracker-routing.module';
+import { GiftCardTrackerPage } from './gift-card-tracker.page';
 
 @NgModule({
   imports: [
@@ -17,8 +16,9 @@ import { GiftCardFormComponent } from './gift-card-form/gift-card-form.component
     ReactiveFormsModule,
     IonicModule,
     GiftCardTrackerPageRoutingModule,
-    HeaderModule
+    HeaderModule,
+    SharedModule
   ],
-  declarations: [GiftCardTrackerPage, GiftCardFormComponent]
+  declarations: [GiftCardTrackerPage, GiftCardFormComponent, GiftCardTotalsComponent]
 })
 export class GiftCardTrackerPageModule { }

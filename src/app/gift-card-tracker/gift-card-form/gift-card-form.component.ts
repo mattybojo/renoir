@@ -37,7 +37,7 @@ export class GiftCardFormComponent implements OnInit, OnDestroy {
   }
 
   saveItem() {
-    const formGiftCard: GiftCard = this.giftCardForm.value;
+    const formGiftCard: GiftCard = this.processFormGiftCard(this.giftCardForm.value);
     if (this.title.includes('Add')) {
       this.subs.sink = this.giftCardTrackerService.addGiftCard(formGiftCard).subscribe((resp: DocumentReference<DocumentData>) => {
         this.appService.presentToast({
@@ -57,6 +57,12 @@ export class GiftCardFormComponent implements OnInit, OnDestroy {
         this.appService.presentToast({ color: 'danger', message: 'Error saving gift card!', duration: 1000 });
       });
     }
+  }
+
+  processFormGiftCard(formGiftCard: GiftCard): GiftCard {
+    formGiftCard.amount = +formGiftCard.amount;
+    formGiftCard.last4 = +formGiftCard.last4;
+    return formGiftCard;
   }
 
   ngOnDestroy(): void {

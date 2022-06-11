@@ -1,0 +1,9 @@
+<ion-icon
+  name="arrow-down"
+  *ngIf="param === sortParam && sortOrder === 'desc'"
+></ion-icon>
+<ion-icon
+  name="arrow-up"
+  *ngIf="param === sortParam && sortOrder === 'asc'"
+></ion-icon>
+<ion-icon name="swap-vertical" *ngIf="param !== sortParam"></ion-icon>

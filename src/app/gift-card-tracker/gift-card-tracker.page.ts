@@ -1,9 +1,11 @@
 import { Component, OnDestroy } from '@angular/core';
 import { IonItemSliding, ModalOptions, ViewWillEnter } from '@ionic/angular';
 import { SubSink } from 'subsink';
+import { ComponentProps, ComponentRef } from '../app.beans';
 import { AppService } from '../app.service';
 import { HeaderAction } from '../header/header.beans';
 import { GiftCardFormComponent } from './gift-card-form/gift-card-form.component';
+import { GiftCardTotalsComponent } from './gift-card-totals/gift-card-totals.component';
 import { GiftCard } from './gift-card-tracker.beans';
 import { GiftCardTrackerService } from './gift-card-tracker.service';
 
@@ -24,6 +26,10 @@ export class GiftCardTrackerPage implements OnDestroy, ViewWillEnter {
       type: 'add',
       slot: 'start',
       icon: 'add'
+    }, {
+      type: 'showTotals',
+      slot: 'start',
+      icon: 'list'
     }];
   }
 
@@ -40,19 +46,20 @@ export class GiftCardTrackerPage implements OnDestroy, ViewWillEnter {
   actionHandler(actionType: string) {
     switch (actionType) {
       case 'add':
-        this.presentModal();
+        this.presentModal(GiftCardFormComponent, {});
+        break;
+      case 'showTotals':
+        this.presentModal(GiftCardTotalsComponent, { giftCardList: this.giftCardList });
         break;
       default:
         console.error(`Unknown action type: ${actionType}`);
     }
   }
 
-  async presentModal(giftCard?: GiftCard) {
+  async presentModal(compRef: ComponentRef, giftCardProps: ComponentProps<ComponentRef>) {
     const modalOpts: ModalOptions = {
-      component: GiftCardFormComponent,
-      componentProps: {
-        giftCard
-      },
+      component: compRef,
+      componentProps: giftCardProps,
       presentingElement: await this.appService.getModalPresentingElement(),
       canDismiss: true
     };
@@ -61,7 +68,7 @@ export class GiftCardTrackerPage implements OnDestroy, ViewWillEnter {
   }
 
   updateItem(giftCard: GiftCard, slidingItem: IonItemSliding) {
-    this.presentModal(giftCard);
+    this.presentModal(GiftCardFormComponent, { giftCard });
     slidingItem.close();
   }
 

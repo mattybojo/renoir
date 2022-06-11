@@ -7,7 +7,9 @@
     <ion-item-sliding *ngFor="let giftCard of giftCardList" #slidingItem>
       <ion-item>
         <ion-label>
-          <span class="ion-float-left">{{ giftCard.storeName }}</span>
+          <span class="ion-float-left">
+            {{ giftCard.storeName }} ({{ giftCard.last4 }})
+          </span>
           <span class="ion-float-right">
             {{ giftCard.amount | currency: 'USD' }}
           </span>

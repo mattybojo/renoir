@@ -1,0 +1,35 @@
+<ion-header class="header-margin">
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Gift Cards</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="modal.dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col
+        col-6
+        (click)="onHeaderClick(col.param)"
+        *ngFor="let col of tableColumns"
+        ><ion-item class="ion-text-center"
+          ><ion-label class="table-header">
+            {{ col.label }}
+            <ren-sort-order-caret
+              [param]="col.param"
+              [sortParam]="sortParam"
+              [sortOrder]="sortOrder"
+            ></ren-sort-order-caret>
+          </ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let data of giftCardTotals">
+      <ion-col col-6 class="ion-text-center">{{ data.storeName }}</ion-col>
+      <ion-col col-6 class="ion-text-center">{{ data.amount }}</ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
