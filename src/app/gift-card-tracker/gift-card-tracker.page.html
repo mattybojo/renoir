@@ -1,2 +1,32 @@
-<ren-header></ren-header>
-<ion-content> </ion-content>
+<ren-header
+  [actions]="headerActions"
+  (actionType)="actionHandler($event)"
+></ren-header>
+<ion-content>
+  <ion-list>
+    <ion-item-sliding *ngFor="let giftCard of giftCardList" #slidingItem>
+      <ion-item>
+        <ion-label>
+          <span class="ion-float-left">{{ giftCard.storeName }}</span>
+          <span class="ion-float-right">
+            {{ giftCard.amount | currency: 'USD' }}
+          </span>
+        </ion-label>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option
+          color="primary"
+          (click)="updateItem(giftCard, slidingItem)"
+          class="btn-item-option"
+          ><ion-icon name="pencil"></ion-icon
+        ></ion-item-option>
+        <ion-item-option
+          color="danger"
+          (click)="deleteItem(giftCard)"
+          class="btn-item-option"
+          ><ion-icon name="trash"></ion-icon
+        ></ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

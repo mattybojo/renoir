@@ -1,0 +1,48 @@
+<ion-header class="header-margin">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="saveItem()" [disabled]="giftCardForm.invalid"
+        ><ion-icon name="save"></ion-icon
+      ></ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">{{ title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="modal.dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <form [formGroup]="giftCardForm">
+      <ion-item [class.invalid]="giftCardForm.controls.storeName?.invalid">
+        <ion-label class="input-label">Store Name</ion-label>
+        <ion-input
+          formControlName="storeName"
+          placeholder="Store name"
+          clearInput
+          spellcheck
+        ></ion-input>
+      </ion-item>
+      <ion-item [class.invalid]="giftCardForm.controls.amount?.invalid">
+        <ion-label class="input-label">Amount</ion-label>
+        <ion-input
+          formControlName="amount"
+          placeholder="Amount on card"
+          clearInput
+          inputmode="number"
+        ></ion-input>
+      </ion-item>
+      <ion-item [class.invalid]="giftCardForm.controls.last4?.invalid">
+        <ion-label class="input-label">Last 4</ion-label>
+        <ion-input
+          formControlName="last4"
+          placeholder="Last 4 digits of card"
+          clearInput
+          inputmode="number"
+        ></ion-input>
+      </ion-item>
+    </form>
+  </ion-list>
+</ion-content>
