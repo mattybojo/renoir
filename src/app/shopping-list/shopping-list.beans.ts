@@ -1,4 +1,4 @@
-import { FirestoreId } from './../app.beans';
+import { FirestoreId } from '../app.beans';
 import * as firestore from '@angular/fire/firestore';
 
 export interface ShoppingListItem extends FirestoreId {

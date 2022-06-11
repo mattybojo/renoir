@@ -1,8 +1,8 @@
 import { Component, OnDestroy } from '@angular/core';
-import { IonItemSliding, ModalController, ViewWillEnter } from '@ionic/angular';
+import { IonItemSliding, ModalOptions, ViewWillEnter } from '@ionic/angular';
 import { SubSink } from 'subsink';
-import { AppService } from './../app.service';
-import { HeaderAction } from './../header/header.beans';
+import { AppService } from '../app.service';
+import { HeaderAction } from '../header/header.beans';
 import { ShoppingListItemFormComponent } from './shopping-list-item-form/shopping-list-item-form.component';
 import { ShoppingListItem } from './shopping-list.beans';
 import { ShoppingListService } from './shopping-list.service';
@@ -19,8 +19,7 @@ export class ShoppingListPage implements OnDestroy, ViewWillEnter {
 
   private subs = new SubSink();
 
-  constructor(private shoppingListService: ShoppingListService, protected modalController: ModalController,
-    private appService: AppService) {
+  constructor(private shoppingListService: ShoppingListService, private appService: AppService) {
     this.headerActions = [{
       type: 'add',
       slot: 'start',
@@ -30,6 +29,12 @@ export class ShoppingListPage implements OnDestroy, ViewWillEnter {
 
   ionViewWillEnter(): void {
     this.loadShoppingListData();
+  }
+
+  loadShoppingListData(): void {
+    this.subs.sink = this.shoppingListService.getShoppingList().subscribe((list: ShoppingListItem[]) => {
+      this.shoppingList = list;
+    });
   }
 
   actionHandler(actionType: string) {
@@ -42,23 +47,17 @@ export class ShoppingListPage implements OnDestroy, ViewWillEnter {
     }
   }
 
-  loadShoppingListData(): void {
-    this.subs.sink = this.shoppingListService.getShoppingList().subscribe((list: ShoppingListItem[]) => {
-      this.shoppingList = list;
-    });
-  }
-
   async presentModal(item?: ShoppingListItem) {
-    const modal = await this.modalController.create({
+    const modalOpts: ModalOptions = {
       component: ShoppingListItemFormComponent,
       componentProps: {
         item
       },
-      presentingElement: await this.modalController.getTop(),
+      presentingElement: await this.appService.getModalPresentingElement(),
       canDismiss: true
-    });
+    };
 
-    return await modal.present();
+    this.appService.presentModal(modalOpts);
   }
 
   updateItem(item: ShoppingListItem, slidingItem: IonItemSliding) {

@@ -5,7 +5,7 @@ import {
   DocumentData, DocumentReference, Firestore, updateDoc
 } from '@angular/fire/firestore';
 import { from, Observable } from 'rxjs';
-import { AppService } from './../app.service';
+import { AppService } from '../app.service';
 import { ShoppingListItem } from './shopping-list.beans';
 
 @Injectable({

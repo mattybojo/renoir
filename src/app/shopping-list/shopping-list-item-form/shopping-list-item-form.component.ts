@@ -4,8 +4,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Components } from '@ionic/core';
 import { SubSink } from 'subsink';
 import { ShoppingListService } from '../shopping-list.service';
-import { AppService } from './../../app.service';
-import { ShoppingListItem } from './../shopping-list.beans';
+import { AppService } from '../../app.service';
+import { ShoppingListItem } from '../shopping-list.beans';
 
 @Component({
   selector: 'ren-shopping-list-item-form',
@@ -38,9 +38,9 @@ export class ShoppingListItemFormComponent implements OnInit, OnDestroy {
   }
 
   saveItem() {
-    const item: ShoppingListItem = this.listItemForm.value;
+    const formItem: ShoppingListItem = this.listItemForm.value;
     if (this.title.includes('Add')) {
-      this.subs.sink = this.shoppingListService.addItemToList(item).subscribe((resp: DocumentReference<DocumentData>) => {
+      this.subs.sink = this.shoppingListService.addItemToList(formItem).subscribe((resp: DocumentReference<DocumentData>) => {
         this.appService.presentToast({
           color: 'success', message: 'Item saved successfully!', duration: 1000
         });
@@ -49,7 +49,7 @@ export class ShoppingListItemFormComponent implements OnInit, OnDestroy {
         this.appService.presentToast({ color: 'danger', message: 'Error saving item!', duration: 1000 });
       });
     } else {
-      this.subs.sink = this.shoppingListService.updateListItem(item).subscribe(() => {
+      this.subs.sink = this.shoppingListService.updateListItem(formItem).subscribe(() => {
         this.appService.presentToast({
           color: 'success', message: 'Item saved successfully!', duration: 1000
         });
