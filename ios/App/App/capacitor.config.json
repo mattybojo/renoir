@@ -1,0 +1,6 @@
+{
+	"appId": "com.mattybojo.renoir",
+	"appName": "Renoir",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
