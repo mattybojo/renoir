@@ -4,7 +4,10 @@ const config: CapacitorConfig = {
   appId: 'com.mattybojo.renoir',
   appName: 'Renoir',
   webDir: 'www',
-  bundledWebRuntime: false
+  bundledWebRuntime: false,
+  server: {
+    iosScheme: 'ionic'
+  }
 };
 
 export default config;
