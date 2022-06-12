@@ -29,7 +29,9 @@
     </ion-row>
     <ion-row *ngFor="let data of giftCardTotals">
       <ion-col col-6 class="ion-text-center">{{ data.storeName }}</ion-col>
-      <ion-col col-6 class="ion-text-center">{{ data.amount }}</ion-col>
+      <ion-col col-6 class="ion-text-center">{{
+        data.amount | currency: "USD"
+      }}</ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>
