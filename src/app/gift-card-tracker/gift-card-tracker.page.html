@@ -8,7 +8,8 @@
       <ion-item>
         <ion-label>
           <span class="ion-float-left">
-            {{ giftCard.storeName }} ({{ giftCard.last4 }})
+            {{ giftCard.storeName }} ({{ giftCard.last4 | number: '4.0-0' |
+            noComma }})
           </span>
           <span class="ion-float-right">
             {{ giftCard.amount | currency: 'USD' }}
