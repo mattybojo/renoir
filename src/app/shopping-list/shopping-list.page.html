@@ -3,7 +3,7 @@
   (actionType)="actionHandler($event)"
 ></ren-header>
 <ion-content>
-  <ion-list>
+  <ion-list *ngIf="shoppingList.length > 0; else noDataFound">
     <ion-item-sliding *ngFor="let item of shoppingList" #slidingItem>
       <ion-item>
         <ion-label>{{item.name}}</ion-label>
@@ -24,4 +24,13 @@
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
+  <ng-template #noDataFound>
+    <ion-grid class="h-100">
+      <ion-row class="ion-justify-content-center ion-align-items-center h-100">
+        <ion-item class="ion-align-self-center">
+          Your shopping list is empty.
+        </ion-item>
+      </ion-row>
+    </ion-grid>
+  </ng-template>
 </ion-content>

@@ -40,6 +40,8 @@ export class GiftCardTrackerPage implements OnDestroy, ViewWillEnter {
   loadGiftCardData(): void {
     this.subs.sink = this.giftCardTrackerService.getGiftCards().subscribe((list: GiftCard[]) => {
       this.giftCardList = list;
+    }, (err) => {
+      this.appService.presentToast({ color: 'danger', message: 'Unable to retrieve gift cards!', duration: 1000 });
     });
   }
 

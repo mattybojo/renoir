@@ -34,6 +34,8 @@ export class ShoppingListPage implements OnDestroy, ViewWillEnter {
   loadShoppingListData(): void {
     this.subs.sink = this.shoppingListService.getShoppingList().subscribe((list: ShoppingListItem[]) => {
       this.shoppingList = list;
+    }, (err) => {
+      this.appService.presentToast({ color: 'danger', message: 'Unable to retrieve shopping list!', duration: 1000 });
     });
   }
 
