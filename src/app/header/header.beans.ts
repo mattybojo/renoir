@@ -4,4 +4,5 @@ export interface HeaderAction {
   type: string;
   slot: SlotType;
   icon: string;
+  disabled?: boolean;
 }

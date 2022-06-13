@@ -29,7 +29,8 @@ export class GiftCardTrackerPage implements OnDestroy, ViewWillEnter {
     }, {
       type: 'showTotals',
       slot: 'start',
-      icon: 'list'
+      icon: 'list',
+      disabled: true
     }];
   }
 
@@ -37,9 +38,18 @@ export class GiftCardTrackerPage implements OnDestroy, ViewWillEnter {
     this.loadGiftCardData();
   }
 
+  setHeaderActions(): void {
+    const currentActions = this.headerActions;
+    if (currentActions?.length > 1) {
+      currentActions[1].disabled = this.giftCardList.length === 0;
+      this.headerActions = [...currentActions];
+    }
+  }
+
   loadGiftCardData(): void {
     this.subs.sink = this.giftCardTrackerService.getGiftCards().subscribe((list: GiftCard[]) => {
       this.giftCardList = list;
+      this.setHeaderActions();
     }, (err) => {
       this.appService.presentToast({ color: 'danger', message: 'Unable to retrieve gift cards!', duration: 1000 });
     });

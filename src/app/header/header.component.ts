@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterContentInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { HeaderAction } from './header.beans';
 
@@ -7,7 +7,7 @@ import { HeaderAction } from './header.beans';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit, AfterContentInit {
+export class HeaderComponent implements AfterContentInit {
 
   @Input() actions: HeaderAction[];
   @Output() actionType: EventEmitter<string> = new EventEmitter<string>();
@@ -15,9 +15,6 @@ export class HeaderComponent implements OnInit, AfterContentInit {
   endActions: HeaderAction[] = [];
 
   constructor(public router: Router) { }
-
-  ngOnInit() {
-  }
 
   ngAfterContentInit() {
     if (!!this.actions) {

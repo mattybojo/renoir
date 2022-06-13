@@ -4,6 +4,7 @@
       <ion-button
         *ngFor="let action of startActions"
         (click)="actionType.emit(action.type)"
+        [disabled]="action.disabled"
       >
         <ion-icon slot="icon-only" [name]="action.icon"></ion-icon>
       </ion-button>
