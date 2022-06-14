@@ -1,0 +1,18 @@
+<ion-content>
+  <ion-card>
+    <ion-item>
+      <ion-icon name="happy-outline" slot="start"></ion-icon>
+      <ion-label>Joke</ion-label>
+      <ion-button fill="outline" slot="end" (click)="getNewJoke()"
+        >New Joke</ion-button
+      >
+    </ion-item>
+
+    <ion-card-content>
+      <div *ngIf="joke">
+        <p>{{ joke.joke || joke.setup }}</p>
+        <p *ngIf="joke.delivery">{{ joke.delivery }}</p>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
