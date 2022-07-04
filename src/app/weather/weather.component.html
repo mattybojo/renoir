@@ -1,0 +1,107 @@
+<ion-header class="header-margin">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="weatherService.getWeatherData()">
+        <ion-icon name="reload-outline"></ion-icon
+      ></ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Weather</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="modal.dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-text class="ion-text-center">
+    <h5 class="title-text">Weather for {{ weather.name }}</h5>
+    <h6 class="subtitle-text">
+      Lo: {{ weather.main.temp_min | number: "1.0-0" }}&#8457;, Hi:
+      {{ weather.main.temp_max | number: "1.0-0" }}&#8457;
+    </h6>
+  </ion-text>
+  <ion-grid>
+    <ion-row>
+      <ion-col class="d-flex">
+        <img [src]="weatherIconUrl" />
+        <ion-text class="ion-align-items-center">
+          <p class="spacer">
+            {{ weather.main.temp | number: "1.0-0" }}&#8457;,
+            {{ weather.weather[0].main }}
+          </p>
+          <p>
+            Feels like {{ weather.main.feels_like | number: "1.0-0" }}&#8457;
+          </p>
+        </ion-text>
+      </ion-col>
+      <ion-col class="d-flex">
+        <div class="weather-icon">
+          <fa-icon icon="cloud" class="fa-xl"></fa-icon>
+        </div>
+        <ion-text class="ion-align-items-center d-flex">
+          <p>Cloudiness: {{ weather.clouds.all }}%</p>
+        </ion-text></ion-col
+      >
+    </ion-row>
+    <ion-row>
+      <ion-col class="d-flex">
+        <div class="weather-icon">
+          <fa-icon icon="wind" class="fa-xl"></fa-icon>
+        </div>
+        <ion-text class="d-flex ion-align-items-center">
+          <p>
+            {{ weather.wind.speed | number: "1.0-0" }} mph {{ windDirection }}
+          </p>
+        </ion-text>
+      </ion-col>
+      <ion-col>
+        <div class="weather-icon">
+          <fa-icon icon="smog" class="fa-xl"></fa-icon>
+        </div>
+        <ion-text class="d-flex ion-align-items-center">
+          <p>Humidity: {{ weather.main.humidity | number: "1.0-0" }}%</p>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="d-flex">
+        <div class="weather-icon">
+          <fa-icon icon="gauge-simple-high" class="fa-xl"></fa-icon>
+        </div>
+        <ion-text class="ion-align-items-center">
+          <p class="spacer">
+            {{ weather.main.pressure | number: "1.0-0" }} hPa
+          </p>
+          <p>{{ mmHg | number: "1.2-2" }} mmHg</p>
+        </ion-text>
+      </ion-col>
+      <ion-col>
+        <div class="weather-icon">
+          <fa-icon icon="eye" class="fa-xl"></fa-icon>
+        </div>
+        <ion-text class="d-flex ion-align-items-center">
+          <p>Visibility: {{ visibility | number: "1.2-2" }} miles</p>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="d-flex">
+        <div class="weather-icon">
+          <fa-icon icon="sun" class="fa-xl"></fa-icon>
+        </div>
+        <ion-text class="d-flex ion-align-items-center">
+          <p>Sunrise: {{ sunriseTime | date: "shortTime" }}</p>
+        </ion-text>
+      </ion-col>
+      <ion-col>
+        <div class="weather-icon">
+          <fa-icon icon="moon" class="fa-xl"></fa-icon>
+        </div>
+        <ion-text class="d-flex ion-align-items-center">
+          <p>Sunset: {{ sunsetTime | date: "shortTime" }}</p>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

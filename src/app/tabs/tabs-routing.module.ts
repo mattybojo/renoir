@@ -28,6 +28,10 @@ const routes: Routes = [
         loadChildren: () => import('../auth/auth.module').then(m => m.AuthPageModule)
       },
       {
+        path: 'weather',
+        loadChildren: () => import('../weather/weather.module').then(m => m.WeatherModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/home',
         pathMatch: 'full'

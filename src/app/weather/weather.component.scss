@@ -1,0 +1,32 @@
+.title-text {
+  margin-bottom: 0;
+}
+
+.subtitle-text {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+ion-row:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+ion-col {
+  display: flex;
+  padding: 0;
+}
+
+.spacer {
+  margin-bottom: 5px;
+}
+
+.weather-icon {
+  width: 50px;
+  line-height: 50px;
+  text-align: center;
+}
+
+p {
+  margin: 0;
+  font-size: 15px;
+}
