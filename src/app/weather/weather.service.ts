@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { lat, lon } from '../config/api.config';
 import { weatherApiKey } from './../config/api.config';
 import { Weather } from './weather.beans';
+import { Geolocation } from '@capacitor/geolocation';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class WeatherService {
 
   constructor(private http: HttpClient) { }
 
-  getWeatherData(): void {
+  async getWeatherData(): Promise<void> {
     const debugMode = false;
     if (debugMode) {
       this.setWeatherObs({
@@ -61,6 +61,9 @@ export class WeatherService {
         cod: 200
       });
     } else {
+      const coordinates = await Geolocation.getCurrentPosition();
+      const lat = coordinates.coords.latitude;
+      const lon = coordinates.coords.longitude;
       const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?units=imperial&lat=${lat}&lon=${lon}&appid=${weatherApiKey}`;
       this.http.get<Weather>(weatherUrl).subscribe(weatherData => this.setWeatherObs(weatherData));
     }
