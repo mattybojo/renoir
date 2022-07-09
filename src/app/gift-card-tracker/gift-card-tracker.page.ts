@@ -47,10 +47,13 @@ export class GiftCardTrackerPage implements OnDestroy, ViewWillEnter {
   }
 
   loadGiftCardData(): void {
+    this.appService.presentLoadingModal();
     this.subs.sink = this.giftCardTrackerService.getGiftCards().subscribe((list: GiftCard[]) => {
       this.giftCardList = list;
       this.setHeaderActions();
+      this.appService.dismissLoadingModal();
     }, (err) => {
+      this.appService.dismissLoadingModal();
       this.appService.presentToast({ color: 'danger', message: 'Unable to retrieve gift cards!', duration: 1000 });
     });
   }
@@ -85,11 +88,14 @@ export class GiftCardTrackerPage implements OnDestroy, ViewWillEnter {
   }
 
   deleteItem(giftCard: GiftCard) {
+    this.appService.presentLoadingModalDelete();
     this.subs.sink = this.giftCardTrackerService.deleteGiftCard(giftCard).subscribe(() => {
+      this.appService.dismissLoadingModal();
       this.appService.presentToast({
         color: 'success', message: 'Gift card deleted successfully!', duration: 1000
       });
-    }, () => {
+    }, (err) => {
+      this.appService.dismissLoadingModal();
       this.appService.presentToast({
         color: 'danger', message: 'Error deleting gift crad!', duration: 1000
       });

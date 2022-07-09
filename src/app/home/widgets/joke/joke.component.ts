@@ -1,3 +1,4 @@
+import { AppService } from 'src/app/app.service';
 import { SubSink } from 'subsink';
 import { WidgetsService } from './../widgets.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -14,15 +15,17 @@ export class JokeComponent implements OnInit, OnDestroy {
 
   private subs = new SubSink();
 
-  constructor(private widgetsService: WidgetsService) { }
+  constructor(private widgetsService: WidgetsService, private appService: AppService) { }
 
   ngOnInit() {
     this.getNewJoke();
   }
 
   getNewJoke() {
+    this.appService.presentLoadingModal();
     this.subs.sink = this.widgetsService.getJoke().subscribe((joke: Joke) => {
       this.joke = joke;
+      this.appService.dismissLoadingModal();
     });
   }
 

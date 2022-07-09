@@ -38,22 +38,27 @@ export class GiftCardFormComponent implements OnInit, OnDestroy {
 
   saveItem() {
     const formGiftCard: GiftCard = this.processFormGiftCard(this.giftCardForm.value);
+    this.appService.presentLoadingModalSave();
     if (this.title.includes('Add')) {
       this.subs.sink = this.giftCardTrackerService.addGiftCard(formGiftCard).subscribe((resp: DocumentReference<DocumentData>) => {
+        this.modal.dismiss();
+        this.appService.dismissLoadingModal();
         this.appService.presentToast({
           color: 'success', message: 'Gift card saved successfully!', duration: 1000
         });
-        this.modal.dismiss();
-      }, () => {
+      }, (err) => {
+        this.appService.dismissLoadingModal();
         this.appService.presentToast({ color: 'danger', message: 'Error saving gift card!', duration: 1000 });
       });
     } else {
       this.subs.sink = this.giftCardTrackerService.updateGiftCard(formGiftCard).subscribe(() => {
+        this.modal.dismiss();
+        this.appService.dismissLoadingModal();
         this.appService.presentToast({
           color: 'success', message: 'Gift card saved successfully!', duration: 1000
         });
-        this.modal.dismiss();
-      }, () => {
+      }, (err) => {
+        this.appService.dismissLoadingModal();
         this.appService.presentToast({ color: 'danger', message: 'Error saving gift card!', duration: 1000 });
       });
     }

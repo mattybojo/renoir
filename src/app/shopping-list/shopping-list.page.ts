@@ -32,9 +32,12 @@ export class ShoppingListPage implements OnDestroy, ViewWillEnter {
   }
 
   loadShoppingListData(): void {
+    const promise = this.appService.presentLoadingModal();
     this.subs.sink = this.shoppingListService.getShoppingList().subscribe((list: ShoppingListItem[]) => {
       this.shoppingList = list;
+      this.appService.dismissLoadingModal();
     }, (err) => {
+      this.appService.dismissLoadingModal();
       this.appService.presentToast({ color: 'danger', message: 'Unable to retrieve shopping list!', duration: 1000 });
     });
   }
@@ -68,11 +71,14 @@ export class ShoppingListPage implements OnDestroy, ViewWillEnter {
   }
 
   deleteItem(item: ShoppingListItem) {
+    this.appService.presentLoadingModalDelete();
     this.subs.sink = this.shoppingListService.deleteListItem(item).subscribe(() => {
+      this.appService.dismissLoadingModal();
       this.appService.presentToast({
         color: 'success', message: 'Item deleted successfully!', duration: 1000
       });
-    }, () => {
+    }, (err) => {
+      this.appService.dismissLoadingModal();
       this.appService.presentToast({
         color: 'danger', message: 'Error deleting item!', duration: 1000
       });

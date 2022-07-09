@@ -39,22 +39,27 @@ export class ShoppingListItemFormComponent implements OnInit, OnDestroy {
 
   saveItem() {
     const formItem: ShoppingListItem = this.listItemForm.value;
+    this.appService.presentLoadingModalSave();
     if (this.title.includes('Add')) {
       this.subs.sink = this.shoppingListService.addItemToList(formItem).subscribe((resp: DocumentReference<DocumentData>) => {
+        this.modal.dismiss();
+        this.appService.dismissLoadingModal();
         this.appService.presentToast({
           color: 'success', message: 'Item saved successfully!', duration: 1000
         });
-        this.modal.dismiss();
-      }, () => {
+      }, (err) => {
+        this.appService.dismissLoadingModal();
         this.appService.presentToast({ color: 'danger', message: 'Error saving item!', duration: 1000 });
       });
     } else {
       this.subs.sink = this.shoppingListService.updateListItem(formItem).subscribe(() => {
+        this.modal.dismiss();
+        this.appService.dismissLoadingModal();
         this.appService.presentToast({
           color: 'success', message: 'Item saved successfully!', duration: 1000
         });
-        this.modal.dismiss();
-      }, () => {
+      }, (err) => {
+        this.appService.dismissLoadingModal();
         this.appService.presentToast({ color: 'danger', message: 'Error saving item!', duration: 1000 });
       });
     }
