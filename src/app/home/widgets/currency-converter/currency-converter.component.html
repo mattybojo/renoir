@@ -54,7 +54,10 @@
       </ion-row>
       <ion-row *ngIf="rateData" class="ion-justify-content-center">
         <ion-text>
-          <p>1 {{ fromCurrency }} = {{ rateData.rate }} {{ toCurrency }}</p>
+          <p>
+            1 {{ fromCurrency }} = {{ rateData.rate | number: "1.2-2" }}
+            {{ toCurrency }}
+          </p>
         </ion-text>
       </ion-row>
     </ion-grid>
