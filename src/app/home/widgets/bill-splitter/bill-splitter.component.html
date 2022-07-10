@@ -62,9 +62,14 @@
           <!-- Total label -->
           <ion-label
             >{{ total | currency: "USD" }}
-            <span *ngIf="tipAmount"
-              >(Tip: {{ tipAmount | currency: "USD" }})</span
-            ></ion-label
+            <span *ngIf="tipAmount">
+              <span *ngIf="tipType === '%'"
+                >(Tip: {{ tipAmount | currency: "USD" }})</span
+              >
+              <span *ngIf="tipType === '$'"
+                >(Tip: {{ tipAmount | number: "1.0-0" }}%)</span
+              >
+            </span></ion-label
           >
         </ion-col>
       </ion-row>

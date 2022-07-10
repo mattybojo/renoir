@@ -27,10 +27,10 @@ export class BillSplitterComponent implements OnInit {
     if (this.subtotal && this.tip) {
       if (this.tipType === '%') {
         this.tipAmount = this.subtotal * (this.tip / 100);
-        this.total = this.subtotal + this.tipAmount;
+        this.total = this.tipAmount + this.subtotal;
       } else {
-        this.tipAmount = this.tip;
-        this.total = this.subtotal + this.tipAmount;
+        this.tipAmount = 100 * (this.tip / this.subtotal);
+        this.total = this.subtotal + this.tip;
       }
     }
 
