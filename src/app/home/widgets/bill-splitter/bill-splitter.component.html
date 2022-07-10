@@ -7,7 +7,7 @@
   <ion-card-content>
     <ion-grid>
       <ion-row>
-        <ion-col size="4" class="d-flex ion-align-items-center">
+        <ion-col size="3" class="d-flex ion-align-items-center">
           <ion-text>
             <p>Subtotal</p>
           </ion-text>
@@ -25,7 +25,7 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col size="4" class="d-flex ion-align-items-center">
+        <ion-col size="3" class="d-flex ion-align-items-center">
           <ion-text>
             <p>Tip</p>
           </ion-text>
@@ -41,19 +41,19 @@
             (ionChange)="onInputChange(null)"
           ></ion-input>
         </ion-col>
-        <ion-col size="4" class="d-flex ion-align-items-center">
+        <ion-col size="5" class="d-flex ion-align-items-center">
           <ion-segment (ionChange)="onInputChange($event)" value="%">
             <ion-segment-button value="%">
-              <ion-label class="pad-left">%</ion-label>
+              <ion-label>%</ion-label>
             </ion-segment-button>
             <ion-segment-button value="$">
-              <ion-label class="pad-right">$</ion-label>
+              <ion-label>$</ion-label>
             </ion-segment-button>
           </ion-segment>
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col size="4">
+        <ion-col size="3">
           <ion-text>
             <p>Total</p>
           </ion-text>
@@ -74,7 +74,7 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col size="4" class="d-flex ion-align-items-center">
+        <ion-col size="3" class="d-flex ion-align-items-center">
           <ion-text>
             <p># people</p>
           </ion-text>
@@ -92,7 +92,7 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col size="4" class="d-flex ion-align-items-center">
+        <ion-col size="3" class="d-flex ion-align-items-center">
           <ion-text>
             <p>Cost pp</p>
           </ion-text>
