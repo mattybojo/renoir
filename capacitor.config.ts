@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.mattybojo.renoir',
-  appName: 'Renoir',
+  appId: 'com.mattybojo.renoirhq',
+  appName: 'RenoirHQ',
   webDir: 'www',
   bundledWebRuntime: false,
   server: {

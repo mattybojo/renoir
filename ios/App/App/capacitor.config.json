@@ -1,6 +1,6 @@
 {
-	"appId": "com.mattybojo.renoir",
-	"appName": "Renoir",
+	"appId": "com.mattybojo.renoirhq",
+	"appName": "RenoirHQ",
 	"webDir": "www",
 	"bundledWebRuntime": false,
 	"server": {
