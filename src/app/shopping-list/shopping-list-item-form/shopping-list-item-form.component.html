@@ -14,8 +14,8 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-list>
-    <form [formGroup]="listItemForm">
+  <form [formGroup]="listItemForm">
+    <ion-list>
       <ion-item [class.invalid]="listItemForm.controls.name?.invalid">
         <ion-label class="input-label">Name</ion-label>
         <ion-input
@@ -38,6 +38,6 @@
         <ion-label class="input-label">Shopped?</ion-label>
         <ion-checkbox formControlName="isShopped" slot="end"></ion-checkbox>
       </ion-item>
-    </form>
-  </ion-list>
+    </ion-list>
+  </form>
 </ion-content>

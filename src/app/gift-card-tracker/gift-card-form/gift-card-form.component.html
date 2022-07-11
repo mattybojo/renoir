@@ -14,8 +14,8 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-list>
-    <form [formGroup]="giftCardForm">
+  <form [formGroup]="giftCardForm">
+    <ion-list>
       <ion-item [class.invalid]="giftCardForm.controls.storeName?.invalid">
         <ion-label class="input-label">Store Name</ion-label>
         <ion-input
@@ -43,6 +43,6 @@
           inputmode="number"
         ></ion-input>
       </ion-item>
-    </form>
-  </ion-list>
+    </ion-list>
+  </form>
 </ion-content>
