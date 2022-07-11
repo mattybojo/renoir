@@ -24,7 +24,7 @@
   <ion-grid>
     <ion-row>
       <ion-col class="d-flex">
-        <img [src]="weatherIconUrl" />
+        <ion-img [src]="weatherIconUrl"></ion-img>
         <ion-text class="ion-align-items-center">
           <p class="spacer">
             {{ weather.main.temp | number: "1.0-0" }}&#8457;,
