@@ -25,8 +25,6 @@ export class JokeSettingsComponent implements OnInit, OnDestroy {
 
   constructor(private storageService: StorageService, private appService: AppService) { }
 
-  // TODO: Implement success and error toasts (on save), close modal on save success (see other components that save data to firestore for reference)
-
   ngOnInit() {
     this.appService.presentLoadingModal();
     this.subs.sink = this.storageService.getData('jokeSettings').subscribe((value: GetResult) => {
@@ -95,6 +93,9 @@ export class JokeSettingsComponent implements OnInit, OnDestroy {
       this.appService.presentToast({
         color: 'success', message: 'Settings saved!', duration: 1000
       });
+    }, (err) => {
+      this.appService.dismissLoadingModal();
+      this.appService.presentToast({ color: 'danger', message: 'Unable to save settings.  Please try again.', duration: 1000 });
     });
   }
 
