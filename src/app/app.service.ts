@@ -41,7 +41,7 @@ export class AppService {
       (loader: HTMLIonLoadingElement) => {
         loader.present().then(() => {
           if (!this.isLoading) {
-            loader.dismiss().then(() => console.log('abort presenting'));
+            loader.dismiss();
           }
         });
       }
