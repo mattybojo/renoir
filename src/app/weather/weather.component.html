@@ -1,15 +1,15 @@
 <ion-header class="header-margin">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button (click)="weatherService.getWeatherData()">
-        <ion-icon name="reload-outline"></ion-icon
-      ></ion-button>
-    </ion-buttons>
-    <ion-title class="ion-text-center">Weather</ion-title>
-    <ion-buttons slot="end">
       <ion-button (click)="modal.dismiss()">
         <ion-icon name="close"></ion-icon>
       </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Weather</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="weatherService.getWeatherData()">
+        <ion-icon name="reload-outline"></ion-icon
+      ></ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
