@@ -32,6 +32,10 @@ const routes: Routes = [
         loadChildren: () => import('../weather/weather.module').then(m => m.WeatherModule)
       },
       {
+        path: 'settings',
+        loadChildren: () => import('../settings/settings.module').then(m => m.SettingsPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/home',
         pathMatch: 'full'

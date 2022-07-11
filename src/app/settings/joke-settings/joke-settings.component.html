@@ -1,0 +1,124 @@
+<ion-header class="header-margin">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="modal.dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">{{ title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="saveSettings()" [disabled]="!isFormValid"
+        ><ion-icon name="save"></ion-icon
+      ></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ng-container *ngIf="!isLoading">
+    <ion-list>
+      <ion-list-header class="ion-align-items-center"
+        >Joke Categories</ion-list-header
+      >
+      <ion-item>
+        <ion-label>Any</ion-label>
+        <ion-toggle
+          color="success"
+          [(ngModel)]="categories.anyJoke"
+          (ionChange)="validateForm()"
+        ></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>Pun</ion-label>
+        <ion-toggle
+          color="success"
+          [(ngModel)]="categories.pun"
+          [disabled]="categories.anyJoke"
+          (ionChange)="validateForm()"
+        ></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>Spooky</ion-label>
+        <ion-toggle
+          color="success"
+          [(ngModel)]="categories.spooky"
+          [disabled]="categories.anyJoke"
+          (ionChange)="validateForm()"
+        ></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>Christmas</ion-label>
+        <ion-toggle
+          color="success"
+          [(ngModel)]="categories.christmas"
+          [disabled]="categories.anyJoke"
+          (ionChange)="validateForm()"
+        ></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>Dark</ion-label>
+        <ion-toggle
+          color="success"
+          [(ngModel)]="categories.dark"
+          [disabled]="categories.anyJoke"
+          (ionChange)="validateForm()"
+        ></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>Programming</ion-label>
+        <ion-toggle
+          color="success"
+          [(ngModel)]="categories.programming"
+          [disabled]="categories.anyJoke"
+          (ionChange)="validateForm()"
+        ></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>Misc</ion-label>
+        <ion-toggle
+          color="success"
+          [(ngModel)]="categories.misc"
+          [disabled]="categories.anyJoke"
+          (ionChange)="validateForm()"
+        ></ion-toggle>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-list-header class="ion-align-items-center"
+        >Whitelist</ion-list-header
+      >
+      <ion-item>
+        <ion-label>NSFW</ion-label>
+        <ion-toggle color="success" [(ngModel)]="whitelist.nsfw"></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>Religious</ion-label>
+        <ion-toggle
+          color="success"
+          [(ngModel)]="whitelist.religious"
+        ></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>Political</ion-label>
+        <ion-toggle
+          color="success"
+          [(ngModel)]="whitelist.political"
+        ></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>Racist</ion-label>
+        <ion-toggle color="success" [(ngModel)]="whitelist.racist"></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>Sexist</ion-label>
+        <ion-toggle color="success" [(ngModel)]="whitelist.sexist"></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>Explicit</ion-label>
+        <ion-toggle
+          color="success"
+          [(ngModel)]="whitelist.explicit"
+        ></ion-toggle>
+      </ion-item>
+    </ion-list>
+  </ng-container>
+</ion-content>

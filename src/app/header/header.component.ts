@@ -1,3 +1,4 @@
+import { SettingsPage } from './../settings/settings.page';
 import { WeatherComponent } from '../weather/weather.component';
 import { AfterContentInit, Component, EventEmitter, Input, OnInit, Output, OnDestroy, ComponentRef } from '@angular/core';
 import { Router } from '@angular/router';
@@ -48,12 +49,27 @@ export class HeaderComponent implements OnInit, AfterContentInit, OnDestroy {
     }
   }
 
-  async openWeatherModal() {
-    const modalOpts: ModalOptions = {
-      component: WeatherComponent,
-      presentingElement: await this.appService.getModalPresentingElement(),
-      canDismiss: true
-    };
+  async openModal(type: string): Promise<void> {
+    let modalOpts: ModalOptions;
+    const presentingElement = await this.appService.getModalPresentingElement();
+    switch (type) {
+      case 'settings':
+        modalOpts = {
+          component: SettingsPage,
+          presentingElement,
+          canDismiss: true
+        };
+        break;
+      case 'weather':
+        modalOpts = {
+          component: WeatherComponent,
+          presentingElement,
+          canDismiss: true
+        };
+        break;
+      default:
+        console.error(`Invalid modal type: ${type}`);
+    }
 
     this.appService.presentModal(modalOpts);
   }

@@ -42,7 +42,8 @@
             "selector": "variable",
             "format": ["camelCase", "snake_case"]
           }
-        ]
+        ],
+        "arrow-body-style": "off"
       }
     },
     {
