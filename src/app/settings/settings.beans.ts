@@ -1,27 +1,27 @@
 export interface JokeSettings {
   categories: string;
-  whitelist: string;
+  blacklist: string;
 }
 
 export class JokeCategoriesSettings {
-  anyJoke = true;
-  programming = false;
-  misc = false;
-  dark = false;
-  pun = false;
-  spooky = false;
-  christmas = false;
+  AnyJoke = false;
+  Programming = false;
+  Misc = true;
+  Dark = false;
+  Pun = false;
+  Spooky = false;
+  Christmas = false;
 
   constructor() { }
 }
 
-export class JokeWhitelistSettings {
-  nsfw = false;
-  religious = false;
-  political = false;
-  racist = false;
-  sexist = false;
-  explicit = false;
+export class JokeBlacklistSettings {
+  nsfw = true;
+  religious = true;
+  political = true;
+  racist = true;
+  sexist = true;
+  explicit = true;
 
   constructor() { }
 }

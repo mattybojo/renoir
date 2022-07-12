@@ -1,8 +1,11 @@
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { GetResult } from '@capacitor/storage';
 import { AppService } from 'src/app/app.service';
+import { JokeSettings } from 'src/app/settings/settings.beans';
+import { StorageService } from 'src/app/shared/storage.service';
 import { SubSink } from 'subsink';
-import { WidgetsService } from './../widgets.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Joke } from '../widgets.beans';
+import { WidgetsService } from './../widgets.service';
 
 @Component({
   selector: 'ren-joke',
@@ -12,18 +15,23 @@ import { Joke } from '../widgets.beans';
 export class JokeComponent implements OnInit, OnDestroy {
 
   joke: Joke;
+  jokeSettings: JokeSettings;
 
   private subs = new SubSink();
 
-  constructor(private widgetsService: WidgetsService, private appService: AppService) { }
+  constructor(private widgetsService: WidgetsService, private appService: AppService,
+    private storageService: StorageService) { }
 
   ngOnInit() {
-    this.getNewJoke();
+    this.subs.sink = this.storageService.getData('jokeSettings').subscribe((data: GetResult) => {
+      this.jokeSettings = JSON.parse(data.value);
+      this.getNewJoke();
+    });
   }
 
   getNewJoke() {
     this.appService.presentLoadingModal();
-    this.subs.sink = this.widgetsService.getJoke().subscribe((joke: Joke) => {
+    this.subs.sink = this.widgetsService.getJoke(this.jokeSettings).subscribe((joke: Joke) => {
       this.joke = joke;
       this.appService.dismissLoadingModal();
     });

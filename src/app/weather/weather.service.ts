@@ -15,7 +15,7 @@ export class WeatherService {
   constructor(private http: HttpClient) { }
 
   async getWeatherData(): Promise<void> {
-    const debugMode = false;
+    const debugMode = true;
     if (debugMode) {
       this.setWeatherObs({
         coord: {

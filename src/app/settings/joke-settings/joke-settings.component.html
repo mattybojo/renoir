@@ -23,7 +23,7 @@
         <ion-label>Any</ion-label>
         <ion-toggle
           color="success"
-          [(ngModel)]="categories.anyJoke"
+          [(ngModel)]="categories.AnyJoke"
           (ionChange)="validateForm()"
         ></ion-toggle>
       </ion-item>
@@ -31,8 +31,8 @@
         <ion-label>Pun</ion-label>
         <ion-toggle
           color="success"
-          [(ngModel)]="categories.pun"
-          [disabled]="categories.anyJoke"
+          [(ngModel)]="categories.Pun"
+          [disabled]="categories.AnyJoke"
           (ionChange)="validateForm()"
         ></ion-toggle>
       </ion-item>
@@ -40,8 +40,8 @@
         <ion-label>Spooky</ion-label>
         <ion-toggle
           color="success"
-          [(ngModel)]="categories.spooky"
-          [disabled]="categories.anyJoke"
+          [(ngModel)]="categories.Spooky"
+          [disabled]="categories.AnyJoke"
           (ionChange)="validateForm()"
         ></ion-toggle>
       </ion-item>
@@ -49,8 +49,8 @@
         <ion-label>Christmas</ion-label>
         <ion-toggle
           color="success"
-          [(ngModel)]="categories.christmas"
-          [disabled]="categories.anyJoke"
+          [(ngModel)]="categories.Christmas"
+          [disabled]="categories.AnyJoke"
           (ionChange)="validateForm()"
         ></ion-toggle>
       </ion-item>
@@ -58,8 +58,8 @@
         <ion-label>Dark</ion-label>
         <ion-toggle
           color="success"
-          [(ngModel)]="categories.dark"
-          [disabled]="categories.anyJoke"
+          [(ngModel)]="categories.Dark"
+          [disabled]="categories.AnyJoke"
           (ionChange)="validateForm()"
         ></ion-toggle>
       </ion-item>
@@ -67,8 +67,8 @@
         <ion-label>Programming</ion-label>
         <ion-toggle
           color="success"
-          [(ngModel)]="categories.programming"
-          [disabled]="categories.anyJoke"
+          [(ngModel)]="categories.Programming"
+          [disabled]="categories.AnyJoke"
           (ionChange)="validateForm()"
         ></ion-toggle>
       </ion-item>
@@ -76,47 +76,47 @@
         <ion-label>Misc</ion-label>
         <ion-toggle
           color="success"
-          [(ngModel)]="categories.misc"
-          [disabled]="categories.anyJoke"
+          [(ngModel)]="categories.Misc"
+          [disabled]="categories.AnyJoke"
           (ionChange)="validateForm()"
         ></ion-toggle>
       </ion-item>
     </ion-list>
     <ion-list>
       <ion-list-header class="ion-align-items-center"
-        >Whitelist</ion-list-header
+        >Blacklist</ion-list-header
       >
       <ion-item>
         <ion-label>NSFW</ion-label>
-        <ion-toggle color="success" [(ngModel)]="whitelist.nsfw"></ion-toggle>
+        <ion-toggle color="success" [(ngModel)]="blacklist.nsfw"></ion-toggle>
       </ion-item>
       <ion-item>
         <ion-label>Religious</ion-label>
         <ion-toggle
           color="success"
-          [(ngModel)]="whitelist.religious"
+          [(ngModel)]="blacklist.religious"
         ></ion-toggle>
       </ion-item>
       <ion-item>
         <ion-label>Political</ion-label>
         <ion-toggle
           color="success"
-          [(ngModel)]="whitelist.political"
+          [(ngModel)]="blacklist.political"
         ></ion-toggle>
       </ion-item>
       <ion-item>
         <ion-label>Racist</ion-label>
-        <ion-toggle color="success" [(ngModel)]="whitelist.racist"></ion-toggle>
+        <ion-toggle color="success" [(ngModel)]="blacklist.racist"></ion-toggle>
       </ion-item>
       <ion-item>
         <ion-label>Sexist</ion-label>
-        <ion-toggle color="success" [(ngModel)]="whitelist.sexist"></ion-toggle>
+        <ion-toggle color="success" [(ngModel)]="blacklist.sexist"></ion-toggle>
       </ion-item>
       <ion-item>
         <ion-label>Explicit</ion-label>
         <ion-toggle
           color="success"
-          [(ngModel)]="whitelist.explicit"
+          [(ngModel)]="blacklist.explicit"
         ></ion-toggle>
       </ion-item>
     </ion-list>

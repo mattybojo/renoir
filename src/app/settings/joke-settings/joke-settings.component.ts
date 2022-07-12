@@ -1,11 +1,10 @@
-import { GetResult } from '@capacitor/storage';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { GetResult } from '@capacitor/storage';
 import { Components } from '@ionic/core';
+import { AppService } from 'src/app/app.service';
 import { StorageService } from 'src/app/shared/storage.service';
 import { SubSink } from 'subsink';
-import { JokeCategoriesSettings, JokeSettings, JokeWhitelistSettings } from '../settings.beans';
-import { AppService } from 'src/app/app.service';
+import { JokeBlacklistSettings, JokeCategoriesSettings, JokeSettings } from '../settings.beans';
 
 @Component({
   selector: 'ren-joke-settings',
@@ -17,7 +16,7 @@ export class JokeSettingsComponent implements OnInit, OnDestroy {
   @Input() modal: Components.IonModal;
   title = 'Joke Settings';
   categories: JokeCategoriesSettings;
-  whitelist: JokeWhitelistSettings;
+  blacklist: JokeBlacklistSettings;
   isLoading = true;
   isFormValid = true;
 
@@ -27,17 +26,17 @@ export class JokeSettingsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.appService.presentLoadingModal();
-    this.subs.sink = this.storageService.getData('jokeSettings').subscribe((value: GetResult) => {
-      if (!value.value) {
+    this.subs.sink = this.storageService.getData('jokeSettings').subscribe((data: GetResult) => {
+      if (!data.value) {
         this.categories = new JokeCategoriesSettings();
-        this.whitelist = new JokeWhitelistSettings();
+        this.blacklist = new JokeBlacklistSettings();
       } else {
         // Parse back into JSON object
-        const jokeSettings: JokeSettings = JSON.parse(value.value);
+        const jokeSettings: JokeSettings = JSON.parse(data.value);
 
         // Load category settings and default all to false
         const categorySettings = new JokeCategoriesSettings();
-        categorySettings.anyJoke = false;
+        categorySettings.AnyJoke = false;
 
         // Set category options
         jokeSettings.categories.split(',').forEach((setting: string) => {
@@ -45,14 +44,14 @@ export class JokeSettingsComponent implements OnInit, OnDestroy {
         });
         this.categories = categorySettings;
 
-        // Load whitelist settings and default all to false
-        const whitelistSettings = new JokeWhitelistSettings();
+        // Load blacklist settings and default all to false
+        const blacklistSettings = new JokeBlacklistSettings();
 
-        // Set whitelist options
-        jokeSettings.whitelist?.split(',').forEach((setting: string) => {
-          whitelistSettings[setting] = true;
+        // Set blacklist options
+        jokeSettings.blacklist?.split(',').forEach((setting: string) => {
+          blacklistSettings[setting] = true;
         });
-        this.whitelist = whitelistSettings;
+        this.blacklist = blacklistSettings;
       }
 
       this.isLoading = false;
@@ -73,17 +72,15 @@ export class JokeSettingsComponent implements OnInit, OnDestroy {
         return `${prev},${curr}`;
       });
 
-    let whitelist: string;
-    const filteredList = Object.keys(this.whitelist).filter((key: string) => this.categories[key]);
+    let blacklist = '';
+    const filteredList = Object.keys(this.blacklist).filter((key: string) => !this.categories[key]);
     if (filteredList.length) {
-      filteredList.reduce((prev: string, curr: string) => {
-        return `${prev},${curr}`;
-      });
+      blacklist = filteredList.join(',');
     }
 
     const jokeSettings: JokeSettings = {
       categories,
-      whitelist
+      blacklist
     };
 
     this.appService.presentLoadingModalSave();
