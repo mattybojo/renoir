@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class BillSplitterComponent implements OnInit {
 
   subtotal: number;
+  tax: number;
   tip = 15;
   tipType = '%';
   tipAmount: number;
@@ -24,13 +25,22 @@ export class BillSplitterComponent implements OnInit {
       this.tipType = $event.detail.value;
     }
 
-    if (this.subtotal && this.tip) {
-      if (this.tipType === '%') {
-        this.tipAmount = this.subtotal * (this.tip / 100);
-        this.total = this.tipAmount + this.subtotal;
-      } else {
-        this.tipAmount = 100 * (this.tip / this.subtotal);
-        this.total = this.subtotal + this.tip;
+    if (!!this.subtotal) {
+      if (!!this.tip) {
+        if (this.tipType === '%') {
+          this.tipAmount = this.subtotal * (this.tip / 100);
+          this.total = this.tipAmount + this.subtotal;
+        } else {
+          this.tipAmount = 100 * (this.tip / this.subtotal);
+          this.total = this.subtotal + this.tip;
+        }
+      }
+      if (!!this.tax) {
+        if (!!this.tip) {
+          this.total += this.tax;
+        } else {
+          this.total = this.subtotal + this.tax;
+        }
       }
     }
 

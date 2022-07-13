@@ -27,6 +27,24 @@
       <ion-row>
         <ion-col size="3" class="d-flex ion-align-items-center">
           <ion-text>
+            <p>Tax</p>
+          </ion-text>
+        </ion-col>
+        <ion-col>
+          <!-- Subtotal input -->
+          <ion-input
+            clearInput
+            type="number"
+            placeholder="Tax"
+            inputmode="decimal"
+            [(ngModel)]="tax"
+            (ionChange)="onInputChange(null)"
+          ></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="3" class="d-flex ion-align-items-center">
+          <ion-text>
             <p>Tip</p>
           </ion-text>
         </ion-col>
