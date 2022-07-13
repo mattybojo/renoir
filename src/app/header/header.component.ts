@@ -34,6 +34,9 @@ export class HeaderComponent implements OnInit, AfterContentInit, OnDestroy {
         this.weather = weather;
         this.weatherIconUrl = `http://openweathermap.org/img/wn/${weather.weather[0].icon}.png`;
       }
+    }, (err) => {
+      this.appService.dismissLoadingModal();
+      this.appService.presentToast({ color: 'danger', message: 'Error retrieving weather data.', duration: 1000 });
     });
   }
 

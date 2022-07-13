@@ -56,6 +56,11 @@ export class JokeSettingsComponent implements OnInit, OnDestroy {
 
       this.isLoading = false;
       this.appService.dismissLoadingModal();
+    }, (err) => {
+      const categories = new JokeCategoriesSettings();
+      this.blacklist = new JokeBlacklistSettings();
+      this.categories = new JokeCategoriesSettings();
+      this.appService.dismissLoadingModal();
     });
   }
 
@@ -84,7 +89,7 @@ export class JokeSettingsComponent implements OnInit, OnDestroy {
     };
 
     this.appService.presentLoadingModalSave();
-    this.storageService.setData('jokeSettings', JSON.stringify(jokeSettings)).subscribe(() => {
+    this.subs.sink = this.storageService.setData('jokeSettings', JSON.stringify(jokeSettings)).subscribe(() => {
       this.modal.dismiss();
       this.appService.dismissLoadingModal();
       this.appService.presentToast({

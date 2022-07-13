@@ -41,6 +41,9 @@ export class WeatherComponent implements OnInit, OnDestroy {
       this.sunriseTime = new Date(weather.sys.sunrise * 1000);
       this.sunsetTime = new Date(weather.sys.sunset * 1000);
       this.appService.dismissLoadingModal();
+    }, (err) => {
+      this.appService.dismissLoadingModal();
+      this.appService.presentToast({ color: 'danger', message: 'Error retrieving weather data.', duration: 1000 });
     });
   }
 

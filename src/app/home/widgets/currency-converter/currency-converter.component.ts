@@ -32,6 +32,9 @@ export class CurrencyConverterComponent implements OnDestroy {
         this.rateData = currencyData.rates[this.toCurrency];
         this.amount2 = +currencyData.rates[this.toCurrency].rate_for_amount;
         this.appService.dismissLoadingModal();
+      }, (err) => {
+        this.appService.dismissLoadingModal();
+        this.appService.presentToast({ color: 'danger', message: 'Error converting currency.', duration: 1000 });
       });
   }
 

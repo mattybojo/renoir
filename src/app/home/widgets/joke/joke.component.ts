@@ -1,3 +1,4 @@
+import { JokeBlacklistSettings, JokeCategoriesSettings } from './../../../settings/settings.beans';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { GetResult } from '@capacitor/storage';
 import { AppService } from 'src/app/app.service';
@@ -24,8 +25,25 @@ export class JokeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subs.sink = this.storageService.getData('jokeSettings').subscribe((data: GetResult) => {
-      this.jokeSettings = JSON.parse(data.value);
+      if (data.value) {
+        this.jokeSettings = JSON.parse(data.value);
+      } else {
+        const blacklist = new JokeBlacklistSettings();
+        const categories = new JokeCategoriesSettings();
+        this.jokeSettings = {
+          blacklist: blacklist.printBlacklist(),
+          categories: categories.printCategories()
+        };
+      }
       this.getNewJoke();
+    }, (err) => {
+      const blacklist = new JokeBlacklistSettings();
+      const categories = new JokeCategoriesSettings();
+      this.jokeSettings = {
+        blacklist: blacklist.printBlacklist(),
+        categories: categories.printCategories()
+      };
+      this.appService.dismissLoadingModal();
     });
   }
 
@@ -34,6 +52,9 @@ export class JokeComponent implements OnInit, OnDestroy {
     this.subs.sink = this.widgetsService.getJoke(this.jokeSettings).subscribe((joke: Joke) => {
       this.joke = joke;
       this.appService.dismissLoadingModal();
+    }, (err) => {
+      this.appService.dismissLoadingModal();
+      this.appService.presentToast({ color: 'danger', message: 'Error retrieving joke.', duration: 1000 });
     });
   }
 
