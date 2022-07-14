@@ -11,7 +11,7 @@
     </ion-buttons>
     <ion-title class="ion-text-center">RenoirHQ</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="openModal('weather')" *ngIf="weather">
+      <ion-button (click)="openModal('weather')">
         <ion-text>
           <span>{{ weather?.main.temp | number: "1.0-0" }}&#8457;</span>
         </ion-text>
