@@ -58,7 +58,7 @@ export class GiftCardTrackerPage implements OnDestroy, ViewWillEnter {
     });
   }
 
-  actionHandler(actionType: string) {
+  actionHandler(actionType: string): void {
     switch (actionType) {
       case 'add':
         this.presentModal(GiftCardFormComponent, {});
@@ -71,7 +71,7 @@ export class GiftCardTrackerPage implements OnDestroy, ViewWillEnter {
     }
   }
 
-  async presentModal(compRef: ComponentRef, giftCardProps: ComponentProps<ComponentRef>) {
+  async presentModal(compRef: ComponentRef, giftCardProps: ComponentProps<ComponentRef>): Promise<void> {
     const modalOpts: ModalOptions = {
       component: compRef,
       componentProps: giftCardProps,
@@ -82,12 +82,12 @@ export class GiftCardTrackerPage implements OnDestroy, ViewWillEnter {
     this.appService.presentModal(modalOpts);
   }
 
-  updateItem(giftCard: GiftCard, slidingItem: IonItemSliding) {
+  updateItem(giftCard: GiftCard, slidingItem: IonItemSliding): void {
     this.presentModal(GiftCardFormComponent, { giftCard });
     slidingItem.close();
   }
 
-  deleteItem(giftCard: GiftCard) {
+  deleteItem(giftCard: GiftCard): void {
     this.appService.presentLoadingModalDelete();
     this.subs.sink = this.giftCardTrackerService.deleteGiftCard(giftCard).subscribe(() => {
       this.appService.dismissLoadingModal();
@@ -97,7 +97,7 @@ export class GiftCardTrackerPage implements OnDestroy, ViewWillEnter {
     }, (err) => {
       this.appService.dismissLoadingModal();
       this.appService.presentToast({
-        color: 'danger', message: 'Error deleting gift crad!', duration: 1000
+        color: 'danger', message: 'Error deleting gift card!', duration: 1000
       });
     });
   }
