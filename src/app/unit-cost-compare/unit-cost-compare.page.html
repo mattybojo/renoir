@@ -1,4 +1,13 @@
-<ren-header></ren-header>
+<ion-header class="header-margin">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="modal.dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Unit Cost Compare</ion-title>
+  </ion-toolbar>
+</ion-header>
 <ion-content>
   <ion-item>
     <ion-label class="input-label">Cost of item #1</ion-label>

@@ -36,6 +36,10 @@ const routes: Routes = [
         loadChildren: () => import('../settings/settings.module').then(m => m.SettingsPageModule)
       },
       {
+        path: 'todo-list',
+        loadChildren: () => import('../todo-list/todo-list.module').then(m => m.TodoListPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/home',
         pathMatch: 'full'

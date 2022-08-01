@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Components } from '@ionic/core';
 
 @Component({
   selector: 'ren-unit-cost-compare',
@@ -6,6 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./unit-cost-compare.page.scss'],
 })
 export class UnitCostComparePage {
+
+  @Input() modal: Components.IonModal;
 
   costItem1: number;
   qtyItem1: number;

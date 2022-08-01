@@ -3,6 +3,7 @@ import { ModalOptions } from '@ionic/angular';
 import { Components } from '@ionic/core';
 import { AppService } from 'src/app/app.service';
 import { AuthPage } from '../auth/auth.page';
+import { UnitCostComparePage } from '../unit-cost-compare/unit-cost-compare.page';
 import { JokeSettingsComponent } from './joke-settings/joke-settings.component';
 
 @Component({
@@ -34,6 +35,13 @@ export class SettingsPage implements OnInit {
       case 'auth':
         modalOpts = {
           component: AuthPage,
+          presentingElement,
+          canDismiss: true
+        };
+        break;
+      case 'unit-cost':
+        modalOpts = {
+          component: UnitCostComparePage,
           presentingElement,
           canDismiss: true
         };

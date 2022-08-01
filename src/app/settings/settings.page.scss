@@ -1,3 +1,14 @@
+ion-list:not(:last-of-type) {
+  margin-bottom: 10px;
+}
+
+ion-item.list-heading ion-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
 .settings-content ion-icon {
   margin-right: 10px;
 }
