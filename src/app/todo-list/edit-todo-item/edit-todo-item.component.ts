@@ -28,7 +28,7 @@ export class EditTodoItemComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.currentItem = Object.assign({}, this.todoItem);
-    this.dueDate = this.todoItem.dueDate;
+    this.dueDate = this.todoItem?.dueDate;
     if (!!this.todoItem) {
       this.title = `Editing Item`;
     } else {
