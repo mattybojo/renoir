@@ -1,12 +1,12 @@
+import { Component, OnDestroy } from '@angular/core';
+import { IonItemSliding, ModalOptions, ViewWillEnter } from '@ionic/angular';
+import { SubSink } from 'subsink';
+import { ComponentProps, ComponentRef } from '../app.beans';
+import { AppService } from '../app.service';
+import { HeaderAction } from '../header/header.beans';
 import { EditTodoItemComponent } from './edit-todo-item/edit-todo-item.component';
 import { TodoItem } from './todo-list.beans';
 import { TodoListService } from './todo-list.service';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { HeaderAction } from '../header/header.beans';
-import { SubSink } from 'subsink';
-import { AppService } from '../app.service';
-import { ComponentProps, ComponentRef } from '../app.beans';
-import { IonItemSliding, ModalOptions, ViewWillEnter } from '@ionic/angular';
 
 @Component({
   selector: 'ren-todo-list',

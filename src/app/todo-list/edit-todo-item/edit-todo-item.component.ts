@@ -1,4 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import * as firestore from '@angular/fire/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Components } from '@ionic/core';
 import { AppService } from 'src/app/app.service';
@@ -19,6 +20,7 @@ export class EditTodoItemComponent implements OnInit, OnDestroy {
   title: string;
   currentItem: TodoItem;
   todoItemForm: FormGroup;
+  dueDate: firestore.Timestamp;
 
   private subs = new SubSink();
 
@@ -26,11 +28,11 @@ export class EditTodoItemComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.currentItem = Object.assign({}, this.todoItem);
+    this.dueDate = this.todoItem.dueDate;
     if (!!this.todoItem) {
       this.title = `Editing Item`;
     } else {
       this.title = 'Add New Item';
-
     }
 
     this.todoItemForm = new FormGroup({
@@ -39,12 +41,20 @@ export class EditTodoItemComponent implements OnInit, OnDestroy {
       body: new FormControl(this.currentItem?.body, [Validators.required]),
       dateCreated: new FormControl(this.currentItem.dateCreated),
       dateModified: new FormControl(this.currentItem.dateModified),
-      dueDate: new FormControl(this.currentItem.dueDate)
     });
   }
 
+  onDateChange($event): void {
+    if (!!$event.detail.value) {
+      this.dueDate = firestore.Timestamp.fromDate(new Date($event.detail.value));
+    } else {
+      this.dueDate = null;
+    }
+    console.log(this.currentItem?.dueDate?.toDate().toISOString());
+  }
+
   saveItem(): void {
-    this.currentItem = this.todoItemForm.value;
+    this.currentItem = { ...this.todoItemForm.value, dueDate: this.dueDate };
     this.appService.presentLoadingModalSave();
     this.subs.sink = this.todoListService.saveTodoItem(this.currentItem).subscribe(() => {
       this.modal.dismiss();
