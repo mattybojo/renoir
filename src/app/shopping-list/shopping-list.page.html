@@ -6,7 +6,7 @@
   <ion-list *ngIf="shoppingList.length > 0; else noDataFound">
     <ion-item-sliding *ngFor="let item of shoppingList" #slidingItem>
       <ion-item>
-        <ion-label>{{item.name}}</ion-label>
+        <ion-label>{{item.quantity}} - {{item.name}}</ion-label>
       </ion-item>
       <ion-item-options side="end">
         <ion-item-option

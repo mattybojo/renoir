@@ -3,7 +3,7 @@ import * as firestore from '@angular/fire/firestore';
 
 export interface ShoppingListItem extends FirestoreId {
   [x: string]: any;
-  created: firestore.Timestamp;
+  dateCreated: firestore.Timestamp;
   isShopped: boolean;
   name: string;
   quantity: number;
