@@ -32,7 +32,7 @@ export class ShoppingListPage implements OnDestroy, ViewWillEnter {
   }
 
   loadShoppingListData(): void {
-    const promise = this.appService.presentLoadingModal();
+    this.appService.presentLoadingModal();
     this.subs.sink = this.shoppingListService.getShoppingList().subscribe((list: ShoppingListItem[]) => {
       this.shoppingList = list;
       this.appService.dismissLoadingModal();
@@ -65,9 +65,9 @@ export class ShoppingListPage implements OnDestroy, ViewWillEnter {
     this.appService.presentModal(modalOpts);
   }
 
-  updateItem(item: ShoppingListItem, slidingItem: IonItemSliding) {
+  updateItem(item: ShoppingListItem, slidingItem?: IonItemSliding) {
     this.presentModal(item);
-    slidingItem.close();
+    slidingItem?.close();
   }
 
   deleteItem(item: ShoppingListItem) {
