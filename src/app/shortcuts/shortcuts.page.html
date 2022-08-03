@@ -1,0 +1,22 @@
+<ren-header></ren-header>
+<ion-content>
+  <ion-text class="ion-text-center"><h4>Available Widgets</h4></ion-text>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button class="widget-btn" (click)="shortcutHandler('unit-cost')">
+          <div class="d-flex widget-btn-inner">
+            <ion-icon
+              slot="icon-only"
+              name="pricetag-outline"
+              size="large"
+            ></ion-icon>
+            <ion-text slot="end" class="widget-text">Unit Cost</ion-text>
+          </div>
+        </ion-button>
+      </ion-col>
+      <ion-col></ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

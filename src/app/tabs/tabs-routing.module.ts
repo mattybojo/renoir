@@ -40,6 +40,10 @@ const routes: Routes = [
         loadChildren: () => import('../todo-list/todo-list.module').then(m => m.TodoListPageModule)
       },
       {
+        path: 'shortcuts',
+        loadChildren: () => import('../shortcuts/shortcuts.module').then(m => m.ShortcutsPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/home',
         pathMatch: 'full'
