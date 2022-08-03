@@ -47,4 +47,15 @@ export class UnitCostComparePage {
       }
     }
   }
+
+  reset(): void {
+    this.costItem1 = undefined;
+    this.qtyItem1 = undefined;
+    this.costItem2 = undefined;
+    this.qtyItem2 = undefined;
+    this.priceItem1 = 0;
+    this.priceItem2 = 0;
+    this.priceClass1 = '';
+    this.priceClass2 = '';
+  }
 }

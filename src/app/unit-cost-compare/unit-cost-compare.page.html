@@ -6,67 +6,69 @@
       </ion-button>
     </ion-buttons>
     <ion-title class="ion-text-center">Unit Cost Compare</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="reset()">
+        <ion-icon name="refresh-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-item>
-    <ion-label class="input-label">Cost of item #1</ion-label>
-    <ion-input
-      clearInput
-      type="number"
-      placeholder="Cost"
-      inputmode="decimal"
-      [(ngModel)]="costItem1"
-      (ionChange)="onInputChange()"
-    ></ion-input>
-  </ion-item>
-  <ion-item class="item-spacing">
-    <ion-label class="input-label">Quantity of item #1</ion-label>
-    <ion-input
-      clearInput
-      type="number"
-      placeholder="lb, oz, etc"
-      inputmode="decimal"
-      [(ngModel)]="qtyItem1"
-      (ionChange)="onInputChange()"
-    ></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label class="input-label">Cost of item #2</ion-label>
-    <ion-input
-      clearInput
-      type="number"
-      placeholder="Cost"
-      inputmode="decimal"
-      [(ngModel)]="costItem2"
-      (ionChange)="onInputChange()"
-    ></ion-input>
-  </ion-item>
-  <ion-item class="item-spacing">
-    <ion-label class="input-label">Quantity of item #2</ion-label>
-    <ion-input
-      clearInput
-      type="number"
-      placeholder="lb, oz, etc"
-      inputmode="decimal"
-      [(ngModel)]="qtyItem2"
-      (ionChange)="onInputChange()"
-    ></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label>
-      <span class="ion-float-left">Item 1</span>
-      <span class="ion-float-right">Item 2</span>
-    </ion-label>
-  </ion-item>
-  <ion-item>
-    <ion-label>
-      <span class="ion-float-left" [ngClass]="priceClass1">
+  <div class="item-container">
+    <ion-text class="padding-left">Item #1</ion-text>
+    <ion-text>
+      <span class="ion-float-right padding-right" [ngClass]="priceClass1">
         {{ priceItem1 | currency: 'USD' }}
       </span>
-      <span class="ion-float-right" [ngClass]="priceClass2">
+    </ion-text>
+    <div class="d-flex item-inputs">
+      <ion-input
+        clearInput
+        type="number"
+        placeholder="Cost"
+        inputmode="decimal"
+        [(ngModel)]="costItem1"
+        (ionChange)="onInputChange()"
+        class="unit-cost-input padding-left"
+      ></ion-input>
+      <ion-input
+        clearInput
+        type="number"
+        placeholder="lb, oz, etc"
+        inputmode="decimal"
+        [(ngModel)]="qtyItem1"
+        (ionChange)="onInputChange()"
+        class="unit-cost-input padding-right"
+      ></ion-input>
+    </div>
+  </div>
+
+  <div class="item-container">
+    <ion-text class="padding-left">Item #2</ion-text>
+    <ion-text>
+      <span class="ion-float-right padding-right" [ngClass]="priceClass2">
         {{ priceItem2 | currency: 'USD' }}
       </span>
-    </ion-label>
-  </ion-item>
+    </ion-text>
+    <div class="d-flex item-inputs">
+      <ion-input
+        clearInput
+        type="number"
+        placeholder="Cost"
+        inputmode="decimal"
+        [(ngModel)]="costItem2"
+        (ionChange)="onInputChange()"
+        class="unit-cost-input padding-left"
+      ></ion-input>
+      <ion-input
+        clearInput
+        type="number"
+        placeholder="lb, oz, etc"
+        inputmode="decimal"
+        [(ngModel)]="qtyItem2"
+        (ionChange)="onInputChange()"
+        class="unit-cost-input padding-right"
+      ></ion-input>
+    </div>
+  </div>
 </ion-content>
