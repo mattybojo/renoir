@@ -21,12 +21,15 @@ export class ShoppingListService {
   }
 
   addItemToList(item: ShoppingListItem): Observable<DocumentReference<DocumentData>> {
-    item.dateCreated = firestore.Timestamp.fromDate(new Date());
+    const newDate = new Date();
+    item.dateModified = firestore.Timestamp.fromDate(newDate);
+    item.dateCreated = firestore.Timestamp.fromDate(newDate);
     const notesRef = collection(this.db, 'shoppingList');
     return from(addDoc(notesRef, item));
   }
 
   updateListItem(item: ShoppingListItem): Observable<void> {
+    item.dateModified = firestore.Timestamp.fromDate(new Date());
     const noteDocRef = doc(this.db, `shoppingList/${item.id}`);
     return from(updateDoc(noteDocRef, this.appService.stripFirestoreId(item)));
   }
