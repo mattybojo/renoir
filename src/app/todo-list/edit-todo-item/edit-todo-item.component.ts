@@ -38,7 +38,7 @@ export class EditTodoItemComponent implements OnInit, OnDestroy {
     this.todoItemForm = new FormGroup({
       id: new FormControl(this.currentItem?.id),
       title: new FormControl(this.currentItem?.title, [Validators.required]),
-      body: new FormControl(this.currentItem?.body, [Validators.required]),
+      body: new FormControl(this.currentItem?.body),
       dateCreated: new FormControl(this.currentItem.dateCreated),
       dateModified: new FormControl(this.currentItem.dateModified),
     });
