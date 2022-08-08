@@ -5,7 +5,7 @@
 <ion-content>
   <ion-list *ngIf="giftCardList.length > 0; else noDataFound">
     <ion-item-sliding *ngFor="let giftCard of giftCardList" #slidingItem>
-      <ion-item>
+      <ion-item button (click)="updateItem(giftCard, slidingItem)">
         <ion-label>
           <span class="ion-float-left">
             {{ giftCard.storeName }} ({{ giftCard.last4 | number: '4.0-0' |
