@@ -5,7 +5,7 @@
 <ion-content>
   <ion-list>
     <ion-item-sliding *ngFor="let todoItem of todoItems" #slidingItem>
-      <ion-item button="true" (click)="onClickItem(todoItem)">
+      <ion-item button (click)="onClickItem(todoItem)">
         <ion-label>
           <span class="ion-float-left"> {{ todoItem.title }} </span>
           <span class="ion-float-right" *ngIf="todoItem.dueDate">
