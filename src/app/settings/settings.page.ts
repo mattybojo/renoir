@@ -13,12 +13,12 @@ import { JokeSettingsComponent } from './joke-settings/joke-settings.component';
 export class SettingsPage implements OnInit {
 
   @Input() modal: Components.IonModal;
+
   title = 'Settings';
 
   constructor(private appService: AppService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   async openModal(type: string): Promise<void> {
     let modalOpts: ModalOptions;

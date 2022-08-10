@@ -1,6 +1,7 @@
+import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { LoadingController, LoadingOptions, ModalController, ModalOptions, ToastController, ToastOptions } from '@ionic/angular';
-import { FirestoreId } from './app.beans';
+import { ComponentInfo, FirestoreId } from './app.beans';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class AppService {
   isLoading = false;
 
   constructor(private toastController: ToastController, private modalController: ModalController,
-    private loadingController: LoadingController) { }
+    private loadingController: LoadingController, private location: Location) { }
 
   stripFirestoreId<T extends FirestoreId>(item: T): T {
     const itemCopy = Object.assign({}, item);
@@ -35,7 +36,7 @@ export class AppService {
   async presentLoadingModal(options: LoadingOptions = {
     message: 'Loading data.  Please wait...',
     spinner: 'dots'
-  }) {
+  }): Promise<void> {
     this.isLoading = true;
     return await this.loadingController.create(options).then(
       (loader: HTMLIonLoadingElement) => {
@@ -51,19 +52,40 @@ export class AppService {
   async presentLoadingModalSave(options: LoadingOptions = {
     message: 'Saving...',
     spinner: 'dots'
-  }) {
+  }): Promise<void> {
     await this.presentLoadingModal(options);
   }
 
   async presentLoadingModalDelete(options: LoadingOptions = {
     message: 'Deleting...',
     spinner: 'dots'
-  }) {
+  }): Promise<void> {
     await this.presentLoadingModal(options);
   }
 
   async dismissLoadingModal(): Promise<boolean> {
     this.isLoading = false;
     return await this.loadingController.dismiss();
+  }
+
+  getComponentInfo(name: string): ComponentInfo {
+    let info: ComponentInfo;
+
+    switch (name) {
+      case 'shopping-list':
+        info = { icon: 'cart', path: '/shopping-list' };
+        break;
+      case 'unit-cost':
+        info = { icon: 'pricetag-outline', path: '/unit-cost' };
+        break;
+      default:
+        console.error(`Unknown component: ${name}`);
+    }
+
+    return info;
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

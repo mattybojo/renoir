@@ -1,11 +1,10 @@
 import { Component, OnDestroy } from '@angular/core';
-import { IonItemSliding, ModalOptions, ViewWillEnter } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { ViewWillEnter } from '@ionic/angular';
 import { SubSink } from 'subsink';
-import { ComponentProps, ComponentRef } from '../app.beans';
 import { AppService } from '../app.service';
 import { HeaderAction } from '../header/header.beans';
-import { GiftCardFormComponent } from './gift-card-form/gift-card-form.component';
-import { GiftCardTotalsComponent } from './gift-card-totals/gift-card-totals.component';
+import { DataService } from './../shared/data.service';
 import { GiftCard } from './gift-card-tracker.beans';
 import { GiftCardTrackerService } from './gift-card-tracker.service';
 
@@ -21,7 +20,8 @@ export class GiftCardTrackerPage implements OnDestroy, ViewWillEnter {
 
   private subs = new SubSink();
 
-  constructor(private giftCardTrackerService: GiftCardTrackerService, private appService: AppService) {
+  constructor(private giftCardTrackerService: GiftCardTrackerService, private appService: AppService,
+    private router: Router, private dataService: DataService) {
     this.headerActions = [{
       type: 'add',
       slot: 'start',
@@ -61,30 +61,21 @@ export class GiftCardTrackerPage implements OnDestroy, ViewWillEnter {
   actionHandler(actionType: string): void {
     switch (actionType) {
       case 'add':
-        this.presentModal(GiftCardFormComponent, {});
+        this.dataService.setDataObs(undefined);
+        this.router.navigate(['tabs/gift-card/edit']);
         break;
       case 'showTotals':
-        this.presentModal(GiftCardTotalsComponent, { giftCardList: this.giftCardList });
+        this.dataService.setDataObs(this.giftCardList);
+        this.router.navigate(['tabs/gift-card/totals']);
         break;
       default:
         console.error(`Unknown action type: ${actionType}`);
     }
   }
 
-  async presentModal(compRef: ComponentRef, giftCardProps: ComponentProps<ComponentRef>): Promise<void> {
-    const modalOpts: ModalOptions = {
-      component: compRef,
-      componentProps: giftCardProps,
-      presentingElement: await this.appService.getModalPresentingElement(),
-      canDismiss: true
-    };
-
-    this.appService.presentModal(modalOpts);
-  }
-
-  updateItem(giftCard: GiftCard, slidingItem: IonItemSliding): void {
-    this.presentModal(GiftCardFormComponent, { giftCard });
-    slidingItem.close();
+  updateItem(giftCard: GiftCard): void {
+    this.dataService.setDataObs(giftCard);
+    this.router.navigate(['tabs/gift-card/edit']);
   }
 
   deleteItem(giftCard: GiftCard): void {

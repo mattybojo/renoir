@@ -14,7 +14,7 @@ import { ShoppingListPage } from './shopping-list.page';
     ReactiveFormsModule,
     IonicModule,
     ShoppingListPageRoutingModule,
-    HeaderModule
+    HeaderModule,
   ],
   declarations: [ShoppingListPage, ShoppingListItemFormComponent]
 })

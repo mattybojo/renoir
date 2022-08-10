@@ -1,9 +1,6 @@
-import { JokeComponent } from './../home/widgets/joke/joke.component';
 import { Component } from '@angular/core';
-import { ModalOptions } from '@ionic/angular';
+import { Router } from '@angular/router';
 import { AppService } from 'src/app/app.service';
-import { ComponentProps, ComponentRef } from '../app.beans';
-import { UnitCostComparePage } from './../unit-cost-compare/unit-cost-compare.page';
 
 @Component({
   selector: 'ren-shortcuts',
@@ -12,26 +9,15 @@ import { UnitCostComparePage } from './../unit-cost-compare/unit-cost-compare.pa
 })
 export class ShortcutsPage {
 
-  constructor(private appService: AppService) { }
+  constructor(private appService: AppService, private router: Router) { }
 
   shortcutHandler(type: string): void {
     switch (type) {
       case 'unit-cost':
-        this.presentModal(UnitCostComparePage);
+        this.router.navigate(['tabs/unit-cost']);
         break;
       default:
         console.error(`Unknown shortcut type: ${type}`);
     }
-  }
-
-  async presentModal(compRef: ComponentRef, props?: ComponentProps<ComponentRef>): Promise<void> {
-    const modalOpts: ModalOptions = {
-      component: compRef,
-      componentProps: props,
-      presentingElement: await this.appService.getModalPresentingElement(),
-      canDismiss: true
-    };
-
-    this.appService.presentModal(modalOpts);
   }
 }

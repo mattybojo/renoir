@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit, AfterContentInit, OnDestroy {
 
   private subs = new SubSink();
 
-  constructor(public router: Router, public weatherService: WeatherService,
+  constructor(protected router: Router, protected weatherService: WeatherService,
     private appService: AppService) { }
 
   ngOnInit(): void {

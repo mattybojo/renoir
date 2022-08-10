@@ -1,10 +1,10 @@
 import { Component, OnDestroy } from '@angular/core';
-import { IonItemSliding, ModalOptions, ViewWillEnter } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { ViewWillEnter } from '@ionic/angular';
 import { SubSink } from 'subsink';
-import { ComponentProps, ComponentRef } from '../app.beans';
 import { AppService } from '../app.service';
 import { HeaderAction } from '../header/header.beans';
-import { EditTodoItemComponent } from './edit-todo-item/edit-todo-item.component';
+import { DataService } from '../shared/data.service';
 import { TodoItem } from './todo-list.beans';
 import { TodoListService } from './todo-list.service';
 
@@ -20,7 +20,8 @@ export class TodoListPage implements OnDestroy, ViewWillEnter {
 
   private subs = new SubSink();
 
-  constructor(private todoListService: TodoListService, private appService: AppService) {
+  constructor(private todoListService: TodoListService, private appService: AppService,
+    private dataService: DataService, private router: Router) {
     this.headerActions = [{
       type: 'add',
       slot: 'start',
@@ -38,34 +39,20 @@ export class TodoListPage implements OnDestroy, ViewWillEnter {
     });
   }
 
-  onClickItem(todoItem: TodoItem): void {
-    this.presentModal(EditTodoItemComponent, { todoItem });
-  }
-
-  async presentModal(compRef: ComponentRef, todoItemProps: ComponentProps<ComponentRef>): Promise<void> {
-    const modalOpts: ModalOptions = {
-      component: compRef,
-      componentProps: todoItemProps,
-      presentingElement: await this.appService.getModalPresentingElement(),
-      canDismiss: true
-    };
-
-    this.appService.presentModal(modalOpts);
-  }
-
   actionHandler(actionType: string): void {
     switch (actionType) {
       case 'add':
-        this.presentModal(EditTodoItemComponent, {});
+        this.dataService.setDataObs(undefined);
+        this.router.navigate(['tabs/todo-list/edit']);
         break;
       default:
         console.error(`Unknown action type: ${actionType}`);
     }
   }
 
-  updateItem(todoItem: TodoItem, slidingItem: IonItemSliding): void {
-    this.presentModal(EditTodoItemComponent, { todoItem });
-    slidingItem.close();
+  updateItem(todoItem: TodoItem): void {
+    this.dataService.setDataObs(todoItem);
+    this.router.navigate(['tabs/todo-list/edit']);
   }
 
   deleteItem(todoItem: TodoItem): void {

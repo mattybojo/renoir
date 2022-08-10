@@ -4,8 +4,8 @@
 ></ren-header>
 <ion-content>
   <ion-list>
-    <ion-item-sliding *ngFor="let todoItem of todoItems" #slidingItem>
-      <ion-item button (click)="onClickItem(todoItem)">
+    <ion-item-sliding *ngFor="let todoItem of todoItems">
+      <ion-item button (click)="updateItem(todoItem)">
         <ion-label>
           <span class="ion-float-left"> {{ todoItem.title }} </span>
           <span class="ion-float-right" *ngIf="todoItem.dueDate">
@@ -16,7 +16,7 @@
       <ion-item-options side="end">
         <ion-item-option
           color="primary"
-          (click)="updateItem(todoItem, slidingItem)"
+          (click)="updateItem(todoItem)"
           class="btn-item-option"
           ><ion-icon name="pencil"></ion-icon
         ></ion-item-option>

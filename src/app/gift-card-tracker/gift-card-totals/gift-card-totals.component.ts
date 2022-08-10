@@ -1,6 +1,9 @@
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AppService } from 'src/app/app.service';
+import { HeaderAction } from 'src/app/header/header.beans';
+import { SubSink } from 'subsink';
+import { DataService } from './../../shared/data.service';
 import { TableColumn } from './../../shared/shared.beans';
-import { Component, Input, OnInit } from '@angular/core';
-import { Components } from '@ionic/core';
 import { GiftCard } from './../gift-card-tracker.beans';
 
 @Component({
@@ -8,11 +11,10 @@ import { GiftCard } from './../gift-card-tracker.beans';
   templateUrl: './gift-card-totals.component.html',
   styleUrls: ['./gift-card-totals.component.scss'],
 })
-export class GiftCardTotalsComponent implements OnInit {
+export class GiftCardTotalsComponent implements OnInit, OnDestroy {
 
-  @Input() giftCardList: GiftCard[];
-  @Input() modal: Components.IonModal;
-
+  giftCardList: GiftCard[];
+  headerActions: HeaderAction[];
   giftCardTotals: GiftCard[] = [];
   sortOrder = 'desc';
   sortParam = 'amount';
@@ -24,7 +26,18 @@ export class GiftCardTotalsComponent implements OnInit {
     param: 'amount'
   }];
 
-  constructor() { }
+  private subs = new SubSink();
+
+  constructor(private appService: AppService, private dataService: DataService) {
+    this.subs.sink = this.dataService.getDataObs().subscribe((data: any) => {
+      this.giftCardList = data;
+    });
+    this.headerActions = [{
+      type: 'back',
+      slot: 'start',
+      icon: 'arrow-back-outline'
+    }];
+  }
 
   ngOnInit() {
     this.giftCardList.forEach((giftCard: GiftCard) => {
@@ -38,6 +51,16 @@ export class GiftCardTotalsComponent implements OnInit {
       }
     });
     this.sortTable(this.sortParam);
+  }
+
+  actionHandler(actionType: string) {
+    switch (actionType) {
+      case 'back':
+        this.appService.goBack();
+        break;
+      default:
+        console.error(`Unknown action type: ${actionType}`);
+    }
   }
 
   onHeaderClick(sortProp: string): void {
@@ -62,5 +85,9 @@ export class GiftCardTotalsComponent implements OnInit {
         return 0;
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 }

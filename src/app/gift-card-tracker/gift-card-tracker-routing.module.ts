@@ -1,3 +1,5 @@
+import { GiftCardTotalsComponent } from './gift-card-totals/gift-card-totals.component';
+import { GiftCardFormComponent } from './gift-card-form/gift-card-form.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -7,6 +9,14 @@ const routes: Routes = [
   {
     path: '',
     component: GiftCardTrackerPage
+  },
+  {
+    path: 'edit',
+    component: GiftCardFormComponent
+  },
+  {
+    path: 'totals',
+    component: GiftCardTotalsComponent
   }
 ];
 
@@ -14,4 +24,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class GiftCardTrackerPageRoutingModule {}
+export class GiftCardTrackerPageRoutingModule { }

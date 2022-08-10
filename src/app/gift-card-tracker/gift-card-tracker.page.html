@@ -4,8 +4,8 @@
 ></ren-header>
 <ion-content>
   <ion-list *ngIf="giftCardList.length > 0; else noDataFound">
-    <ion-item-sliding *ngFor="let giftCard of giftCardList" #slidingItem>
-      <ion-item button (click)="updateItem(giftCard, slidingItem)">
+    <ion-item-sliding *ngFor="let giftCard of giftCardList">
+      <ion-item button (click)="updateItem(giftCard)">
         <ion-label>
           <span class="ion-float-left">
             {{ giftCard.storeName }} ({{ giftCard.last4 | number: '4.0-0' |
@@ -19,7 +19,7 @@
       <ion-item-options side="end">
         <ion-item-option
           color="primary"
-          (click)="updateItem(giftCard, slidingItem)"
+          (click)="updateItem(giftCard)"
           class="btn-item-option"
           ><ion-icon name="pencil"></ion-icon
         ></ion-item-option>

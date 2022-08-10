@@ -4,6 +4,7 @@ import { Components } from '@ionic/core';
 import { SubSink } from 'subsink';
 import { Weather } from './weather.beans';
 import { WeatherService } from './weather.service';
+import { HeaderAction } from '../header/header.beans';
 
 @Component({
   selector: 'ren-weather',
@@ -18,6 +19,7 @@ export class WeatherComponent implements OnInit, OnDestroy {
   MMHG_TO_HPA_CONVERSION = 1.33322387415;
   DIRECTIONS: string[] = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW', 'N'];
 
+  headerActions: HeaderAction[];
   weather: Weather;
   weatherIconUrl: string;
   windDirection: string;
@@ -28,7 +30,17 @@ export class WeatherComponent implements OnInit, OnDestroy {
 
   private subs = new SubSink();
 
-  constructor(public weatherService: WeatherService, private appService: AppService) { }
+  constructor(private weatherService: WeatherService, private appService: AppService) {
+    this.headerActions = [{
+      type: 'close',
+      slot: 'start',
+      icon: 'close'
+    }, {
+      type: 'reload',
+      slot: 'start',
+      icon: 'reload-outline'
+    }];
+  }
 
   ngOnInit() {
     this.appService.presentLoadingModal();
@@ -51,6 +63,19 @@ export class WeatherComponent implements OnInit, OnDestroy {
     const degrees = this.weather.wind.deg % 360;
     const index = Math.round(degrees / 22.5);
     this.windDirection = this.DIRECTIONS[index];
+  }
+
+  actionHandler(actionType: string) {
+    switch (actionType) {
+      case 'close':
+        this.modal.dismiss();
+        break;
+      case 'reload':
+        this.weatherService.getWeatherData();
+        break;
+      default:
+        console.error(`Unknown action type: ${actionType}`);
+    }
   }
 
   ngOnDestroy(): void {

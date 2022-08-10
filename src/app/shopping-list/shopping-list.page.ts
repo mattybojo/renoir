@@ -1,9 +1,10 @@
 import { Component, OnDestroy } from '@angular/core';
-import { IonItemSliding, ModalOptions, ViewWillEnter } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { ViewWillEnter } from '@ionic/angular';
 import { SubSink } from 'subsink';
 import { AppService } from '../app.service';
 import { HeaderAction } from '../header/header.beans';
-import { ShoppingListItemFormComponent } from './shopping-list-item-form/shopping-list-item-form.component';
+import { DataService } from './../shared/data.service';
 import { ShoppingListItem } from './shopping-list.beans';
 import { ShoppingListService } from './shopping-list.service';
 
@@ -19,7 +20,8 @@ export class ShoppingListPage implements OnDestroy, ViewWillEnter {
 
   private subs = new SubSink();
 
-  constructor(private shoppingListService: ShoppingListService, private appService: AppService) {
+  constructor(private shoppingListService: ShoppingListService, private appService: AppService,
+    private router: Router, private dataService: DataService) {
     this.headerActions = [{
       type: 'add',
       slot: 'start',
@@ -45,29 +47,16 @@ export class ShoppingListPage implements OnDestroy, ViewWillEnter {
   actionHandler(actionType: string) {
     switch (actionType) {
       case 'add':
-        this.presentModal();
+        this.updateItem(null);
         break;
       default:
         console.error(`Unknown action type: ${actionType}`);
     }
   }
 
-  async presentModal(item?: ShoppingListItem) {
-    const modalOpts: ModalOptions = {
-      component: ShoppingListItemFormComponent,
-      componentProps: {
-        item
-      },
-      presentingElement: await this.appService.getModalPresentingElement(),
-      canDismiss: true
-    };
-
-    this.appService.presentModal(modalOpts);
-  }
-
-  updateItem(item: ShoppingListItem, slidingItem?: IonItemSliding) {
-    this.presentModal(item);
-    slidingItem?.close();
+  updateItem(item: ShoppingListItem) {
+    this.dataService.setDataObs(item);
+    this.router.navigate(['tabs/shopping-list/edit']);
   }
 
   deleteItem(item: ShoppingListItem) {

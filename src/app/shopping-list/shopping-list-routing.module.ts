@@ -1,3 +1,4 @@
+import { ShoppingListItemFormComponent } from './shopping-list-item-form/shopping-list-item-form.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -7,6 +8,10 @@ const routes: Routes = [
   {
     path: '',
     component: ShoppingListPage
+  },
+  {
+    path: 'edit',
+    component: ShoppingListItemFormComponent
   }
 ];
 
@@ -14,4 +19,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ShoppingListPageRoutingModule {}
+export class ShoppingListPageRoutingModule { }

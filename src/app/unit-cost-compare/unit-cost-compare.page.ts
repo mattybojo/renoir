@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { Components } from '@ionic/core';
+import { Component } from '@angular/core';
+import { HeaderAction } from '../header/header.beans';
 
 @Component({
   selector: 'ren-unit-cost-compare',
@@ -8,7 +8,7 @@ import { Components } from '@ionic/core';
 })
 export class UnitCostComparePage {
 
-  @Input() modal: Components.IonModal;
+  headerActions: HeaderAction[];
 
   costItem1: number;
   qtyItem1: number;
@@ -19,7 +19,13 @@ export class UnitCostComparePage {
   priceClass1 = '';
   priceClass2 = '';
 
-  constructor() { }
+  constructor() {
+    this.headerActions = [{
+      type: 'reset',
+      slot: 'start',
+      icon: 'refresh-outline'
+    }];
+  }
 
   onInputChange(): void {
     if (this.costItem1 && this.qtyItem1) {
@@ -45,6 +51,16 @@ export class UnitCostComparePage {
         this.priceClass1 = 'equal';
         this.priceClass2 = 'equal';
       }
+    }
+  }
+
+  actionHandler(actionType: string) {
+    switch (actionType) {
+      case 'reset':
+        this.reset();
+        break;
+      default:
+        console.error(`Unknown action type: ${actionType}`);
     }
   }
 

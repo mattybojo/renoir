@@ -1,18 +1,7 @@
-<ion-header class="header-margin">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button (click)="modal.dismiss()">
-        <ion-icon name="close"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-title class="ion-text-center">{{ title }}</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="saveItem()" [disabled]="todoItemForm.invalid">
-        <ion-icon name="save"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<ren-header
+  [actions]="headerActions"
+  (actionType)="actionHandler($event)"
+></ren-header>
 <ion-content>
   <form [formGroup]="todoItemForm">
     <ion-list>
