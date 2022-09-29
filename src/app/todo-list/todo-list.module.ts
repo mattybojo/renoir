@@ -1,3 +1,4 @@
+import { FilterSortModule } from './../shared/filter-sort/filter-sort.module';
 import { EditTodoItemComponent } from './edit-todo-item/edit-todo-item.component';
 import { HeaderModule } from './../header/header.module';
 import { NgModule } from '@angular/core';
@@ -17,7 +18,8 @@ import { TodoListPage } from './todo-list.page';
     IonicModule,
     TodoListPageRoutingModule,
     HeaderModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FilterSortModule
   ],
   declarations: [TodoListPage, EditTodoItemComponent]
 })

@@ -1,10 +1,11 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { ViewWillEnter } from '@ionic/angular';
+import { PickerOptions, ViewWillEnter } from '@ionic/angular';
 import { SubSink } from 'subsink';
 import { AppService } from '../app.service';
 import { HeaderAction } from '../header/header.beans';
 import { DataService } from '../shared/data.service';
+import { FilterSetting, SortSetting } from './../shared/filter-sort/filter-sort.beans';
 import { TodoItem } from './todo-list.beans';
 import { TodoListService } from './todo-list.service';
 
@@ -17,6 +18,11 @@ export class TodoListPage implements OnDestroy, ViewWillEnter {
 
   headerActions: HeaderAction[];
   todoItems: TodoItem[];
+  filteredTodoItems: TodoItem[];
+
+  sortSettings: SortSetting;
+  pickerOptions: PickerOptions;
+  filterSettings: FilterSetting[];
 
   private subs = new SubSink();
 
@@ -27,6 +33,56 @@ export class TodoListPage implements OnDestroy, ViewWillEnter {
       slot: 'start',
       icon: 'add'
     }];
+
+    this.sortSettings = {
+      sortProperty: 'dueDate',
+      sortPropertyLabel: 'Due Date',
+      sortOrder: 'ASC'
+    };
+
+    this.pickerOptions = {
+      columns: [{
+        name: 'Property',
+        options: [{
+          text: 'Title',
+          value: 'title'
+        }, {
+          text: 'Body',
+          value: 'body'
+        }, {
+          text: 'Date Created',
+          value: 'dateCreated'
+        }, {
+          text: 'Date Modified',
+          value: 'dateModified'
+        }, {
+          text: 'Due Date',
+          value: 'dueDate'
+        }]
+      }]
+    };
+
+    this.filterSettings = [{
+      label: 'Title',
+      property: 'title',
+      type: 'text',
+    }, {
+      label: 'Body',
+      property: 'body',
+      type: 'text'
+    }, {
+      label: 'Date Created',
+      property: 'dateCreated',
+      type: 'date'
+    }, {
+      label: 'Date Modified',
+      property: 'dateModified',
+      type: 'date'
+    }, {
+      label: 'Due Date',
+      property: 'dueDate',
+      type: 'date'
+    }];
   }
 
   ionViewWillEnter(): void {
@@ -35,7 +91,7 @@ export class TodoListPage implements OnDestroy, ViewWillEnter {
 
   loadTodoListItems(): void {
     this.subs.sink = this.todoListService.getTodoItems().subscribe((todoItems: TodoItem[]) => {
-      this.todoItems = todoItems;
+      this.todoItems = this.filteredTodoItems = todoItems;
     });
   }
 

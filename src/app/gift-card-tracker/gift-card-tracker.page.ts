@@ -1,9 +1,10 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { ViewWillEnter } from '@ionic/angular';
+import { PickerOptions, ViewWillEnter } from '@ionic/angular';
 import { SubSink } from 'subsink';
 import { AppService } from '../app.service';
 import { HeaderAction } from '../header/header.beans';
+import { FilterSetting, SortSetting } from '../shared/filter-sort/filter-sort.beans';
 import { DataService } from './../shared/data.service';
 import { GiftCard } from './gift-card-tracker.beans';
 import { GiftCardTrackerService } from './gift-card-tracker.service';
@@ -15,8 +16,13 @@ import { GiftCardTrackerService } from './gift-card-tracker.service';
 })
 export class GiftCardTrackerPage implements OnDestroy, ViewWillEnter {
 
-  giftCardList: GiftCard[] = [];
   headerActions: HeaderAction[];
+  giftCardList: GiftCard[] = [];
+  filteredGiftCardList: GiftCard[];
+
+  sortSettings: SortSetting;
+  pickerOptions: PickerOptions;
+  filterSettings: FilterSetting[];
 
   private subs = new SubSink();
 
@@ -31,6 +37,42 @@ export class GiftCardTrackerPage implements OnDestroy, ViewWillEnter {
       slot: 'start',
       icon: 'list',
       disabled: true
+    }];
+
+    this.sortSettings = {
+      sortProperty: 'storeName',
+      sortPropertyLabel: 'Store',
+      sortOrder: 'ASC'
+    };
+
+    this.pickerOptions = {
+      columns: [{
+        name: 'Property',
+        options: [{
+          text: 'Store',
+          value: 'storeName'
+        }, {
+          text: 'Amount',
+          value: 'amount'
+        }, {
+          text: 'Last 4',
+          value: 'last4'
+        }]
+      }]
+    };
+
+    this.filterSettings = [{
+      label: 'Store',
+      property: 'storeName',
+      type: 'text',
+    }, {
+      label: 'Amount',
+      property: 'amount',
+      type: 'text'
+    }, {
+      label: 'Last 4',
+      property: 'last4',
+      type: 'text'
     }];
   }
 
@@ -49,7 +91,7 @@ export class GiftCardTrackerPage implements OnDestroy, ViewWillEnter {
   loadGiftCardData(): void {
     this.appService.presentLoadingModal();
     this.subs.sink = this.giftCardTrackerService.getGiftCards().subscribe((list: GiftCard[]) => {
-      this.giftCardList = list;
+      this.giftCardList = this.filteredGiftCardList = list;
       this.setHeaderActions();
       this.appService.dismissLoadingModal();
     }, (err) => {

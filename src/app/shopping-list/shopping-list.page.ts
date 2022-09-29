@@ -1,9 +1,10 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { ViewWillEnter } from '@ionic/angular';
+import { PickerOptions, ViewWillEnter } from '@ionic/angular';
 import { SubSink } from 'subsink';
 import { AppService } from '../app.service';
 import { HeaderAction } from '../header/header.beans';
+import { FilterSetting, SortSetting } from '../shared/filter-sort/filter-sort.beans';
 import { DataService } from './../shared/data.service';
 import { ShoppingListItem } from './shopping-list.beans';
 import { ShoppingListService } from './shopping-list.service';
@@ -15,8 +16,14 @@ import { ShoppingListService } from './shopping-list.service';
 })
 export class ShoppingListPage implements OnDestroy, ViewWillEnter {
 
-  shoppingList: ShoppingListItem[] = [];
   headerActions: HeaderAction[];
+
+  shoppingList: ShoppingListItem[] = [];
+  filteredShoppingList: ShoppingListItem[] = [];
+
+  sortSettings: SortSetting;
+  pickerOptions: PickerOptions;
+  filterSettings: FilterSetting[];
 
   private subs = new SubSink();
 
@@ -26,6 +33,56 @@ export class ShoppingListPage implements OnDestroy, ViewWillEnter {
       type: 'add',
       slot: 'start',
       icon: 'add'
+    }];
+
+    this.sortSettings = {
+      sortProperty: 'name',
+      sortPropertyLabel: 'Item Name',
+      sortOrder: 'ASC'
+    };
+
+    this.pickerOptions = {
+      columns: [{
+        name: 'Property',
+        options: [{
+          text: 'Item Name',
+          value: 'name'
+        }, {
+          text: 'Quantity',
+          value: 'quantity'
+        }, /*{
+          text: 'Shopped?',
+          value: 'isShopped'
+        }, */{
+          text: 'Date Created',
+          value: 'dateCreated'
+        }, {
+          text: 'Date Modified',
+          value: 'dateModified'
+        }]
+      }]
+    };
+
+    this.filterSettings = [{
+      label: 'Item Name',
+      property: 'name',
+      type: 'text',
+    }, {
+      label: 'Quantity',
+      property: 'quantity',
+      type: 'text'
+    }, /*{
+      label: 'Shopped?',
+      property: 'isShopped',
+      type: 'text'
+    }, */{
+      label: 'Date Created',
+      property: 'dateCreated',
+      type: 'date'
+    }, {
+      label: 'Date Modified',
+      property: 'dateModified',
+      type: 'date'
     }];
   }
 

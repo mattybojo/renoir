@@ -1,10 +1,10 @@
-import { DataService } from './../../shared/data.service';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as firestore from '@angular/fire/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AppService } from 'src/app/app.service';
 import { HeaderAction } from 'src/app/header/header.beans';
 import { SubSink } from 'subsink';
+import { DataService } from './../../shared/data.service';
 import { TodoItem } from './../todo-list.beans';
 import { TodoListService } from './../todo-list.service';
 
@@ -70,7 +70,6 @@ export class EditTodoItemComponent implements OnInit, OnDestroy {
     } else {
       this.dueDate = null;
     }
-    console.log(this.currentItem?.dueDate?.toDate().toISOString());
   }
 
   actionHandler(actionType: string) {

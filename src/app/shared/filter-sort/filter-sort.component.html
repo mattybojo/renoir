@@ -1,0 +1,15 @@
+<ion-item>
+  <ion-button (click)="openFilterMenu()" slot="start">View Filters</ion-button>
+  <ion-button (click)="clearFilters()" slot="start">Clear</ion-button>
+  <ion-button (click)="openSortPicker()" slot="end"
+    >Sort by: {{ sortSettings?.sortPropertyLabel }}
+    <ion-icon
+      name="arrow-up-outline"
+      *ngIf="sortSettings?.sortOrder === 'ASC'"
+    ></ion-icon>
+    <ion-icon
+      name="arrow-down-outline"
+      *ngIf="sortSettings?.sortOrder === 'DESC'"
+    ></ion-icon>
+  </ion-button>
+</ion-item>

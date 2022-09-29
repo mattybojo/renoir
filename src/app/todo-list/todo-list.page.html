@@ -3,8 +3,15 @@
   (actionType)="actionHandler($event)"
 ></ren-header>
 <ion-content>
+  <ren-filter-sort
+    [sortSettings]="sortSettings"
+    [pickerOptions]="pickerOptions"
+    [filterSettings]="filterSettings"
+    [items]="todoItems"
+    (exportedItems)="filteredTodoItems=$event"
+  ></ren-filter-sort>
   <ion-list>
-    <ion-item-sliding *ngFor="let todoItem of todoItems">
+    <ion-item-sliding *ngFor="let todoItem of filteredTodoItems">
       <ion-item button (click)="updateItem(todoItem)">
         <ion-label>
           <span class="ion-float-left"> {{ todoItem.title }} </span>

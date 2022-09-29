@@ -28,9 +28,10 @@ export class AppService {
     await toast.present();
   }
 
-  async presentModal(options: ModalOptions): Promise<void> {
+  async presentModal(options: ModalOptions): Promise<HTMLIonModalElement> {
     const modal = await this.modalController.create(options);
-    await modal.present();
+    modal.present();
+    return modal;
   }
 
   async presentLoadingModal(options: LoadingOptions = {

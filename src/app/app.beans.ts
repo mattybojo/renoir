@@ -8,3 +8,8 @@ export interface ComponentInfo {
   icon: string;
   path: string;
 }
+
+export interface ModalDismissData {
+  data: any;
+  role: any;
+}

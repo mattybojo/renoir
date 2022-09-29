@@ -1,0 +1,104 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="modal.dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Filters</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="resetFilters()">
+        <ion-icon name="refresh-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="dismissFilterModal()" [disabled]="!areFiltersValid">
+        <ion-icon name="save"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let filter of filters; let i = index">
+      <ng-container [ngSwitch]="filter.type">
+        <!-- Create different components here based on the FilterType type -->
+        <!-- Date -->
+        <ng-container *ngSwitchCase="'date'">
+          <ion-label>{{ filter.label }}</ion-label>
+          <ng-container
+            *ngTemplateOutlet="dateFilter; context: { filter: filter, i: i }"
+          ></ng-container>
+          <ng-template #dateFilter let-filter="filter" let-i="i">
+            <ion-select
+              placeholder="Operand"
+              [value]="filter?.operand"
+              (ionChange)="
+                onDateChange(null, filter.value, i, dateOperand.value)
+              "
+              #dateOperand
+            >
+              <ion-select-option value=""></ion-select-option>
+              <ion-select-option value=">">></ion-select-option>
+              <ion-select-option value="===">=</ion-select-option>
+              <ion-select-option value="!==">!=</ion-select-option>
+              <ion-select-option value="<"><</ion-select-option>
+            </ion-select>
+            <ion-datetime-button [datetime]="'date-filter' + i">
+              <div slot="date-target">
+                <ng-container *ngIf="filter?.value; else noFilterDate">{{
+                  filter.value | date: "MM/dd/yy"
+                }}</ng-container>
+                <ng-template #noFilterDate>N/A</ng-template>
+              </div>
+            </ion-datetime-button>
+            <!-- Datetime popup -->
+            <ion-popover [keepContentsMounted]="true">
+              <ng-template>
+                <ion-datetime
+                  [id]="'date-filter' + i"
+                  presentation="date"
+                  showDefaultButtons
+                  showClearButton
+                  [value]="filter?.value"
+                  (ionChange)="onDateChange($event, null, i, dateOperand.value)"
+                ></ion-datetime>
+              </ng-template>
+            </ion-popover>
+          </ng-template>
+        </ng-container>
+        <!-- Text -->
+        <ng-container *ngSwitchCase="'text'">
+          <ion-label>{{ filter.label }}</ion-label>
+          <ng-container
+            *ngTemplateOutlet="textFilter; context: { filter: filter, i: i }"
+          ></ng-container>
+          <ng-template #textFilter let-filter="filter" let-i="i">
+            <ion-select
+              placeholder="Operand"
+              [value]="filter?.operand"
+              (ionChange)="
+                onTextChange(null, filter.value, i, textOperand.value)
+              "
+              #textOperand
+            >
+              <ion-select-option value=""></ion-select-option>
+              <ion-select-option value="===">=</ion-select-option>
+              <ion-select-option value="!==">!=</ion-select-option>
+              <ion-select-option value="contains">Contains</ion-select-option>
+              <ion-select-option value="!contains">
+                Not Contains
+              </ion-select-option>
+            </ion-select>
+            <ion-input
+              placeholder="Filter text"
+              autocapitalize="sentences"
+              clearInput
+              spellcheck
+              (ionChange)="onTextChange($event, null, i, textOperand.value)"
+              [value]="filter.value"
+            ></ion-input>
+          </ng-template>
+        </ng-container>
+      </ng-container>
+    </ion-item>
+  </ion-list>
+</ion-content>
