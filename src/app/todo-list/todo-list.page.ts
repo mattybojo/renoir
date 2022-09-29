@@ -47,9 +47,6 @@ export class TodoListPage implements OnDestroy, ViewWillEnter {
           text: 'Title',
           value: 'title'
         }, {
-          text: 'Body',
-          value: 'body'
-        }, {
           text: 'Date Created',
           value: 'dateCreated'
         }, {
@@ -67,7 +64,7 @@ export class TodoListPage implements OnDestroy, ViewWillEnter {
       property: 'title',
       type: 'text',
     }, {
-      label: 'Body',
+      label: 'Todo Notes',
       property: 'body',
       type: 'text'
     }, {
