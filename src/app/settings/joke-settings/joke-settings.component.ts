@@ -14,6 +14,7 @@ import { JokeBlacklistSettings, JokeCategoriesSettings, JokeSettings } from '../
 export class JokeSettingsComponent implements OnInit, OnDestroy {
 
   @Input() modal: Components.IonModal;
+
   title = 'Joke Settings';
   categories: JokeCategoriesSettings;
   blacklist: JokeBlacklistSettings;
