@@ -1,3 +1,4 @@
+import { isBeforeDate } from './../shared/date-helpers';
 import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { PickerOptions, ViewWillEnter } from '@ionic/angular';
@@ -23,6 +24,9 @@ export class TodoListPage implements OnDestroy, ViewWillEnter {
   sortSettings: SortSetting;
   pickerOptions: PickerOptions;
   filterSettings: FilterSetting[];
+  today: Date = new Date();
+
+  IsBeforeDate = isBeforeDate;
 
   private subs = new SubSink();
 

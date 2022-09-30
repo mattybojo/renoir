@@ -12,7 +12,11 @@
   ></ren-filter-sort>
   <ion-list>
     <ion-item-sliding *ngFor="let todoItem of filteredTodoItems">
-      <ion-item button (click)="updateItem(todoItem)">
+      <ion-item
+        button
+        (click)="updateItem(todoItem)"
+        [color]="IsBeforeDate(todoItem.dueDate.toDate(), today) ? 'danger' : ''"
+      >
         <ion-label>
           <span class="ion-float-left">
             <span
