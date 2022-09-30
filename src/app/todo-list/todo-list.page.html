@@ -17,7 +17,7 @@
       <ion-item
         button
         (click)="updateItem(todoItem)"
-        [color]="IsBeforeDate(todoItem.dueDate.toDate(), today) ? 'danger' : ''"
+        [color]="!!todoItem.dueDate ? IsBeforeDate(todoItem.dueDate?.toDate(), today) ? 'danger' : '' : ''"
       >
         <ion-label>
           <span class="ion-float-left">
