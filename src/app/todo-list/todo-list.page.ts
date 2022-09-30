@@ -32,6 +32,7 @@ export class TodoListPage implements OnDestroy, ViewWillEnter {
 
   constructor(private todoListService: TodoListService, private appService: AppService,
     private dataService: DataService, private router: Router) {
+
     this.headerActions = [{
       type: 'add',
       slot: 'start',

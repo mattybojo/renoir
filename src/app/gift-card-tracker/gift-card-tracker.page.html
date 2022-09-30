@@ -3,14 +3,16 @@
   (actionType)="actionHandler($event)"
 ></ren-header>
 <ion-content>
-  <ren-filter-sort
-    [sortSettings]="sortSettings"
-    [pickerOptions]="pickerOptions"
-    [filterSettings]="filterSettings"
-    [items]="giftCardList"
-    (exportedItems)="filteredGiftCardList=$event"
-  ></ren-filter-sort>
   <ion-list *ngIf="filteredGiftCardList?.length > 0; else noDataFound">
+    <ion-item>
+      <ren-filter-sort
+        [sortSettings]="sortSettings"
+        [pickerOptions]="pickerOptions"
+        [filterSettings]="filterSettings"
+        [items]="giftCardList"
+        (exportedItems)="filteredGiftCardList=$event"
+      ></ren-filter-sort>
+    </ion-item>
     <ion-item-sliding *ngFor="let giftCard of giftCardList">
       <ion-item button (click)="updateItem(giftCard)">
         <ion-label>
