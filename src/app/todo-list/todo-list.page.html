@@ -14,7 +14,20 @@
     <ion-item-sliding *ngFor="let todoItem of filteredTodoItems">
       <ion-item button (click)="updateItem(todoItem)">
         <ion-label>
-          <span class="ion-float-left"> {{ todoItem.title }} </span>
+          <span class="ion-float-left">
+            <span
+              *ngIf="!!todoItem.priority && !!todoItem.assignedTo; else priorityAssigned"
+            >
+              ({{ todoItem.assignedTo }}-{{ todoItem.priority }})
+            </span>
+            <ng-template #priorityAssigned>
+              <span *ngIf="!!todoItem.assignedTo"
+                >({{ todoItem.assignedTo }})</span
+              >
+              <span *ngIf="!!todoItem.priority">({{ todoItem.priority }})</span>
+            </ng-template>
+            {{ todoItem.title }}
+          </span>
           <span class="ion-float-right" *ngIf="todoItem.dueDate">
             {{ todoItem.dueDate.toDate() | date: 'MM/dd/yy' }}
           </span>

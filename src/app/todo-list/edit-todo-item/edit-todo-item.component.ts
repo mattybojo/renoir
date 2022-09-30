@@ -38,6 +38,7 @@ export class EditTodoItemComponent implements OnInit, OnDestroy {
       this.title = `Editing Item`;
     } else {
       this.title = 'Add New Item';
+      this.currentItem.priority = '1';
     }
 
     this.todoItemForm = new FormGroup({
@@ -46,6 +47,8 @@ export class EditTodoItemComponent implements OnInit, OnDestroy {
       body: new FormControl(this.currentItem?.body),
       dateCreated: new FormControl(this.currentItem.dateCreated),
       dateModified: new FormControl(this.currentItem.dateModified),
+      assignedTo: new FormControl(this.currentItem.assignedTo),
+      priority: new FormControl(this.currentItem.priority),
     });
 
     this.headerActions = [{

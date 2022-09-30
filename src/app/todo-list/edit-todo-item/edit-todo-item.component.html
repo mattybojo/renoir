@@ -18,12 +18,41 @@
         <ion-label class="ion-float-left">Due Date: </ion-label>
         <ion-datetime-button id="datetime-btn" datetime="datetime">
           <div slot="date-target">
-            <ng-container *ngIf="dueDate">{{
-              dueDate.toDate() | date: "MM/dd/yy"
+            <ng-container *ngIf="currentItem?.dueDate">{{
+              currentItem.dueDate.toDate() | date: "MM/dd/yy"
             }}</ng-container>
-            <ng-container *ngIf="!dueDate">N/A</ng-container>
+            <ng-container *ngIf="!currentItem.dueDate">N/A</ng-container>
           </div>
         </ion-datetime-button>
+      </ion-item>
+      <ion-item>
+        <ion-label class="ion-float-left">Assigned to:</ion-label>
+        <ion-select
+          class="ion-float-right"
+          placeholder="Assigned To?"
+          formControlName="assignedTo"
+          [(ngModel)]="currentItem.assignedTo"
+        >
+          <ion-select-option value=""></ion-select-option>
+          <ion-select-option value="C">C</ion-select-option>
+          <ion-select-option value="M">M</ion-select-option>
+          <ion-select-option value="C+M">C+M</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <!-- Priority -->
+      <ion-item>
+        <ion-label class="ion-float-left">Priority:</ion-label>
+        <ion-select
+          class="ion-float-right"
+          placeholder="Priority"
+          formControlName="priority"
+          [(ngModel)]="currentItem.priority"
+        >
+          <ion-select-option value=""></ion-select-option>
+          <ion-select-option value="1">1</ion-select-option>
+          <ion-select-option value="2">2</ion-select-option>
+          <ion-select-option value="3">3</ion-select-option>
+        </ion-select>
       </ion-item>
       <ion-item [class.invalid]="todoItemForm.controls.body?.invalid">
         <ion-textarea

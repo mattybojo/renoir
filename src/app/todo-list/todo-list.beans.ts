@@ -8,4 +8,6 @@ export interface TodoItem extends FirestoreId {
   dateCreated: firestore.Timestamp;
   dateModified: firestore.Timestamp;
   dueDate: firestore.Timestamp;
+  assignedTo?: string;
+  priority?: string; // TODO: Default priority = 1 (high priority)
 }

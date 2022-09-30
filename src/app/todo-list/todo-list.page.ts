@@ -55,6 +55,12 @@ export class TodoListPage implements OnDestroy, ViewWillEnter {
         }, {
           text: 'Due Date',
           value: 'dueDate'
+        }, {
+          text: 'Assigned To',
+          value: 'assignedTo'
+        }, {
+          text: 'Priority',
+          value: 'priority'
         }]
       }]
     };
@@ -79,6 +85,14 @@ export class TodoListPage implements OnDestroy, ViewWillEnter {
       label: 'Due Date',
       property: 'dueDate',
       type: 'date'
+    }, {
+      label: 'Assigned To',
+      property: 'assignedTo',
+      type: 'text'
+    }, {
+      label: 'Priority',
+      property: 'priority',
+      type: 'text'
     }];
   }
 
