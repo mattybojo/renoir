@@ -92,7 +92,7 @@
               placeholder="Filter text"
               autocapitalize="sentences"
               clearInput
-              spellcheck
+              autocorrect="on"
               (ionChange)="onTextChange($event, null, i, textOperand.value)"
               [value]="filter.value"
             ></ion-input>
