@@ -93,7 +93,7 @@ export class ShoppingListPage implements OnDestroy, ViewWillEnter {
   loadShoppingListData(): void {
     this.appService.presentLoadingModal();
     this.subs.sink = this.shoppingListService.getShoppingList().subscribe((list: ShoppingListItem[]) => {
-      this.shoppingList = list;
+      this.shoppingList = this.filteredShoppingList = list;
       this.appService.dismissLoadingModal();
     }, (err) => {
       this.appService.dismissLoadingModal();
