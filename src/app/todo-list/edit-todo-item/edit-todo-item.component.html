@@ -18,10 +18,10 @@
         <ion-label class="ion-float-left">Due Date: </ion-label>
         <ion-datetime-button id="datetime-btn" datetime="datetime">
           <div slot="date-target">
-            <ng-container *ngIf="currentItem?.dueDate">{{
-              currentItem.dueDate.toDate() | date: "MM/dd/yy"
+            <ng-container *ngIf="!!dueDate; else noDateSelected">{{
+              dueDate.toDate() | date: "MM/dd/yy"
             }}</ng-container>
-            <ng-container *ngIf="!currentItem.dueDate">N/A</ng-container>
+            <ng-template #noDateSelected>N/A</ng-template>
           </div>
         </ion-datetime-button>
       </ion-item>
