@@ -6,11 +6,11 @@
   <div class="item-container">
     <ion-text class="padding-left">Item #1</ion-text>
     <ion-text>
-      <span class="ion-float-right padding-right" [ngClass]="priceClass1">
+      <span class="float-right padding-right" [ngClass]="priceClass1">
         {{ priceItem1 | currency: 'USD' }}
       </span>
     </ion-text>
-    <div class="d-flex item-inputs">
+    <div class="flex flex-row mt-2.5">
       <ion-input
         clearInput
         type="number"
@@ -35,11 +35,11 @@
   <div class="item-container">
     <ion-text class="padding-left">Item #2</ion-text>
     <ion-text>
-      <span class="ion-float-right padding-right" [ngClass]="priceClass2">
+      <span class="float-right padding-right" [ngClass]="priceClass2">
         {{ priceItem2 | currency: 'USD' }}
       </span>
     </ion-text>
-    <div class="d-flex item-inputs">
+    <div class="flex flex-row mt-2.5">
       <ion-input
         clearInput
         type="number"

@@ -15,7 +15,7 @@
         ></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label class="ion-float-left">Due Date: </ion-label>
+        <ion-label class="float-left">Due Date: </ion-label>
         <ion-datetime-button id="datetime-btn" datetime="datetime">
           <div slot="date-target">
             <ng-container *ngIf="!!dueDate; else noDateSelected">{{
@@ -26,9 +26,9 @@
         </ion-datetime-button>
       </ion-item>
       <ion-item>
-        <ion-label class="ion-float-left">Assigned to:</ion-label>
+        <ion-label class="float-left">Assigned to:</ion-label>
         <ion-select
-          class="ion-float-right"
+          class="float-right"
           placeholder="Assigned To?"
           formControlName="assignedTo"
           [(ngModel)]="currentItem.assignedTo"
@@ -41,9 +41,9 @@
       </ion-item>
       <!-- Priority -->
       <ion-item>
-        <ion-label class="ion-float-left">Priority:</ion-label>
+        <ion-label class="float-left">Priority:</ion-label>
         <ion-select
-          class="ion-float-right"
+          class="float-right"
           placeholder="Priority"
           formControlName="priority"
           [(ngModel)]="currentItem.priority"

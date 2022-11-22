@@ -16,11 +16,11 @@
     <ion-item-sliding *ngFor="let giftCard of giftCardList">
       <ion-item button (click)="updateItem(giftCard)">
         <ion-label>
-          <span class="ion-float-left">
+          <span class="float-left">
             {{ giftCard.storeName }} ({{ giftCard.last4 | number: '4.0-0' |
             noComma }})
           </span>
-          <span class="ion-float-right">
+          <span class="float-right">
             {{ giftCard.amount | currency: 'USD' }}
           </span>
         </ion-label>
@@ -42,11 +42,9 @@
     </ion-item-sliding>
   </ion-list>
   <ng-template #noDataFound>
-    <ion-grid class="h-100">
-      <ion-row class="ion-justify-content-center ion-align-items-center h-100">
-        <ion-item class="ion-align-self-center">
-          The gift card list is empty.
-        </ion-item>
+    <ion-grid class="h-full">
+      <ion-row class="justify-center items-center h-full">
+        <ion-item class="self-center"> The gift card list is empty. </ion-item>
       </ion-row>
     </ion-grid>
   </ng-template>

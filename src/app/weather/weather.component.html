@@ -3,19 +3,19 @@
   (actionType)="actionHandler($event)"
 ></ren-header>
 <ion-content>
-  <ion-text class="ion-text-center">
-    <h5 class="title-text">Weather for {{ weather.name }}</h5>
-    <h6 class="subtitle-text">
+  <ion-text class="text-center">
+    <h5 class="mb-0">Weather for {{ weather.name }}</h5>
+    <h6 class="mt-0 mb-5">
       Lo: {{ weather.main.temp_min | number: "1.0-0" }}&#8457;, Hi:
       {{ weather.main.temp_max | number: "1.0-0" }}&#8457;
     </h6>
   </ion-text>
   <ion-grid>
     <ion-row>
-      <ion-col class="d-flex">
+      <ion-col class="flex">
         <ion-img [src]="weatherIconUrl"></ion-img>
-        <ion-text class="ion-align-items-center">
-          <p class="spacer">
+        <ion-text class="items-center">
+          <p class="mb-1">
             {{ weather.main.temp | number: "1.0-0" }}&#8457;,
             {{ weather.weather[0].main }}
           </p>
@@ -24,21 +24,21 @@
           </p>
         </ion-text>
       </ion-col>
-      <ion-col class="d-flex">
+      <ion-col class="flex">
         <div class="weather-icon">
-          <fa-icon icon="cloud" class="fa-xl"></fa-icon>
+          <fa-icon icon="cloud" class="text-2xl"></fa-icon>
         </div>
-        <ion-text class="ion-align-items-center d-flex">
+        <ion-text class="items-center flex">
           <p>Cloudiness: {{ weather.clouds.all }}%</p>
         </ion-text></ion-col
       >
     </ion-row>
     <ion-row>
-      <ion-col class="d-flex">
+      <ion-col class="flex">
         <div class="weather-icon">
-          <fa-icon icon="wind" class="fa-xl"></fa-icon>
+          <fa-icon icon="wind" class="text-2xl"></fa-icon>
         </div>
-        <ion-text class="d-flex ion-align-items-center">
+        <ion-text class="flex items-center">
           <p>
             {{ weather.wind.speed | number: "1.0-0" }} mph {{ windDirection }}
           </p>
@@ -46,48 +46,46 @@
       </ion-col>
       <ion-col>
         <div class="weather-icon">
-          <fa-icon icon="smog" class="fa-xl"></fa-icon>
+          <fa-icon icon="smog" class="text-2xl"></fa-icon>
         </div>
-        <ion-text class="d-flex ion-align-items-center">
+        <ion-text class="flex items-center">
           <p>Humidity: {{ weather.main.humidity | number: "1.0-0" }}%</p>
         </ion-text>
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col class="d-flex">
+      <ion-col class="flex">
         <div class="weather-icon">
-          <fa-icon icon="gauge-simple-high" class="fa-xl"></fa-icon>
+          <fa-icon icon="gauge-simple-high" class="text-2xl"></fa-icon>
         </div>
-        <ion-text class="ion-align-items-center">
-          <p class="spacer">
-            {{ weather.main.pressure | number: "1.0-0" }} hPa
-          </p>
+        <ion-text class="items-center">
+          <p class="mb-1">{{ weather.main.pressure | number: "1.0-0" }} hPa</p>
           <p>{{ mmHg | number: "1.2-2" }} mmHg</p>
         </ion-text>
       </ion-col>
       <ion-col>
         <div class="weather-icon">
-          <fa-icon icon="eye" class="fa-xl"></fa-icon>
+          <fa-icon icon="eye" class="text-2xl"></fa-icon>
         </div>
-        <ion-text class="d-flex ion-align-items-center">
+        <ion-text class="flex items-center">
           <p>Visibility: {{ visibility | number: "1.2-2" }} miles</p>
         </ion-text>
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col class="d-flex">
+      <ion-col class="flex">
         <div class="weather-icon">
-          <fa-icon icon="sun" class="fa-xl"></fa-icon>
+          <fa-icon icon="sun" class="text-2xl"></fa-icon>
         </div>
-        <ion-text class="d-flex ion-align-items-center">
+        <ion-text class="flex items-center">
           <p>Sunrise: {{ sunriseTime | date: "shortTime" }}</p>
         </ion-text>
       </ion-col>
       <ion-col>
         <div class="weather-icon">
-          <fa-icon icon="moon" class="fa-xl"></fa-icon>
+          <fa-icon icon="moon" class="text-2xl"></fa-icon>
         </div>
-        <ion-text class="d-flex ion-align-items-center">
+        <ion-text class="flex items-center">
           <p>Sunset: {{ sunsetTime | date: "shortTime" }}</p>
         </ion-text>
       </ion-col>

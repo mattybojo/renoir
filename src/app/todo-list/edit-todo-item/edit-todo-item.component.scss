@@ -1,0 +1,3 @@
+.item.invalid:not(.input-has-focus):not(.item-input-has-focus) {
+  color: var(--ion-color-danger);
+}

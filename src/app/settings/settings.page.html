@@ -1,18 +1,18 @@
-<ion-header class="header-margin">
+<ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button (click)="modal.dismiss()">
         <ion-icon name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title class="ion-text-center">{{ title }}</ion-title>
+    <ion-title class="text-center">{{ title }}</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content class="settings-content">
-  <ion-card class="user-card" (click)="openModal('auth')">
+  <ion-card class="mx-0 mt-0 mb-2.5" (click)="openModal('auth')">
     <ion-card-header>
-      <div class="d-flex">
-        <ion-img class="user-avatar" src="assets/img/user.jpg"></ion-img>
+      <div class="flex">
+        <ion-img class="user-avatar mr-2.5" src="assets/img/user.jpg"></ion-img>
         <div>
           <ion-card-subtitle>Email</ion-card-subtitle>
           <ion-card-title>Name</ion-card-title>
@@ -25,7 +25,7 @@
       <ion-label>Widget Settings</ion-label>
     </ion-item>
     <ion-item button>
-      <ion-icon name="happy-outline"></ion-icon>
+      <ion-icon name="happy-outline" class="mr-2.5"></ion-icon>
       <ion-label (click)="openModal('joke')">Joke Settings</ion-label>
     </ion-item>
   </ion-list>

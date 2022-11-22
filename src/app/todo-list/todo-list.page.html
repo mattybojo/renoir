@@ -20,7 +20,7 @@
         [color]="!!todoItem.dueDate ? IsBeforeDate(todoItem.dueDate?.toDate(), today) ? 'danger' : '' : ''"
       >
         <ion-label>
-          <span class="ion-float-left">
+          <span class="float-left">
             <span
               *ngIf="!!todoItem.priority && !!todoItem.assignedTo; else priorityAssigned"
             >
@@ -34,7 +34,7 @@
             </ng-template>
             {{ todoItem.title }}
           </span>
-          <span class="ion-float-right" *ngIf="todoItem.dueDate">
+          <span class="float-right" *ngIf="todoItem.dueDate">
             {{ todoItem.dueDate.toDate() | date: 'MM/dd/yy' }}
           </span>
         </ion-label>
