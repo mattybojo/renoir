@@ -1,19 +1,18 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-
-import { EditTodoItemComponent } from './edit-todo-item.component';
+import { TodoListItemFormComponent } from './todo-list-item-form.component';
 
 describe('EditTodoItemComponent', () => {
-  let component: EditTodoItemComponent;
-  let fixture: ComponentFixture<EditTodoItemComponent>;
+  let component: TodoListItemFormComponent;
+  let fixture: ComponentFixture<TodoListItemFormComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ EditTodoItemComponent ],
+      declarations: [TodoListItemFormComponent],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(EditTodoItemComponent);
+    fixture = TestBed.createComponent(TodoListItemFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { EditTodoItemComponent } from './edit-todo-item/edit-todo-item.component';
-
+import { RouterModule, Routes } from '@angular/router';
+import { TodoListItemFormComponent } from './todo-list-item-form/todo-list-item-form.component';
 import { TodoListPage } from './todo-list.page';
 
 const routes: Routes = [
@@ -11,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'edit',
-    component: EditTodoItemComponent,
+    component: TodoListItemFormComponent,
 
   }
 ];

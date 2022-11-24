@@ -4,16 +4,16 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AppService } from 'src/app/app.service';
 import { HeaderAction } from 'src/app/header/header.beans';
 import { SubSink } from 'subsink';
-import { DataService } from './../../shared/data.service';
-import { TodoItem } from './../todo-list.beans';
-import { TodoListService } from './../todo-list.service';
+import { DataService } from '../../shared/data.service';
+import { TodoItem } from '../todo-list.beans';
+import { TodoListService } from '../todo-list.service';
 
 @Component({
-  selector: 'ren-edit-todo-item',
-  templateUrl: './edit-todo-item.component.html',
-  styleUrls: ['./edit-todo-item.component.scss'],
+  selector: 'ren-todo-list-item-form',
+  templateUrl: './todo-list-item-form.component.html',
+  styleUrls: ['./todo-list-item-form.component.scss'],
 })
-export class EditTodoItemComponent implements OnInit, OnDestroy {
+export class TodoListItemFormComponent implements OnInit, OnDestroy {
 
   todoItem: TodoItem;
   headerActions: HeaderAction[];
