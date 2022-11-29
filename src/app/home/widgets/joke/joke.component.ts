@@ -17,6 +17,7 @@ export class JokeComponent implements OnInit, OnDestroy {
 
   joke: Joke;
   jokeSettings: JokeSettings;
+  isLoading = false;
 
   private subs = new SubSink();
 
@@ -48,12 +49,12 @@ export class JokeComponent implements OnInit, OnDestroy {
   }
 
   getNewJoke() {
-    this.appService.presentLoadingModal();
+    this.isLoading = true;
     this.subs.sink = this.widgetsService.getJoke(this.jokeSettings).subscribe((joke: Joke) => {
       this.joke = joke;
-      this.appService.dismissLoadingModal();
+      this.isLoading = false;
     }, (err) => {
-      this.appService.dismissLoadingModal();
+      this.isLoading = false;
       this.appService.presentToast({ color: 'danger', message: 'Error retrieving joke.', duration: 1000 });
     });
   }

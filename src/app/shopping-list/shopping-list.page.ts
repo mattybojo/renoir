@@ -20,6 +20,7 @@ export class ShoppingListPage implements OnDestroy, ViewWillEnter {
 
   shoppingList: ShoppingListItem[] = [];
   filteredShoppingList: ShoppingListItem[] = [];
+  isLoading = false;
 
   sortSettings: SortSetting;
   pickerOptions: PickerOptions;
@@ -91,12 +92,12 @@ export class ShoppingListPage implements OnDestroy, ViewWillEnter {
   }
 
   loadShoppingListData(): void {
-    this.appService.presentLoadingModal();
+    this.isLoading = true;
     this.subs.sink = this.shoppingListService.getShoppingList().subscribe((list: ShoppingListItem[]) => {
       this.shoppingList = this.filteredShoppingList = list;
-      this.appService.dismissLoadingModal();
+      this.isLoading = false;
     }, (err) => {
-      this.appService.dismissLoadingModal();
+      this.isLoading = false;
       this.appService.presentToast({ color: 'danger', message: 'Unable to retrieve shopping list!', duration: 1000 });
     });
   }

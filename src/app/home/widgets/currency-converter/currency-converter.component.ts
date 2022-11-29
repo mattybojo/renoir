@@ -18,7 +18,7 @@ export class CurrencyConverterComponent implements OnDestroy {
   currencyOpts: Currency[];
   rateData: RateData;
 
-  private subs: SubSink;
+  private subs: SubSink = new SubSink();
 
   constructor(private widgetsService: WidgetsService, private appService: AppService) {
     this.currencyOpts = this.widgetsService.getCurrencies();

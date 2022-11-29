@@ -19,6 +19,7 @@ export class GiftCardTrackerPage implements OnDestroy, ViewWillEnter {
   headerActions: HeaderAction[];
   giftCardList: GiftCard[] = [];
   filteredGiftCardList: GiftCard[];
+  isLoading = false;
 
   sortSettings: SortSetting;
   pickerOptions: PickerOptions;
@@ -89,13 +90,13 @@ export class GiftCardTrackerPage implements OnDestroy, ViewWillEnter {
   }
 
   loadGiftCardData(): void {
-    this.appService.presentLoadingModal();
+    this.isLoading = true;
     this.subs.sink = this.giftCardTrackerService.getGiftCards().subscribe((list: GiftCard[]) => {
       this.giftCardList = this.filteredGiftCardList = list;
       this.setHeaderActions();
-      this.appService.dismissLoadingModal();
+      this.isLoading = false;
     }, (err) => {
-      this.appService.dismissLoadingModal();
+      this.isLoading = false;
       this.appService.presentToast({ color: 'danger', message: 'Unable to retrieve gift cards!', duration: 1000 });
     });
   }

@@ -14,9 +14,25 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ng-container *ngIf="!isLoading">
+  <ng-container *ngIf="isLoading; else loadingComplete">
+    <ion-item class="h-[40px]">
+      <ion-skeleton-text
+        [animated]="true"
+        class="text-[22px] w-40 bg-step50"
+      ></ion-skeleton-text>
+    </ion-item>
+    <ion-item *ngFor="let _ of [].constructor(3)">
+      <ion-skeleton-text
+        [animated]="true"
+        class="w-52 bg-step50"
+      ></ion-skeleton-text>
+    </ion-item>
+  </ng-container>
+  <ng-template #loadingComplete>
     <ion-list>
-      <ion-list-header class="items-center">Joke Categories</ion-list-header>
+      <ion-list-header class="items-center"
+        ><span>Joke Categories</span></ion-list-header
+      >
       <ion-item>
         <ion-label>Any</ion-label>
         <ion-toggle
@@ -116,5 +132,5 @@
         ></ion-toggle>
       </ion-item>
     </ion-list>
-  </ng-container>
+  </ng-template>
 </ion-content>

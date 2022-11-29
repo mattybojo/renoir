@@ -18,7 +18,7 @@ export class JokeSettingsComponent implements OnInit, OnDestroy {
   title = 'Joke Settings';
   categories: JokeCategoriesSettings;
   blacklist: JokeBlacklistSettings;
-  isLoading = true;
+  isLoading = false;
   isFormValid = true;
 
   private subs = new SubSink();
@@ -26,7 +26,7 @@ export class JokeSettingsComponent implements OnInit, OnDestroy {
   constructor(private storageService: StorageService, private appService: AppService) { }
 
   ngOnInit() {
-    this.appService.presentLoadingModal();
+    this.isLoading = true;
     this.subs.sink = this.storageService.getData('jokeSettings').subscribe((data: GetResult) => {
       if (!data.value) {
         this.categories = new JokeCategoriesSettings();
@@ -54,14 +54,11 @@ export class JokeSettingsComponent implements OnInit, OnDestroy {
         });
         this.blacklist = blacklistSettings;
       }
-
       this.isLoading = false;
-      this.appService.dismissLoadingModal();
     }, (err) => {
-      const categories = new JokeCategoriesSettings();
       this.blacklist = new JokeBlacklistSettings();
       this.categories = new JokeCategoriesSettings();
-      this.appService.dismissLoadingModal();
+      this.isLoading = false;
     });
   }
 

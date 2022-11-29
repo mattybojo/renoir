@@ -7,9 +7,25 @@
     >
   </ion-item>
   <ion-card-content>
-    <div *ngIf="joke">
-      <p>{{ joke.joke || joke.setup }}</p>
-      <p *ngIf="joke.delivery">{{ joke.delivery }}</p>
-    </div>
+    <ng-container *ngIf="isLoading; else jokeLoaded">
+      <ion-skeleton-text
+        [animated]="true"
+        class="w-52 bg-step100"
+      ></ion-skeleton-text>
+      <ion-skeleton-text
+        [animated]="true"
+        class="w-44 bg-step100"
+      ></ion-skeleton-text>
+      <ion-skeleton-text
+        [animated]="true"
+        class="w-36 bg-step100"
+      ></ion-skeleton-text>
+    </ng-container>
+    <ng-template #jokeLoaded>
+      <ng-container *ngIf="!!joke">
+        <p>{{ joke.joke || joke.setup }}</p>
+        <p *ngIf="joke.delivery">{{ joke.delivery }}</p>
+      </ng-container>
+    </ng-template>
   </ion-card-content>
 </ion-card>

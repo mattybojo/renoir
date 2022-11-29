@@ -20,6 +20,7 @@ export class TodoListPage implements OnDestroy, ViewWillEnter {
   headerActions: HeaderAction[];
   todoItems: TodoItem[];
   filteredTodoItems: TodoItem[];
+  isLoading = false;
 
   sortSettings: SortSetting;
   pickerOptions: PickerOptions;
@@ -106,8 +107,10 @@ export class TodoListPage implements OnDestroy, ViewWillEnter {
   }
 
   loadTodoListItems(): void {
+    this.isLoading = true;
     this.subs.sink = this.todoListService.getTodoItems().subscribe((todoItems: TodoItem[]) => {
       this.todoItems = this.filteredTodoItems = todoItems;
+      this.isLoading = false;
     });
   }
 

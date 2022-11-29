@@ -43,7 +43,6 @@ export class WeatherComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.appService.presentLoadingModal();
     this.subs.sink = this.weatherService.getWeatherObs().subscribe((weather: Weather) => {
       this.weather = weather;
       this.weatherIconUrl = `http://openweathermap.org/img/wn/${weather.weather[0].icon}.png`;
@@ -52,9 +51,7 @@ export class WeatherComponent implements OnInit, OnDestroy {
       this.mmHg = weather.main.pressure / this.MMHG_TO_HPA_CONVERSION;
       this.sunriseTime = new Date(weather.sys.sunrise * 1000);
       this.sunsetTime = new Date(weather.sys.sunset * 1000);
-      this.appService.dismissLoadingModal();
     }, (err) => {
-      this.appService.dismissLoadingModal();
       this.appService.presentToast({ color: 'danger', message: 'Error retrieving weather data.', duration: 1000 });
     });
   }
