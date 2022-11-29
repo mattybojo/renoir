@@ -15,52 +15,57 @@
         ></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label class="float-left">Due Date: </ion-label>
-        <ion-datetime-button id="datetime-btn" datetime="datetime">
-          <div slot="date-target">
-            <ng-container *ngIf="!!dueDate; else noDateSelected">{{
-              dueDate.toDate() | date: "MM/dd/yy"
-            }}</ng-container>
-            <ng-template #noDateSelected>N/A</ng-template>
-          </div>
-        </ion-datetime-button>
+        <ion-grid class="p-0">
+          <ion-row>
+            <ion-col class="flex justify-center content-center">
+              <ion-datetime-button id="datetime-btn" datetime="datetime">
+                <div slot="date-target">
+                  <ng-container *ngIf="!!dueDate; else noDateSelected">{{
+                    dueDate.toDate() | date: "MM/dd/yy"
+                  }}</ng-container>
+                  <ng-template #noDateSelected>N/A</ng-template>
+                </div>
+              </ion-datetime-button>
+            </ion-col>
+            <ion-col>
+              <ion-select
+                placeholder="Assignee"
+                formControlName="assignedTo"
+                [(ngModel)]="currentItem.assignedTo"
+                class="max-w-full"
+              >
+                <ion-select-option value=""></ion-select-option>
+                <ion-select-option value="C">C</ion-select-option>
+                <ion-select-option value="M">M</ion-select-option>
+                <ion-select-option value="C+M">C+M</ion-select-option>
+              </ion-select>
+            </ion-col>
+            <ion-col>
+              <ion-select
+                placeholder="Priority"
+                formControlName="priority"
+                [(ngModel)]="currentItem.priority"
+                class="max-w-full"
+              >
+                <ion-select-option value=""></ion-select-option>
+                <ion-select-option value="1">1</ion-select-option>
+                <ion-select-option value="2">2</ion-select-option>
+                <ion-select-option value="3">3</ion-select-option>
+              </ion-select>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-item>
-      <ion-item>
-        <ion-label class="float-left">Assigned to:</ion-label>
-        <ion-select
-          class="float-right"
-          placeholder="Assigned To?"
-          formControlName="assignedTo"
-          [(ngModel)]="currentItem.assignedTo"
-        >
-          <ion-select-option value=""></ion-select-option>
-          <ion-select-option value="C">C</ion-select-option>
-          <ion-select-option value="M">M</ion-select-option>
-          <ion-select-option value="C+M">C+M</ion-select-option>
-        </ion-select>
-      </ion-item>
-      <!-- Priority -->
-      <ion-item>
-        <ion-label class="float-left">Priority:</ion-label>
-        <ion-select
-          class="float-right"
-          placeholder="Priority"
-          formControlName="priority"
-          [(ngModel)]="currentItem.priority"
-        >
-          <ion-select-option value=""></ion-select-option>
-          <ion-select-option value="1">1</ion-select-option>
-          <ion-select-option value="2">2</ion-select-option>
-          <ion-select-option value="3">3</ion-select-option>
-        </ion-select>
-      </ion-item>
-      <ion-item [class.invalid]="todoItemForm.controls.body?.invalid">
+      <ion-item
+        [class.invalid]="todoItemForm.controls.body?.invalid"
+        lines="none"
+      >
         <ion-textarea
           formControlName="body"
           placeholder="Note content here"
-          rows="35"
           autocapitalize="sentences"
           spellcheck
+          [rows]="numTextAreaRows"
         ></ion-textarea>
       </ion-item>
     </ion-list>
