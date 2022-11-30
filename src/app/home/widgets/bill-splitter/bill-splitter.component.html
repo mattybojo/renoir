@@ -70,24 +70,34 @@
           </ion-segment>
         </ion-col>
       </ion-row>
-      <ion-row>
-        <ion-col size="3">
+      <ion-row class="h-[52.4px]">
+        <ion-col size="3" class="self-center">
           <ion-text>
             <p>Total</p>
           </ion-text>
         </ion-col>
-        <ion-col>
+        <ion-col size="auto">
           <!-- Total label -->
-          <ion-label
-            >{{ total | currency: "USD" }}
-            <span *ngIf="tipAmount">
-              <span *ngIf="tipType === '%'"
-                >(Tip: {{ tipAmount | currency: "USD" }})</span
-              >
-              <span *ngIf="tipType === '$'"
-                >(Tip: {{ tipAmount | number: "1.0-0" }}%)</span
-              >
-            </span></ion-label
+          <ion-label>
+            <div class="pb-0 flex items-center h-full" *ngIf="tipAmount">
+              {{ total | currency: "USD" }}&nbsp;
+              <div class="pb-0 inline-block" *ngIf="tipType === '%'">
+                (Tip: {{ tipAmount | currency: "USD" }})
+              </div>
+              <div class="pb-0 inline-block" *ngIf="tipType === '$'">
+                (Tip: {{ tipAmount | number: "1.0-0" }}%)
+              </div>
+            </div>
+          </ion-label>
+        </ion-col>
+        <ion-col class="self-center">
+          <ion-button
+            color="primary"
+            size="small"
+            class="float-right"
+            *ngIf="tipAmount"
+            (click)="roundupTotal()"
+            >Round</ion-button
           >
         </ion-col>
       </ion-row>

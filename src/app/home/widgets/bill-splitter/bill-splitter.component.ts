@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { formatNumber } from '@angular/common';
+import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
 
 @Component({
   selector: 'ren-bill-splitter',
@@ -16,7 +17,7 @@ export class BillSplitterComponent implements OnInit {
   numPeople: number;
   costPerPerson: number;
 
-  constructor() { }
+  constructor(@Inject(LOCALE_ID) private locale: string) { }
 
   ngOnInit() { }
 
@@ -47,6 +48,12 @@ export class BillSplitterComponent implements OnInit {
     if (this.total && this.numPeople) {
       this.costPerPerson = this.total / this.numPeople;
     }
+  }
+
+  roundupTotal(): void {
+    this.total = Math.ceil(this.total);
+    this.tipAmount = this.total - this.subtotal - this.tax;
+    this.tip = +formatNumber(this.tipAmount / this.subtotal * 100, this.locale, '1.2-2');
   }
 
   reset(): void {
