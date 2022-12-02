@@ -5,8 +5,9 @@
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "ionic serve --no-open",
+    "build": "ionic cap copy ios",
+    "open": "ionic cap open ios",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
