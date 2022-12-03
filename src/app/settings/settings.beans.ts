@@ -14,7 +14,7 @@ export class JokeCategoriesSettings {
 
   constructor() { }
 
-  printCategories(): string {
+  getSettings(): string {
     let str = '';
     if (this.AnyJoke) {
       str += 'Any,';
@@ -51,7 +51,11 @@ export class JokeBlacklistSettings {
 
   constructor() { }
 
-  printBlacklist(): string {
+  getOptions(): string {
+    return 'nsfw,religious,political,racist,sexist,explicit';
+  }
+
+  getSettings(): string {
     let str = '';
     if (this.nsfw) {
       str += 'nsfw,';

@@ -32,8 +32,8 @@ export class JokeComponent implements OnInit, OnDestroy {
         const blacklist = new JokeBlacklistSettings();
         const categories = new JokeCategoriesSettings();
         this.jokeSettings = {
-          blacklist: blacklist.printBlacklist(),
-          categories: categories.printCategories()
+          blacklist: blacklist.getSettings(),
+          categories: categories.getSettings()
         };
       }
       this.getNewJoke();
@@ -41,8 +41,8 @@ export class JokeComponent implements OnInit, OnDestroy {
       const blacklist = new JokeBlacklistSettings();
       const categories = new JokeCategoriesSettings();
       this.jokeSettings = {
-        blacklist: blacklist.printBlacklist(),
-        categories: categories.printCategories()
+        blacklist: blacklist.getSettings(),
+        categories: categories.getSettings()
       };
       this.appService.dismissLoadingModal();
     });

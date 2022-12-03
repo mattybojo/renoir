@@ -45,12 +45,16 @@ export class JokeSettingsComponent implements OnInit, OnDestroy {
         });
         this.categories = categorySettings;
 
-        // Load blacklist settings and default all to false
+        // Load blacklist settings and default all to true
         const blacklistSettings = new JokeBlacklistSettings();
 
+        // Get the differences between the blacklist settings and the available options
+        const blacklist = jokeSettings.blacklist;
+        const blacklistOptions = blacklistSettings.getOptions().split(',');
+
         // Set blacklist options
-        jokeSettings.blacklist?.split(',').forEach((setting: string) => {
-          blacklistSettings[setting] = true;
+        blacklistOptions.filter((opt: string) => !blacklist.includes(opt)).forEach((setting: string) => {
+          blacklistSettings[setting] = false;
         });
         this.blacklist = blacklistSettings;
       }
@@ -76,7 +80,7 @@ export class JokeSettingsComponent implements OnInit, OnDestroy {
       });
 
     let blacklist = '';
-    const filteredList = Object.keys(this.blacklist).filter((key: string) => !this.categories[key]);
+    const filteredList = Object.keys(this.blacklist).filter((key: string) => this.blacklist[key]);
     if (filteredList.length) {
       blacklist = filteredList.join(',');
     }
@@ -88,8 +92,8 @@ export class JokeSettingsComponent implements OnInit, OnDestroy {
 
     this.appService.presentLoadingModalSave();
     this.subs.sink = this.storageService.setData('jokeSettings', JSON.stringify(jokeSettings)).subscribe(() => {
-      this.modal.dismiss();
       this.appService.dismissLoadingModal();
+      this.modal.dismiss();
       this.appService.presentToast({
         color: 'success', message: 'Settings saved!', duration: 1000
       });
