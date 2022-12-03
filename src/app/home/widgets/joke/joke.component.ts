@@ -1,6 +1,6 @@
 import { JokeBlacklistSettings, JokeCategoriesSettings } from './../../../settings/settings.beans';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { GetResult } from '@capacitor/storage';
+import { GetResult } from '@capacitor/preferences';
 import { AppService } from 'src/app/app.service';
 import { JokeSettings } from 'src/app/settings/settings.beans';
 import { StorageService } from 'src/app/shared/storage.service';

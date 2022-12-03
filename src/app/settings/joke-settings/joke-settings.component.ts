@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { GetResult } from '@capacitor/storage';
+import { GetResult } from '@capacitor/preferences';
 import { Components } from '@ionic/core';
 import { AppService } from 'src/app/app.service';
 import { StorageService } from 'src/app/shared/storage.service';

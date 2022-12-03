@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { GetResult, Storage } from '@capacitor/storage';
+import { GetResult, Preferences } from '@capacitor/preferences';
 import { from, Observable } from 'rxjs';
 
 @Injectable({
@@ -10,17 +10,17 @@ export class StorageService {
   constructor() { }
 
   setData(key: string, value: string): Observable<void> {
-    return from(Storage.set({
+    return from(Preferences.set({
       key,
       value,
     }));
   };
 
   getData(key: string): Observable<GetResult> {
-    return from(Storage.get({ key }));
+    return from(Preferences.get({ key }));
   };
 
   removeData(key: string): Observable<void> {
-    return from(Storage.remove({ key }));
+    return from(Preferences.remove({ key }));
   };
 }
