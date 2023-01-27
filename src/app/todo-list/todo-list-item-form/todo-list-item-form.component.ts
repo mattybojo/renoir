@@ -29,8 +29,8 @@ export class TodoListItemFormComponent implements OnInit, OnDestroy {
   constructor(private todoListService: TodoListService, private appService: AppService,
     private dataService: DataService, private platform: Platform) {
     // Make sure textarea at bottom of page fills page and does not overflow
-    platform.ready().then(() => {
-      // Header: 20px; Rows: 44px, 51px; Footer: 50px; Row padding: 20px
+    this.platform.ready().then(() => {
+      // Header: 44px; Rows: 44px, 51px; Footer: 50px; Row padding: 20px
       this.numTextAreaRows = (platform.height() - (50 + 44 + 51 + 50 + 20)) / 20;
     });
     this.subs.sink = this.dataService.getDataObs().subscribe((data: any) => {
