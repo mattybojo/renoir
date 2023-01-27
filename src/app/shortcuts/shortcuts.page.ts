@@ -16,6 +16,9 @@ export class ShortcutsPage {
       case 'unit-cost':
         this.router.navigate(['tabs/unit-cost']);
         break;
+      case 'lost-and-found':
+        this.router.navigate(['tabs/lost-and-found']);
+        break;
       default:
         console.error(`Unknown shortcut type: ${type}`);
     }

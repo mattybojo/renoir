@@ -44,6 +44,10 @@ const routes: Routes = [
         loadChildren: () => import('../shortcuts/shortcuts.module').then(m => m.ShortcutsPageModule)
       },
       {
+        path: 'lost-and-found',
+        loadChildren: () => import('../lost-and-found/lost-and-found.module').then(m => m.LostAndFoundPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/home',
         pathMatch: 'full'

@@ -1,0 +1,32 @@
+<ren-header
+  [actions]="headerActions"
+  (actionType)="actionHandler($event)"
+></ren-header>
+<ion-content>
+  <form [formGroup]="listItemForm">
+    <ion-list>
+      <ion-item [class.invalid]="listItemForm.controls.name?.invalid">
+        <ion-label class="input-label">Name</ion-label>
+        <ion-input
+          formControlName="name"
+          placeholder="Item name"
+          autocapitalize="sentences"
+          clearInput
+          autocorrect="on"
+        ></ion-input>
+      </ion-item>
+      <ion-item
+        [class.invalid]="listItemForm.controls.location?.invalid"
+        lines="none"
+      >
+        <ion-textarea
+          formControlName="location"
+          placeholder="Last known location of the item?"
+          autocapitalize="sentences"
+          spellcheck
+          [rows]="numTextAreaRows"
+        ></ion-textarea>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>
