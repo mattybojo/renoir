@@ -1,0 +1,7 @@
+{
+  "name": "renoir",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
