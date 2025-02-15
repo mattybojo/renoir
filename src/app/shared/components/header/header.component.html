@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="text-center">{{ title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="showPopover($event)">
+        <ion-icon name="person-circle-outline"></ion-icon>
+      </ion-button>
+      <ion-popover
+        #popover
+        [isOpen]="isOpen"
+        (didDismiss)="isOpen = false"
+        dismissOnSelect="true"
+      >
+        <ng-template>
+          <ion-list>
+            <ion-item button detail="false" lines="none" (click)="signOut()">
+              <ion-icon name="log-out-outline" slot="start"></ion-icon>
+              <ion-label>Logout</ion-label>
+            </ion-item>
+          </ion-list>
+        </ng-template>
+      </ion-popover>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>

@@ -68,3 +68,6 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+src/app/app.config.ts
+ios/App/App/GoogleService-Info.plist
