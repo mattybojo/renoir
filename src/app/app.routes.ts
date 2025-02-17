@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './shared/guards/auth.guard';
+import { canActivateAuthGuard, canMatchAuthGuard } from './shared/guards/auth.guard';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'folder/inbox',
+    redirectTo: 'tasks',
     pathMatch: 'full',
   },
   {
@@ -12,14 +12,9 @@ export const routes: Routes = [
     loadChildren: () => import('./auth/auth.routes').then(m => m.routes)
   },
   {
-    path: 'folder/:id',
-    loadComponent: () =>
-      import('./folder/folder.page').then((m) => m.FolderPage),
-    canActivate: [authGuard]
-  },
-  {
     path: 'tasks',
     loadChildren: () => import('./tasks/tasks.routes').then((m) => m.routes),
-    canActivate: [authGuard]
+    canMatch: [canMatchAuthGuard],
+    canActivate: [canActivateAuthGuard]
   },
 ];

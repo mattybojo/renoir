@@ -1,9 +1,12 @@
 
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { IonApp, IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonNote, IonRouterLink, IonRouterOutlet, IonSplitPane } from '@ionic/angular/standalone';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faClipboardList } from '@fortawesome/free-solid-svg-icons';
+import { IonApp, IonContent, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonNote, IonRouterLink, IonRouterOutlet, IonSplitPane } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { archiveOutline, archiveSharp, bookmarkOutline, bookmarkSharp, closeOutline, heartOutline, heartSharp, logOutOutline, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, personCircleOutline, trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons';
+import { closeOutline, logOutOutline, personCircleOutline } from 'ionicons/icons';
+import { MenuItem } from './app.beans';
 import { AuthService } from './auth/auth.service';
 
 @Component({
@@ -11,20 +14,18 @@ import { AuthService } from './auth/auth.service';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, IonApp, IonSplitPane, IonMenu, IonContent, IonList, IonListHeader, IonNote, IonMenuToggle, IonItem, IonIcon, IonLabel, IonRouterLink, IonRouterOutlet],
+  imports: [RouterLink, RouterLinkActive, IonApp, IonSplitPane, IonMenu, IonContent, IonList, IonListHeader, IonNote, IonMenuToggle, IonItem, IonLabel, IonRouterLink, IonRouterOutlet, FontAwesomeModule],
 })
 export class AppComponent {
-  public appPages = [
-    { title: 'Inbox', url: '/folder/inbox', icon: 'mail' },
-    { title: 'Outbox', url: '/folder/outbox', icon: 'paper-plane' },
-    { title: 'Favorites', url: '/folder/favorites', icon: 'heart' },
-    { title: 'Archived', url: '/folder/archived', icon: 'archive' },
-    { title: 'Trash', url: '/folder/trash', icon: 'trash' },
-    { title: 'Spam', url: '/folder/spam', icon: 'warning' },
+  protected menuItems: MenuItem[] = [
+    { title: 'Task List', url: '/tasks', icon: faClipboardList },
   ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-  constructor(private authService: AuthService) {
+
+  // DI
+  protected authService = inject(AuthService);
+
+  constructor() {
     this.authService.initAuthListener();
-    addIcons({ mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, heartOutline, heartSharp, archiveOutline, archiveSharp, trashOutline, trashSharp, warningOutline, warningSharp, bookmarkOutline, bookmarkSharp, personCircleOutline, logOutOutline, closeOutline });
+    addIcons({ personCircleOutline, logOutOutline, closeOutline });
   }
 }

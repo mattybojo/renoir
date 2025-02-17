@@ -1,9 +1,17 @@
 import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
+import { CanActivateFn, CanMatchFn, Router } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 import { environment } from '../../../environments/environment';
 
-export const authGuard: CanActivateFn = async (route, state) => {
+export const canActivateAuthGuard: CanActivateFn = async (route, state) => {
+  return authGuard();
+};
+
+export const canMatchAuthGuard: CanMatchFn = async (route, segments) => {
+  return authGuard();
+};
+
+const authGuard = (): boolean => {
   if (environment.bypassAuthGuard) {
     return true;
   }
@@ -15,4 +23,4 @@ export const authGuard: CanActivateFn = async (route, state) => {
   }
   router.navigate(['/auth/login']);
   return false;
-};
+}
