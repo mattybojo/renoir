@@ -17,4 +17,9 @@ export const routes: Routes = [
       import('./folder/folder.page').then((m) => m.FolderPage),
     canActivate: [authGuard]
   },
+  {
+    path: 'tasks',
+    loadChildren: () => import('./tasks/tasks.routes').then((m) => m.routes),
+    canActivate: [authGuard]
+  },
 ];
