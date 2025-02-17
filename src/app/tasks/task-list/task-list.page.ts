@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonAccordion, IonAccordionGroup, IonCol, IonContent, IonGrid, IonItem, IonLabel, IonRow, IonSegment, IonSegmentButton, ModalController } from '@ionic/angular/standalone';
 import { SegmentChangeEventDetail } from '@ionic/core';
 import { add, isBefore, isSameDay, set } from 'date-fns';
-import { orderBy } from 'lodash';
+import { orderBy } from 'lodash-es';
 import { zip } from 'rxjs';
 import { SubSink } from 'subsink';
 import { SortOrderOption } from '../../app.beans';

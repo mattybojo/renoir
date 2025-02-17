@@ -2,12 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IonButton, IonContent, IonDatetime, IonDatetimeButton, IonInput, IonItem, IonList, IonModal, IonSelect, IonSelectOption, IonTextarea, ModalController } from '@ionic/angular/standalone';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 import { take } from 'rxjs';
 import { AuthService } from '../../auth/auth.service';
 import { ModalHeaderComponent } from "../../shared/components/modal-header/modal-header.component";
 import { Category, Task } from '../tasks.beans';
-import { categories } from '../tasks.data';
 import { createTask } from '../tasks.helpers';
 import { TasksService } from '../tasks.service';
 

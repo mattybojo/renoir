@@ -4,7 +4,7 @@ import { AuthStateChange, FirebaseAuthentication, User } from '@capacitor-fireba
 import { QueryCompositeFilterConstraint, QueryFilterConstraint } from '@capacitor-firebase/firestore';
 import { Platform } from '@ionic/angular';
 import { initializeApp } from 'firebase/app';
-import { flatten } from 'lodash';
+import { flatten } from 'lodash-es';
 import { from, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { USER_GROUPS } from '../app.config';
