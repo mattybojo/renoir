@@ -7,6 +7,7 @@
     "start": "ionic serve --no-open",
     "build": "ionic capacitor build ios --no-open",
     "build:prod": "ionic capacitor build ios --no-open --prod",
+    "assets:generate": "npx capacitor-assets generate --assetPath src/assets",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint"
@@ -53,6 +54,7 @@
     "@angular/cli": "^19.0.0",
     "@angular/compiler-cli": "^19.0.0",
     "@angular/language-service": "^19.0.0",
+    "@capacitor/assets": "^3.0.5",
     "@capacitor/cli": "7.0.1",
     "@ionic/angular-toolkit": "^12.0.0",
     "@types/jasmine": "~5.1.0",
