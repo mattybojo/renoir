@@ -18,7 +18,8 @@ const authGuard = (): boolean => {
   const authService = inject(AuthService);
   const router = inject(Router);
   const user = authService.currentUser();
-  if (user) {
+  const localStorageUser: string | null = localStorage.getItem('user');
+  if (user || localStorageUser) {
     return true;
   }
   router.navigate(['/auth/login']);

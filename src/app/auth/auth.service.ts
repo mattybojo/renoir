@@ -75,11 +75,15 @@ export class AuthService {
 
   async signIn(): Promise<void> {
     await FirebaseAuthentication.signInWithGoogle({ scopes: ['profile', 'email'] }).then(result => {
+      localStorage.setItem('user', JSON.stringify(result.user));
       this.router.navigate(['/']);
     });
   }
 
-  signOut(): Observable<boolean> {
-    return from(FirebaseAuthentication.signOut().then(() => this.router.navigate(['/auth/login'])));
+  signOut(): Observable<void> {
+    return from(FirebaseAuthentication.signOut().then(() => {
+      localStorage.removeItem('user');
+      this.router.navigate(['/auth/login']);
+    }));
   }
 }
