@@ -1,0 +1,28 @@
+<ren-modal-header
+  title="Edit note"
+  (closeModal)="closeModal()"
+></ren-modal-header>
+
+<ion-content [fullscreen]="true">
+  <div [formGroup]="form">
+    <ion-list>
+      <ion-item>
+        <ion-textarea
+          label="Notes"
+          labelPlacement="floating"
+          formControlName="notes"
+        ></ion-textarea>
+      </ion-item>
+    </ion-list>
+  </div>
+  <div class="flex justify-center mt-2">
+    <ion-button
+      fill="outline"
+      color="dark"
+      (click)="saveItem()"
+      [disabled]="form.invalid"
+    >
+      Save
+    </ion-button>
+  </div>
+</ion-content>

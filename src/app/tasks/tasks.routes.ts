@@ -7,4 +7,7 @@ export const routes: Route[] = [{
 {
   path: 'edit',
   loadComponent: () => import('./edit-task/edit-task.page').then(m => m.EditTaskPage)
+}, {
+  path: 'notes/edit',
+  loadComponent: () => import('./edit-task-note/edit-task-note.page').then(m => m.EditTaskNotePage)
 }];

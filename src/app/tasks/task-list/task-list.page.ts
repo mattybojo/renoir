@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, effect, inject, OnDestroy, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faStickyNote } from '@fortawesome/free-regular-svg-icons';
 import { IonAccordion, IonAccordionGroup, IonCol, IonContent, IonFab, IonFabButton, IonFabList, IonGrid, IonIcon, IonItem, IonLabel, IonRow, IonSegment, IonSegmentButton, ModalController } from '@ionic/angular/standalone';
 import { SegmentChangeEventDetail } from '@ionic/core';
 import { add, isBefore, isSameDay, set } from 'date-fns';
@@ -10,6 +12,7 @@ import { SubSink } from 'subsink';
 import { SortOrderOption } from '../../app.beans';
 import { AuthService } from '../../auth/auth.service';
 import { HeaderComponent } from '../../shared/components/header/header.component';
+import { EditTaskNotePage } from '../edit-task-note/edit-task-note.page';
 import { EditTaskPage } from '../edit-task/edit-task.page';
 import { Category, CategoryType, Task, TaskSortOption } from '../tasks.beans';
 import { createTask, dateCategories } from '../tasks.helpers';
@@ -20,14 +23,9 @@ import { TasksService } from '../tasks.service';
   templateUrl: './task-list.page.html',
   styleUrls: ['./task-list.page.scss'],
   standalone: true,
-  imports: [IonFabList, IonIcon, IonFabButton, IonFab, IonRow, IonGrid, IonCol, IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonContent, IonSegment, IonSegmentButton, CommonModule, FormsModule, HeaderComponent]
+  imports: [IonFabList, IonIcon, IonFabButton, IonFab, IonRow, IonGrid, IonCol, IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonContent, IonSegment, IonSegmentButton, CommonModule, FormsModule, FontAwesomeModule, HeaderComponent]
 })
 export class TaskListPage implements OnDestroy {
-
-  // DI
-  private authService = inject(AuthService);
-  private tasksService = inject(TasksService);
-  private modalCtrl = inject(ModalController);
 
   categories: Category[] = [];
   tasks: Task[] = [];
@@ -35,6 +33,14 @@ export class TaskListPage implements OnDestroy {
   sortedTasks = signal<Category[]>([]);
 
   private subs = new SubSink();
+
+  // DI
+  private authService = inject(AuthService);
+  private tasksService = inject(TasksService);
+  private modalCtrl = inject(ModalController);
+
+  // Icons
+  faStickyNote = faStickyNote;
 
   constructor() {
     effect(() => {
@@ -156,6 +162,24 @@ export class TaskListPage implements OnDestroy {
     } else if (type === 'sortOrder') {
       this.sortOption.set({ ...this.sortOption(), sortOrder: e.detail.value as SortOrderOption })
     }
+  }
+
+  async showNote(e: Event, clickedTask: Task): Promise<void> {
+    e.stopPropagation();
+    const modal = await this.modalCtrl.create({
+      component: EditTaskNotePage,
+      componentProps: { task: clickedTask }
+    });
+    modal.present();
+    await modal.onDidDismiss().then((result) => {
+      if (result.data) {
+        const foundIndex = this.tasks.findIndex((item: Task) => item.id === clickedTask.id);
+        if (foundIndex !== -1) {
+          this.tasks[foundIndex] = result.data;
+        }
+        this.sortCategoriesAndTasks(this.sortOption());
+      }
+    });
   }
 
   ngOnDestroy(): void {
