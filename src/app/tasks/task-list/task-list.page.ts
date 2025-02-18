@@ -1,18 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component, effect, inject, OnDestroy, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IonAccordion, IonAccordionGroup, IonCol, IonContent, IonGrid, IonItem, IonLabel, IonRow, IonSegment, IonSegmentButton, ModalController } from '@ionic/angular/standalone';
+import { IonAccordion, IonAccordionGroup, IonCol, IonContent, IonFab, IonFabButton, IonFabList, IonGrid, IonIcon, IonItem, IonLabel, IonRow, IonSegment, IonSegmentButton, ModalController } from '@ionic/angular/standalone';
 import { SegmentChangeEventDetail } from '@ionic/core';
 import { add, isBefore, isSameDay, set } from 'date-fns';
 import { orderBy } from 'lodash-es';
-import { zip } from 'rxjs';
+import { combineLatest } from 'rxjs';
 import { SubSink } from 'subsink';
 import { SortOrderOption } from '../../app.beans';
 import { AuthService } from '../../auth/auth.service';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { EditTaskPage } from '../edit-task/edit-task.page';
 import { Category, CategoryType, Task, TaskSortOption } from '../tasks.beans';
-import { dateCategories } from '../tasks.helpers';
+import { createTask, dateCategories } from '../tasks.helpers';
 import { TasksService } from '../tasks.service';
 
 @Component({
@@ -20,7 +20,7 @@ import { TasksService } from '../tasks.service';
   templateUrl: './task-list.page.html',
   styleUrls: ['./task-list.page.scss'],
   standalone: true,
-  imports: [IonRow, IonGrid, IonCol, IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonContent, IonSegment, IonSegmentButton, CommonModule, FormsModule, HeaderComponent]
+  imports: [IonFabList, IonIcon, IonFabButton, IonFab, IonRow, IonGrid, IonCol, IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonContent, IonSegment, IonSegmentButton, CommonModule, FormsModule, HeaderComponent]
 })
 export class TaskListPage implements OnDestroy {
 
@@ -39,7 +39,7 @@ export class TaskListPage implements OnDestroy {
   constructor() {
     effect(() => {
       if (this.authService.currentUser()) {
-        this.subs.sink = zip(this.tasksService.getCategories(), this.tasksService.getTasks()).subscribe({
+        this.subs.sink = combineLatest([this.tasksService.getCategories(), this.tasksService.getTasks()]).subscribe({
           next: (results) => {
             this.categories = results[0];
             this.tasks = results[1];
@@ -126,10 +126,10 @@ export class TaskListPage implements OnDestroy {
     this.sortedTasks.set(sortedTasks);
   }
 
-  async viewTask(clickedTask: Task): Promise<void> {
+  async openTaskModal(clickedTask: Task): Promise<void> {
     const modal = await this.modalCtrl.create({
       component: EditTaskPage,
-      componentProps: { task: clickedTask, categories: this.categories.filter(x => x.category !== 'unassigned') }
+      componentProps: { task: clickedTask, categories: orderBy(this.sortedTasks().filter(x => x.category !== 'unassigned'), 'label', 'asc') }
     });
     modal.present();
     await modal.onDidDismiss().then((result) => {
@@ -144,6 +144,10 @@ export class TaskListPage implements OnDestroy {
         this.sortCategoriesAndTasks(this.sortOption());
       }
     });
+  }
+
+  addTask(): void {
+    this.openTaskModal(createTask());
   }
 
   updateSortOption(e: CustomEvent<SegmentChangeEventDetail>, type: string): void {

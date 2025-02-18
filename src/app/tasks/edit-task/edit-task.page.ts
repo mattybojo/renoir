@@ -25,6 +25,15 @@ export class EditTaskPage implements OnInit {
   title!: string;
   form!: FormGroup;
 
+  // Accessors
+  get formDueDate() {
+    return this.form.get('dueDate')!.value;
+  }
+
+  get formLastCompletedDate() {
+    return this.form.get('lastCompletedDate')!.value;
+  }
+
   // DI
   private tasksService = inject(TasksService);
   private authService = inject(AuthService);
@@ -45,20 +54,26 @@ export class EditTaskPage implements OnInit {
       label: new FormControl(this.task.label, [Validators.required]),
       category: new FormControl(this.task.category, [Validators.required]),
       notes: new FormControl(this.task.notes),
-      dueDate: new FormControl(new Date(this.task.dueDate).toISOString()),
-      lastCompletedDate: new FormControl(new Date(this.task.lastCompletedDate).toISOString())
+      dueDate: new FormControl(!this.task.dueDate ? undefined : new Date(this.task.dueDate).toISOString()),
+      lastCompletedDate: new FormControl(!this.task.lastCompletedDate ? undefined : new Date(this.task.lastCompletedDate).toISOString())
     });
   }
 
   saveItem(): void {
+    // Special handling for dates
     let dateIsoString: Date = this.form!.get('lastCompletedDate')!.value;
     const lastCompletedDate = !!dateIsoString ? new Date(dateIsoString).getTime() : 0;
     dateIsoString = this.form!.get('dueDate')!.value;
     const dueDate = !!dateIsoString ? new Date(dateIsoString).getTime() : 0;
 
+    // Create updated task object
     const updatedTask: Task = { ...this.task, ...this.form.getRawValue(), dueDate, lastCompletedDate };
-    updatedTask.sharedWith = updatedTask.category !== 'personal' ? this.authService.getSharedWith() : [this.authService.currentUser()!.uid];
 
+    // Update permissions
+    updatedTask.sharedWith = updatedTask.category !== 'personal' ? this.authService.getSharedWith() : [this.authService.currentUser()!.uid];
+    updatedTask.uid = this.authService.currentUser()!.uid;
+
+    // Ensure category exists so that we can calculate sortOrder based on number of items present
     const foundItem = this.categories.find(category => category.category === updatedTask.category);
     if (foundItem) {
       if (updatedTask.sortOrder === -1) {

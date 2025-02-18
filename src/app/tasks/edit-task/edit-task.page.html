@@ -20,9 +20,9 @@
           formControlName="category"
         >
           @for (category of categories; track category) {
-          <ion-select-option [value]="category.category"
-            >{{ category.label }}</ion-select-option
-          >
+          <ion-select-option [value]="category.category">
+            {{ category.label }}
+          </ion-select-option>
           }
         </ion-select>
       </ion-item>
@@ -37,16 +37,22 @@
         <div class="flex flex-col">
           <p class="floating-label">Due Date</p>
           <div>
-            <ion-datetime-button
-              datetime="dueDate"
-              class="justify-start ms-0"
-            ></ion-datetime-button>
+            <ion-datetime-button datetime="dueDate" class="justify-start ms-0">
+              <div slot="date-target">
+                <ng-container *ngIf="formDueDate; else noFilterDate">
+                  {{ formDueDate| date : "MM/dd/yy" }}
+                </ng-container>
+                <ng-template #noFilterDate>N/A</ng-template>
+              </div>
+            </ion-datetime-button>
             <ion-modal [keepContentsMounted]="true">
               <ng-template>
                 <ion-datetime
                   id="dueDate"
                   formControlName="dueDate"
                   presentation="date"
+                  showDefaultButtons="true"
+                  showClearButton="true"
                 ></ion-datetime>
               </ng-template>
             </ion-modal>
@@ -60,13 +66,22 @@
             <ion-datetime-button
               datetime="lastCompletedDate"
               class="justify-start"
-            ></ion-datetime-button>
+            >
+              <div slot="date-target">
+                <ng-container *ngIf="formLastCompletedDate; else noFilterDate">
+                  {{ formLastCompletedDate | date : "MM/dd/yy" }}
+                </ng-container>
+                <ng-template #noFilterDate>N/A</ng-template>
+              </div>
+            </ion-datetime-button>
             <ion-modal [keepContentsMounted]="true">
               <ng-template>
                 <ion-datetime
                   id="lastCompletedDate"
                   formControlName="lastCompletedDate"
                   presentation="date"
+                  showDefaultButtons="true"
+                  showClearButton="true"
                 ></ion-datetime>
               </ng-template>
             </ion-modal>
@@ -76,8 +91,13 @@
     </ion-list>
   </div>
   <div class="flex justify-center mt-2">
-    <ion-button fill="outline" color="dark" (click)="saveItem()"
-      >Save</ion-button
+    <ion-button
+      fill="outline"
+      color="dark"
+      (click)="saveItem()"
+      [disabled]="form.invalid"
     >
+      Save
+    </ion-button>
   </div>
 </ion-content>
