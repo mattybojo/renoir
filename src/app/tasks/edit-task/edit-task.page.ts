@@ -37,8 +37,9 @@ export class EditTaskPage implements OnInit {
   // DI
   private tasksService = inject(TasksService);
   private authService = inject(AuthService);
+  private modalCtrl = inject(ModalController);
 
-  constructor(private modalCtrl: ModalController) { }
+  constructor() { }
 
   ngOnInit() {
     if (isEmpty(this.task)) {

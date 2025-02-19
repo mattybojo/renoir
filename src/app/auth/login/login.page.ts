@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonContent } from '@ionic/angular/standalone';
 import { AuthService } from '../auth.service';
@@ -13,7 +13,9 @@ import { AuthService } from '../auth.service';
 })
 export class LoginPage {
 
-  constructor(private authService: AuthService) { }
+  private authService = inject(AuthService);
+
+  constructor() { }
 
   signIn(): void {
     this.authService.signIn();

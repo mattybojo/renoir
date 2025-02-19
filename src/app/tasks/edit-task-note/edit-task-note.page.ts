@@ -22,8 +22,9 @@ export class EditTaskNotePage implements OnInit {
 
   // DI
   private tasksService = inject(TasksService);
+  private modalCtrl = inject(ModalController);
 
-  constructor(private modalCtrl: ModalController) { }
+  constructor() { }
 
   ngOnInit() {
     this.createForm();
