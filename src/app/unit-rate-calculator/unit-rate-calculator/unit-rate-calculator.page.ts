@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, effect, model, signal } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { IonCol, IonContent, IonGrid, IonHeader, IonInput, IonItem, IonLabel, IonList, IonRow, IonSegment, IonSegmentButton, IonTitle, IonToolbar, IonButton } from '@ionic/angular/standalone';
+import { IonButton, IonContent, IonInput, IonItem } from '@ionic/angular/standalone';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 
 @Component({
@@ -9,7 +9,7 @@ import { HeaderComponent } from '../../shared/components/header/header.component
   templateUrl: './unit-rate-calculator.page.html',
   styleUrls: ['./unit-rate-calculator.page.scss'],
   standalone: true,
-  imports: [IonButton, IonList, IonItem, IonInput, IonLabel, IonSegmentButton, IonSegment, IonCol, IonRow, IonGrid, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, ReactiveFormsModule, HeaderComponent]
+  imports: [IonButton, IonItem, IonInput, IonContent, CommonModule, FormsModule, ReactiveFormsModule, HeaderComponent]
 })
 export class UnitRateCalculatorPage {
 
