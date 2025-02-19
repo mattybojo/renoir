@@ -1,0 +1,66 @@
+<ren-header [title]="'Unit Rate Calculator'"></ren-header>
+
+<ion-content [fullscreen]="true">
+  <p class="text-center mt-2">Compare 2 items using their unit rate:</p>
+  <div
+    class="flex flex-col border-2 rounded-xl p-2 m-2"
+    [class]="[itemBorderA(), itemBackgroundA()]"
+  >
+    <p class="text-center text-sm">Item A</p>
+    <div class="flex flex-row justify-between">
+      <ion-item>
+        <ion-input
+          label="Numerator"
+          labelPlacement="floating"
+          [(ngModel)]="unitPriceA"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input
+          label="Denominator"
+          labelPlacement="floating"
+          [(ngModel)]="unitQtyA"
+        ></ion-input>
+      </ion-item>
+    </div>
+    <ion-item>
+      <ion-input
+        label="Unit Rate"
+        labelPlacement="floating"
+        [(ngModel)]="unitRateA"
+      ></ion-input>
+    </ion-item>
+  </div>
+  <div
+    class="flex flex-col border-2 rounded-xl p-2 m-2"
+    [class]="[itemBorderB(), itemBackgroundB()]"
+  >
+    <p class="text-center text-sm">Item B</p>
+    <div class="flex flex-row justify-between">
+      <ion-item>
+        <ion-input
+          label="Numerator"
+          labelPlacement="floating"
+          [(ngModel)]="unitPriceB"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input
+          label="Denominator"
+          labelPlacement="floating"
+          [(ngModel)]="unitQtyB"
+        ></ion-input>
+      </ion-item>
+    </div>
+    <ion-item>
+      <ion-input
+        label="Unit Rate"
+        labelPlacement="floating"
+        [(ngModel)]="unitRateB"
+      ></ion-input>
+    </ion-item>
+  </div>
+  <div class="text-center">
+    <ion-button (click)="resetValues()">Reset</ion-button>
+  </div>
+</ion-content>

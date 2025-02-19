@@ -17,4 +17,10 @@ export const routes: Routes = [
     canMatch: [canMatchAuthGuard],
     canActivate: [canActivateAuthGuard]
   },
+  {
+    path: 'unit-rate-calculator',
+    loadChildren: () => import('./unit-rate-calculator/unit-rate-calculator.routes').then((m) => m.routes),
+    canMatch: [canMatchAuthGuard],
+    canActivate: [canActivateAuthGuard]
+  },
 ];
