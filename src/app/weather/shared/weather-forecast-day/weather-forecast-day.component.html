@@ -1,0 +1,26 @@
+<div
+  class="border-2 mx-1 p-2 rounded-xl w-[9rem] flex flex-col items-center"
+  [class]="borderColor"
+>
+  <h2 class="m-0">{{ forecast.time | date : "E" }}</h2>
+  <span class="text-sm mt-[-5px] mb-1">{{
+    forecast.time | date : "MMM dd"
+  }}</span>
+  <fa-icon [icon]="weatherIcon" size="xl" class="mr-1 mb-1"></fa-icon>
+  <div class="flex">
+    <fa-icon [icon]="faTemperatureThreeQuarters" class="mr-1"></fa-icon>
+    <span>{{ forecast.tempMax | number : "1.0-0" }}&deg;F</span>
+  </div>
+  <div class="flex">
+    <fa-icon [icon]="faTemperatureQuarter" class="mr-1"></fa-icon>
+    <span>{{ forecast.tempMin | number : "1.0-0" }}&deg;F</span>
+  </div>
+  <div class="flex">
+    <fa-icon [icon]="faWind" class="mr-1"></fa-icon>
+    <span> {{ forecast.windSpeed | number : "1.0-0" }} mph {{ windDir }} </span>
+  </div>
+  <div class="flex">
+    <fa-icon [icon]="faDroplet" class="mr-1"></fa-icon>
+    <span>{{ forecast.rain | number : "1.0-0" }} in</span>
+  </div>
+</div>

@@ -1,0 +1,65 @@
+<ren-modal-header
+  [title]="'Weather'"
+  (closeModal)="closeModal()"
+></ren-modal-header>
+
+<ion-content [fullscreen]="true">
+  <h3 class="text-center">Current Weather</h3>
+  <ion-item lines="none">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <div class="flex flex-row">
+            <fa-icon
+              [icon]="weatherIcon"
+              size="lg"
+              [fixedWidth]="true"
+              class="mr-1"
+            ></fa-icon>
+            <ion-label
+              >{{ weatherService.weatherData()?.current?.temperature2m | number
+              : "1.0-0" }}&deg;F ({{
+              weatherService.weatherData()?.current?.apparentTemperature |
+              number : "1.0-0" }}&deg;F)
+            </ion-label>
+          </div>
+        </ion-col>
+        <ion-col>
+          <fa-icon
+            [icon]="faWind"
+            size="lg"
+            [fixedWidth]="true"
+            class="mr-1"
+          ></fa-icon>
+          <span>
+            {{ weatherService.weatherData()?.current?.windSpeed10m | number:
+            "1.0-0" }} mph {{ windDir }}
+          </span>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <fa-icon
+            [icon]="faDroplet"
+            size="lg"
+            [fixedWidth]="true"
+            class="mr-1"
+          ></fa-icon>
+          <span>
+            {{ weatherService.weatherData()?.current?.rain | number: "1.0-0" }}
+            in
+          </span>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <h3 class="text-center">7 Day Forecast</h3>
+  <ion-item lines="none" class="overflow-x-auto">
+    @for(day of weatherForecast; track day) {
+    <ren-weather-forecast-day
+      #forecastEl
+      [forecast]="day"
+    ></ren-weather-forecast-day>
+    }
+  </ion-item>
+</ion-content>

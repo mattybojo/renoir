@@ -1,0 +1,10 @@
+@if (weatherIcon) {
+<div class="flex items-center" (click)="openWeatherModal()">
+  <fa-icon [icon]="weatherIcon" size="sm" class="mr-1"></fa-icon>
+  <p class="text-sm">
+    {{
+      weatherService.weatherData()?.current?.temperature2m | number : "1.0-0"
+    }}&deg;F
+  </p>
+</div>
+}

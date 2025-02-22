@@ -8,6 +8,8 @@ import { addIcons } from 'ionicons';
 import { addOutline, chevronUpCircleOutline, closeOutline, logOutOutline, personCircleOutline } from 'ionicons/icons';
 import { MenuItem } from './app.beans';
 import { AuthService } from './auth/auth.service';
+import { WeatherService } from './weather/weather.service';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -24,9 +26,11 @@ export class AppComponent {
 
   // DI
   protected authService = inject(AuthService);
+  private weatherService = inject(WeatherService);
 
   constructor() {
     this.authService.initAuthListener();
+    this.weatherService.getWeatherData();
     addIcons({ personCircleOutline, logOutOutline, closeOutline, chevronUpCircleOutline, addOutline });
   }
 }
