@@ -78,7 +78,6 @@ export class WeatherService {
             },
           };
           this._weatherData.set(weatherResp);
-          console.log(weatherResp);
         },
       });
     } else {
@@ -161,8 +160,6 @@ export class WeatherService {
           ]
         }
       });
-
-      console.log(this.weatherData());
     }
   }
 }
