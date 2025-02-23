@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, inject, OnDestroy, signal } from '@angular/core';
+import { Component, effect, inject, OnDestroy, signal, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faStickyNote } from '@fortawesome/free-regular-svg-icons';
-import { IonAccordion, IonAccordionGroup, IonCol, IonContent, IonFab, IonFabButton, IonFabList, IonGrid, IonIcon, IonItem, IonLabel, IonRow, IonSegment, IonSegmentButton, ModalController } from '@ionic/angular/standalone';
-import { SegmentChangeEventDetail } from '@ionic/core';
+import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { AlertController, IonAccordion, IonAccordionGroup, IonCol, IonContent, IonFab, IonFabButton, IonFabList, IonGrid, IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonRow, IonSegment, IonSegmentButton, ModalController } from '@ionic/angular/standalone';
+import { AlertButton, SegmentChangeEventDetail } from '@ionic/core';
 import { add, isBefore, isSameDay, set } from 'date-fns';
 import { orderBy } from 'lodash-es';
-import { combineLatest } from 'rxjs';
+import { combineLatest, take } from 'rxjs';
 import { SubSink } from 'subsink';
 import { SortOrderOption } from '../../app.beans';
 import { AuthService } from '../../auth/auth.service';
@@ -23,9 +24,13 @@ import { TasksService } from '../tasks.service';
   templateUrl: './task-list.page.html',
   styleUrls: ['./task-list.page.scss'],
   standalone: true,
-  imports: [IonFabList, IonIcon, IonFabButton, IonFab, IonRow, IonGrid, IonCol, IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonContent, IonSegment, IonSegmentButton, CommonModule, FormsModule, FontAwesomeModule, HeaderComponent]
+  imports: [IonItemOption, IonItemOptions, IonItemSliding, IonFabList, IonIcon, IonFabButton, IonFab, IonRow, IonGrid, IonCol, IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonContent, IonSegment, IonSegmentButton, CommonModule, FormsModule, FontAwesomeModule, HeaderComponent]
 })
 export class TaskListPage implements OnDestroy {
+
+  @ViewChild('alert') alert!: HTMLIonAlertElement;
+
+  isOpen: boolean = false;
 
   categories: Category[] = [];
   tasks: Task[] = [];
@@ -38,9 +43,12 @@ export class TaskListPage implements OnDestroy {
   private authService = inject(AuthService);
   private tasksService = inject(TasksService);
   private modalCtrl = inject(ModalController);
+  private alertController = inject(AlertController);
 
   // Icons
   faStickyNote = faStickyNote;
+  faPenToSquare = faPenToSquare;
+  faTrash = faTrash;
 
   constructor() {
     effect(() => {
@@ -154,6 +162,50 @@ export class TaskListPage implements OnDestroy {
 
   addTask(): void {
     this.openTaskModal(createTask());
+  }
+
+  async showConfirmDelete(task: Task): Promise<void> {
+    const alertButtons: AlertButton[] = [
+      {
+        text: 'Cancel',
+        role: 'cancel',
+      },
+      {
+        text: 'OK',
+        role: 'confirm',
+        handler: () => {
+          this.tasksService.deleteTask(task).pipe(take(1)).subscribe({
+            next: () => {
+              // Remove item from array
+              let foundIndex: number;
+              foundIndex = this.tasks.findIndex(x => x.id === task.id);
+              if (foundIndex > -1) {
+                this.tasks.splice(foundIndex, 1);
+              }
+              const tasksToUpdate: Task[] = [];
+              // Adjust any sort orders of tasks that are after the one to be deleted
+              this.tasks.filter(x => x.category === task.category && x.sortOrder > task.sortOrder).forEach((item: Task) => {
+                foundIndex = this.tasks.findIndex(x => x.id === item.id);
+                this.tasks[foundIndex].sortOrder -= 1;
+                tasksToUpdate.push(this.tasks[foundIndex]);
+              });
+              if (tasksToUpdate.length > 0) {
+                this.tasksService.updateTasks(tasksToUpdate);
+              }
+              this.sortCategoriesAndTasks(this.sortOption());
+            }
+          });
+        },
+      },
+    ];
+
+    const alert = await this.alertController.create({
+      header: 'Confirm deletion',
+      message: 'Task will be deleted.',
+      buttons: alertButtons,
+    });
+
+    await alert.present();
   }
 
   updateSortOption(e: CustomEvent<SegmentChangeEventDetail>, type: string): void {

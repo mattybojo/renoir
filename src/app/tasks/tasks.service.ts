@@ -63,6 +63,18 @@ export class TasksService {
     Promise.all(promises).then(() => console.log(`Completed uploading ${reference}`));
   }
 
+  updateTasks(tasks: Task[]): any {
+    const promises: Promise<any>[] = [];
+    tasks.forEach((task: Task) => {
+      promises.push(
+        FirebaseFirestore.setDocument({
+          reference: `tasks/${task.id}`,
+          data: task
+        }));
+    });
+    return from(Promise.all(promises));
+  }
+
   saveTask(task: Task): Observable<AddDocumentResult | void> {
     if (!!task.id) {
       return from(FirebaseFirestore.setDocument({
@@ -75,5 +87,11 @@ export class TasksService {
         data: task
       }));
     }
+  }
+
+  deleteTask(task: Task): Observable<void> {
+    return from(FirebaseFirestore.deleteDocument({
+      reference: `tasks/${task.id}`,
+    }));
   }
 }
