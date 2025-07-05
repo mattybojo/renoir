@@ -11,6 +11,8 @@ import { Category, Task } from './tasks.beans';
 })
 export class TasksService {
 
+  readonly COLLECTION_NAME: string = 'tasks';
+
   // DI
   private authService = inject(AuthService);
 
@@ -18,7 +20,7 @@ export class TasksService {
 
   getTasks(): Observable<Task[]> {
     return from(FirebaseFirestore.getCollection({
-      reference: 'tasks',
+      reference: this.COLLECTION_NAME,
       compositeFilter: {
         type: 'and',
         queryConstraints: [
@@ -54,21 +56,12 @@ export class TasksService {
     })).pipe(map(((result: GetCollectionResult<DocumentData>) => mapIdToObject<Category>(result))));
   }
 
-  async uploadData(reference: string, items: any[]): Promise<void> {
-    const promises: Promise<any>[] = [];
-    items.forEach(data => {
-      promises.push(FirebaseFirestore.addDocument({ reference, data }));
-    });
-
-    Promise.all(promises).then(() => console.log(`Completed uploading ${reference}`));
-  }
-
   updateTasks(tasks: Task[]): any {
     const promises: Promise<any>[] = [];
     tasks.forEach((task: Task) => {
       promises.push(
         FirebaseFirestore.setDocument({
-          reference: `tasks/${task.id}`,
+          reference: `${this.COLLECTION_NAME}/${task.id}`,
           data: task
         }));
     });
@@ -78,12 +71,12 @@ export class TasksService {
   saveTask(task: Task): Observable<AddDocumentResult | void> {
     if (!!task.id) {
       return from(FirebaseFirestore.setDocument({
-        reference: `tasks/${task.id}`,
+        reference: `${this.COLLECTION_NAME}/${task.id}`,
         data: task
       }));
     } else {
       return from(FirebaseFirestore.addDocument({
-        reference: 'tasks',
+        reference: this.COLLECTION_NAME,
         data: task
       }));
     }
@@ -91,7 +84,7 @@ export class TasksService {
 
   deleteTask(task: Task): Observable<void> {
     return from(FirebaseFirestore.deleteDocument({
-      reference: `tasks/${task.id}`,
+      reference: `${this.COLLECTION_NAME}/${task.id}`,
     }));
   }
 }
