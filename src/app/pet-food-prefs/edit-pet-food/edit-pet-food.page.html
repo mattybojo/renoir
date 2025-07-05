@@ -1,0 +1,51 @@
+<ren-modal-header
+  [title]="title"
+  (closeModal)="closeModal()"
+></ren-modal-header>
+
+<ion-content [fullscreen]="true">
+  <div [formGroup]="form">
+    <ion-list>
+      <ion-item>
+        <ion-input
+          label="Brand"
+          labelPlacement="floating"
+          formControlName="brand"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input
+          label="Flavor"
+          labelPlacement="floating"
+          formControlName="name"
+        ></ion-input>
+      </ion-item>
+      @for (pref of newPetFoodObj.prefs| keyvalue; track pref.key) { @if
+      (pref.key !== 'avg') {
+      <ion-item>
+        <ion-select
+          [label]="pref.key | titlecase"
+          labelPlacement="floating"
+          [formControlName]="pref.key"
+        >
+          @for (rating of petFoodRatings; track rating) {
+          <ion-select-option [value]="rating.rating">
+            {{ rating.label }}
+          </ion-select-option>
+          }
+        </ion-select>
+      </ion-item>
+      } }
+    </ion-list>
+  </div>
+  <div class="flex justify-center mt-2">
+    <ion-button
+      fill="outline"
+      color="dark"
+      (click)="saveItem()"
+      [disabled]="form.invalid"
+    >
+      Save
+    </ion-button>
+  </div>
+</ion-content>

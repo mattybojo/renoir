@@ -23,4 +23,10 @@ export const routes: Routes = [
     canMatch: [canMatchAuthGuard],
     canActivate: [canActivateAuthGuard]
   },
+  {
+    path: 'pet-foods',
+    loadChildren: () => import('./pet-food-prefs/pet-food-prefs.routes').then((m) => m.routes),
+    canMatch: [canMatchAuthGuard],
+    canActivate: [canActivateAuthGuard]
+  },
 ];

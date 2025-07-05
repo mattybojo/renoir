@@ -2,14 +2,13 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faCalculator, faClipboardList } from '@fortawesome/free-solid-svg-icons';
+import { faCalculator, faClipboardList, faPaw } from '@fortawesome/free-solid-svg-icons';
 import { IonApp, IonContent, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonNote, IonRouterLink, IonRouterOutlet, IonSplitPane } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { addOutline, chevronUpCircleOutline, closeOutline, logOutOutline, personCircleOutline } from 'ionicons/icons';
 import { MenuItem } from './app.beans';
 import { AuthService } from './auth/auth.service';
 import { WeatherService } from './weather/weather.service';
-import { take } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +21,7 @@ export class AppComponent {
   protected menuItems: MenuItem[] = [
     { title: 'Task List', url: '/tasks', icon: faClipboardList },
     { title: 'Unit Rate Calculator', url: '/unit-rate-calculator', icon: faCalculator },
+    { title: 'Pet Food Prefs', url: '/pet-foods', icon: faPaw },
   ];
 
   // DI

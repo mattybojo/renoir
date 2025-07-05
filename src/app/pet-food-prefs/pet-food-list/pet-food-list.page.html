@@ -1,0 +1,74 @@
+<ren-header [title]="'Pet Food List'"></ren-header>
+
+<ion-content [fullscreen]="true">
+  <ion-item>
+    <ion-checkbox
+      labelPlacement="end"
+      [checked]="likeFilter"
+      (ionChange)="filterPetFood($event, 'like')"
+    >
+      &nbsp;
+      <span class="filter-icons">
+        <fa-icon [icon]="faFilter" [fixedWidth]="true"></fa-icon>
+        <fa-icon [icon]="faThumbsUp" [fixedWidth]="true"></fa-icon>
+      </span>
+    </ion-checkbox>
+    <ion-input
+      class="filter-text"
+      [clearInput]="true"
+      placeholder="Type here to filter"
+      (ionInput)="filterPetFood($event, 'name')"
+    ></ion-input>
+  </ion-item>
+
+  <ion-list>
+    <ion-item-group>
+      <ion-item-divider class="pet-food-headers">
+        <ion-label (click)="sortPetFood('displayName')">Name</ion-label>
+        <ion-label (click)="sortPetFood('simba')">Simba</ion-label>
+        <ion-label (click)="sortPetFood('rory')">Rory</ion-label>
+        <ion-label (click)="sortPetFood('willy')">Willy</ion-label>
+        <ion-label (click)="sortPetFood('milo')">Milo</ion-label>
+        <ion-label (click)="sortPetFood('avg')">Avg</ion-label>
+      </ion-item-divider>
+      @for (item of filteredRowData; track item.displayName) {
+      <ion-item-sliding>
+        <ion-item class="pet-food-row">
+          <ion-label>{{ item.displayName }}</ion-label>
+          <ion-label>{{ item.prefs.simba }}</ion-label>
+          <ion-label>{{ item.prefs.rory }}</ion-label>
+          <ion-label>{{ item.prefs.willy }}</ion-label>
+          <ion-label>{{ item.prefs.milo }}</ion-label>
+          <ion-label>{{ item.prefs.avg | number: '1.0-2' }}</ion-label>
+        </ion-item>
+
+        <ion-item-options side="end">
+          <ion-item-option (click)="openPetFoodModal(item)">
+            <fa-icon
+              [icon]="faPenToSquare"
+              [fixedWidth]="true"
+              size="lg"
+            ></fa-icon>
+          </ion-item-option>
+          <ion-item-option color="danger" (click)="showConfirmDelete(item)">
+            <fa-icon [icon]="faTrash" [fixedWidth]="true" size="lg"></fa-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+      } @empty {
+      <li class="no-results">There are no items.</li>
+      }
+    </ion-item-group>
+  </ion-list>
+
+  <ion-fab slot="fixed" horizontal="end" vertical="bottom">
+    <ion-fab-button>
+      <ion-icon name="chevron-up-circle-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button color="primary" (click)="addPetFood()">
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>

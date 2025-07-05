@@ -1,0 +1,41 @@
+.filter-text {
+  // --background: #dbdce1;
+  margin-left: 0.5rem;
+}
+
+.filter-icons {
+  margin-left: -12px;
+}
+
+.filter-clear-btn {
+  margin-left: 0.5rem;
+}
+
+.pet-food-row,
+.pet-food-headers {
+  ion-label {
+    font-size: 12px;
+    flex: none;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    text-align: center;
+  }
+
+  & ion-label:nth-of-type(1) {
+    width: 50%;
+    text-align: left;
+  }
+
+  & ion-label:nth-of-type(n + 2) {
+    width: 10%;
+  }
+}
+
+.no-results {
+  height: 44px;
+  text-align: center;
+  line-height: 44px;
+  font-size: 12px;
+}
