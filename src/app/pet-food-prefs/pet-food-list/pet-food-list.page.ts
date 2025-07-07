@@ -112,7 +112,6 @@ export class PetFoodListPage {
     });
     modal.present();
     await modal.onDidDismiss().then((result) => {
-      console.log(result.data);
       if (result.data) {
         const foundIndex = this.rowData.findIndex((item: PetFood) => item.id === clickedPetFood.id);
         // foundIndex === -1 means this is a new item

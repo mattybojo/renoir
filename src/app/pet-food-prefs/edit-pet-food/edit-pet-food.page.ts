@@ -77,8 +77,6 @@ export class EditPetFoodPage implements OnInit {
     }
     updatedPetFood.prefs.avg = total / count;
 
-    console.log(updatedPetFood);
-
     this.petFoodPrefsService.savePetFood(updatedPetFood).pipe(take(1)).subscribe(() => {
       // Close the modal
       this.modalCtrl.dismiss(updatedPetFood);
