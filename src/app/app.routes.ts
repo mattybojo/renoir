@@ -29,4 +29,10 @@ export const routes: Routes = [
     canMatch: [canMatchAuthGuard],
     canActivate: [canActivateAuthGuard]
   },
+  {
+    path: 'gift-cards',
+    loadChildren: () => import('./gift-card-tracker/gift-card-tracker.routes').then((m) => m.routes),
+    canMatch: [canMatchAuthGuard],
+    canActivate: [canActivateAuthGuard]
+  },
 ];
