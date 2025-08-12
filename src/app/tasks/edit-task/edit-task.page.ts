@@ -25,6 +25,9 @@ export class EditTaskPage implements OnInit {
   title!: string;
   form!: FormGroup;
 
+  // Tasks can be set a max of 5 years out from current year
+  maxDate: number = new Date().getFullYear() + 5;
+
   // Accessors
   get formDueDate() {
     return this.form.get('dueDate')!.value;
