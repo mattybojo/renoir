@@ -148,7 +148,7 @@ export class TaskListPage implements OnDestroy {
     modal.present();
     await modal.onDidDismiss().then((result) => {
       if (result.data) {
-        const foundIndex = this.tasks.findIndex((item: Task) => item.id === clickedTask.id);
+        const foundIndex = this.tasks.findIndex((item: Task) => item.id && item.id === result.data.id);
         // foundIndex === -1 means this is a new item
         if (foundIndex === -1) {
           this.tasks.push(result.data);
