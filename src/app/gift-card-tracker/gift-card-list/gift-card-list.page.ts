@@ -81,7 +81,7 @@ export class GiftCardListPage {
     modal.present();
     await modal.onDidDismiss().then((result) => {
       if (result.data) {
-        const foundIndex = this.rowData.findIndex((item: GiftCard) => item.id === clickedGiftCard.id);
+        const foundIndex = this.rowData.findIndex((item: GiftCard) => item.id && item.id === result.data.id);
         // foundIndex === -1 means this is a new item
         if (foundIndex === -1) {
           this.rowData.push(result.data);
