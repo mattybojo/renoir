@@ -27,3 +27,6 @@ export interface TaskSortOption extends SortOption {
   sortProp: CategoryType;
   sortOrder: 'asc' | 'desc';
 }
+
+export type TaskDateType = 'lastCompleted' | 'due';
+export type TaskIncrementType = 'days' | 'weeks' | 'months';

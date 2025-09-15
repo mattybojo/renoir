@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IonButton, IonContent, IonDatetime, IonDatetimeButton, IonInput, IonItem, IonList, IonModal, IonSelect, IonSelectOption, IonTextarea, ModalController } from '@ionic/angular/standalone';
+import { add } from 'date-fns';
 import { isEmpty } from 'lodash-es';
 import { take } from 'rxjs';
 import { AuthService } from '../../auth/auth.service';
 import { ModalHeaderComponent } from "../../shared/components/modal-header/modal-header.component";
-import { Category, Task } from '../tasks.beans';
+import { Category, Task, TaskDateType, TaskIncrementType } from '../tasks.beans';
 import { createTask } from '../tasks.helpers';
 import { TasksService } from '../tasks.service';
 
@@ -19,8 +20,12 @@ import { TasksService } from '../tasks.service';
 })
 export class EditTaskPage implements OnInit {
 
+  readonly DEFAULT_INCREMENT: number = 14;
+
   @Input() task!: Task;
   @Input() categories!: Category[];
+
+  @ViewChild('dueDateEl') dueDateEl!: IonDatetime;
 
   title!: string;
   form!: FormGroup;
@@ -61,6 +66,17 @@ export class EditTaskPage implements OnInit {
       dueDate: new FormControl(!this.task.dueDate ? undefined : new Date(this.task.dueDate).toISOString()),
       lastCompletedDate: new FormControl(!this.task.lastCompletedDate ? undefined : new Date(this.task.lastCompletedDate).toISOString())
     });
+  }
+
+  calculateNewDueDate(type: TaskDateType, increment: string | number | null | undefined, incrementType: TaskIncrementType): void {
+    let baseDate: string = type === 'due' ? this.formDueDate : this.formLastCompletedDate;
+    let addend: number = +increment!;
+
+    // Calculate new date based on user-selected prefs
+    let newDate: Date = add(baseDate, { [incrementType]: addend });
+
+    // Set the new date in the form
+    this.form.get('dueDate')!.setValue(newDate.toISOString());
   }
 
   saveItem(): void {

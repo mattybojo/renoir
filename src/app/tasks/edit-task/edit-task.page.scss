@@ -1,0 +1,10 @@
+.calculate-due-date > *:not(:first-child) {
+  margin-left: 0.25rem;
+}
+
+.increment-input ::ng-deep input.sc-ion-input-ios {
+  text-align: center;
+  background-color: #eceef0;
+  padding: 0.125rem;
+  border-radius: 8px;
+}

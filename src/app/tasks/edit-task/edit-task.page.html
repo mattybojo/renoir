@@ -36,33 +36,6 @@
       </ion-item>
       <ion-item>
         <div class="flex flex-col">
-          <p class="floating-label">Due Date</p>
-          <div>
-            <ion-datetime-button datetime="dueDate" class="justify-start ms-0">
-              <div slot="date-target">
-                <ng-container *ngIf="formDueDate; else noFilterDate">
-                  {{ formDueDate| date : "MM/dd/yy" }}
-                </ng-container>
-                <ng-template #noFilterDate>N/A</ng-template>
-              </div>
-            </ion-datetime-button>
-            <ion-modal [keepContentsMounted]="true">
-              <ng-template>
-                <ion-datetime
-                  id="dueDate"
-                  formControlName="dueDate"
-                  presentation="date"
-                  showDefaultButtons="true"
-                  showClearButton="true"
-                  [max]="maxDate"
-                ></ion-datetime>
-              </ng-template>
-            </ion-modal>
-          </div>
-        </div>
-      </ion-item>
-      <ion-item>
-        <div class="flex flex-col">
           <p class="floating-label">Last Completed Date</p>
           <div>
             <ion-datetime-button
@@ -85,14 +58,77 @@
                   showDefaultButtons="true"
                   showClearButton="true"
                   [max]="maxDate"
+                  #lastCompletedDateEl
                 ></ion-datetime>
               </ng-template>
             </ion-modal>
           </div>
         </div>
       </ion-item>
+      <ion-item>
+        <div class="flex flex-col">
+          <p class="floating-label">Due Date</p>
+          <div>
+            <ion-datetime-button datetime="dueDate" class="justify-start ms-0">
+              <div slot="date-target">
+                <ng-container *ngIf="formDueDate; else noFilterDate">
+                  {{ formDueDate| date : "MM/dd/yy" }}
+                </ng-container>
+                <ng-template #noFilterDate>N/A</ng-template>
+              </div>
+            </ion-datetime-button>
+            <ion-modal [keepContentsMounted]="true">
+              <ng-template>
+                <ion-datetime
+                  id="dueDate"
+                  formControlName="dueDate"
+                  presentation="date"
+                  showDefaultButtons="true"
+                  showClearButton="true"
+                  [max]="maxDate"
+                  #dueDateEl
+                ></ion-datetime>
+              </ng-template>
+            </ion-modal>
+          </div>
+          <div>
+            <div class="flex items-center justify-between calculate-due-date">
+              <ion-select value="lastCompleted" #dateType>
+                <ion-select-option value="lastCompleted"
+                  >last completed</ion-select-option
+                >
+                <ion-select-option value="due">due date</ion-select-option>
+              </ion-select>
+              <p>&nbsp;+&nbsp;</p>
+              <ion-input
+                [value]="DEFAULT_INCREMENT"
+                type="number"
+                maxlength="3"
+                class="w-12 increment-input"
+                #dateInput
+              ></ion-input>
+              <ion-select value="days" #dateIncrement>
+                <ion-select-option value="days">day(s)</ion-select-option>
+                <ion-select-option value="weeks">week(s)</ion-select-option>
+                <ion-select-option value="months">month(s)</ion-select-option>
+              </ion-select>
+              <ion-button
+                fill="outline"
+                color="dark"
+                (click)="calculateNewDueDate(dateType.value, dateInput.value, dateIncrement.value)"
+                [disabled]="!dateInput.value"
+              >
+                Set New Date
+              </ion-button>
+            </div>
+          </div>
+        </div>
+      </ion-item>
     </ion-list>
   </div>
+
+  <div></div>
+
   <div class="flex justify-center mt-2">
     <ion-button
       fill="outline"
