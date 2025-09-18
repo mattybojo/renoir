@@ -23,7 +23,7 @@
 
   <ion-list>
     <ion-item-group>
-      <ion-item-divider class="pet-food-headers">
+      <ion-item-divider class="pet-food-headers" [sticky]="true">
         <ion-label (click)="sortPetFood('displayName')">Name</ion-label>
         <ion-label (click)="sortPetFood('simba')">Simba</ion-label>
         <ion-label (click)="sortPetFood('rory')">Rory</ion-label>

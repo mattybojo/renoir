@@ -12,7 +12,7 @@
 
   <ion-list>
     <ion-item-group>
-      <ion-item-divider class="pet-food-headers">
+      <ion-item-divider class="pet-food-headers" [sticky]="true">
         <ion-label (click)="sortGiftCards('storeName')">Name</ion-label>
         <ion-label (click)="sortGiftCards('amount')">Amount</ion-label>
         <ion-label (click)="sortGiftCards('last4')">Last 4</ion-label>
