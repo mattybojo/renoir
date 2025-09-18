@@ -5,7 +5,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFilter, faPenToSquare, faThumbsUp, faTrash, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { AlertController, IonContent, IonFab, IonFabButton, IonFabList, IonIcon, IonInput, IonItem, IonItemDivider, IonItemGroup, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonList, ModalController } from '@ionic/angular/standalone';
 import { AlertButton } from '@ionic/core';
-import { orderBy } from 'lodash';
+import { orderBy } from 'lodash-es';
 import { take } from 'rxjs';
 import { SubSink } from 'subsink';
 import { SortOrderOption } from '../../app.beans';
