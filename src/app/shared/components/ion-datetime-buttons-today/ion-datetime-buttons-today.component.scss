@@ -1,0 +1,8 @@
+:host {
+  display: flex;
+  flex-grow: 1;
+}
+
+.datetime-btns-today ion-button {
+  font-size: clamp(17px, 1.0625rem, 21.08px);
+}

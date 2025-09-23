@@ -1,0 +1,22 @@
+<ng-template #template>
+  <ion-buttons slot="buttons">
+    <div class="datetime-btns-today flex justify-between grow">
+      <div>
+        <ion-button color="danger" (click)="thisDT.cancel(true)"
+          >Cancel</ion-button
+        >
+      </div>
+      <div>
+        <ion-button color="primary" (click)="selectTodayDate(thisDT)"
+          >Today</ion-button
+        >
+      </div>
+      <div>
+        <ion-button color="primary" (click)="thisDT.reset()">Clear</ion-button>
+        <ion-button color="primary" (click)="thisDT.confirm(true)"
+          >Done</ion-button
+        >
+      </div>
+    </div>
+  </ion-buttons>
+</ng-template>

@@ -59,7 +59,12 @@
                   showClearButton="true"
                   [max]="maxDate"
                   #lastCompletedDateEl
-                ></ion-datetime>
+                >
+                  <ren-ion-datetime-buttons-today
+                    [thisDT]="lastCompletedDateEl"
+                  >
+                  </ren-ion-datetime-buttons-today>
+                </ion-datetime>
               </ng-template>
             </ion-modal>
           </div>
@@ -87,7 +92,11 @@
                   showClearButton="true"
                   [max]="maxDate"
                   #dueDateEl
-                ></ion-datetime>
+                >
+                  <ren-ion-datetime-buttons-today
+                    [thisDT]="dueDateEl"
+                  ></ren-ion-datetime-buttons-today>
+                </ion-datetime>
               </ng-template>
             </ion-modal>
           </div>

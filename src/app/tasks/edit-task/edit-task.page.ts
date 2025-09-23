@@ -5,6 +5,7 @@ import { IonButton, IonContent, IonDatetime, IonDatetimeButton, IonInput, IonIte
 import { add } from 'date-fns';
 import { isEmpty } from 'lodash-es';
 import { take } from 'rxjs';
+import { IonDatetimeButtonsTodayComponent } from "src/app/shared/components/ion-datetime-buttons-today/ion-datetime-buttons-today.component";
 import { AuthService } from '../../auth/auth.service';
 import { ModalHeaderComponent } from "../../shared/components/modal-header/modal-header.component";
 import { Category, Task, TaskDateType, TaskIncrementType } from '../tasks.beans';
@@ -16,7 +17,7 @@ import { TasksService } from '../tasks.service';
   templateUrl: './edit-task.page.html',
   styleUrls: ['./edit-task.page.scss'],
   standalone: true,
-  imports: [IonButton, IonDatetime, IonModal, IonDatetimeButton, IonInput, IonTextarea, IonItem, IonList, IonContent, IonSelect, IonSelectOption, CommonModule, FormsModule, ReactiveFormsModule, ModalHeaderComponent]
+  imports: [IonButton, IonDatetime, IonModal, IonDatetimeButton, IonInput, IonTextarea, IonItem, IonList, IonContent, IonSelect, IonSelectOption, CommonModule, FormsModule, ReactiveFormsModule, ModalHeaderComponent, IonDatetimeButtonsTodayComponent]
 })
 export class EditTaskPage implements OnInit {
 
