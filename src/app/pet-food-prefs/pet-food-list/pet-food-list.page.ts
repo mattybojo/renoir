@@ -7,7 +7,6 @@ import { AlertController, IonCheckbox, IonContent, IonFab, IonFabButton, IonFabL
 import { AlertButton } from '@ionic/core';
 import { camelCase, capitalize, orderBy, startCase } from 'lodash-es';
 import { take } from 'rxjs';
-import { SubSink } from 'subsink';
 import { SortOrderOption } from '../../app.beans';
 import { AuthService } from '../../auth/auth.service';
 import { HeaderComponent } from '../../shared/components/header/header.component';
@@ -33,8 +32,6 @@ export class PetFoodListPage {
   sortCol: string = 'avg';
   sortOrder: SortOrderOption = 'desc';
 
-  private subs = new SubSink();
-
   // DI
   private authService = inject(AuthService);
   private petFoodPrefsService = inject(PetFoodPrefsService);
@@ -51,7 +48,7 @@ export class PetFoodListPage {
   constructor() {
     effect(() => {
       if (this.authService.currentUser()) {
-        this.subs.sink = this.petFoodPrefsService.getPetFoodPrefs().subscribe({
+        this.petFoodPrefsService.getPetFoodPrefs().pipe(take(1)).subscribe({
           next: (results: PetFood[]) => {
             this.processPetFoodPrefs(results);
           },

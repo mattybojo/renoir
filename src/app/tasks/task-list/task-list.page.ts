@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, inject, OnDestroy, signal, ViewChild } from '@angular/core';
+import { Component, effect, inject, signal, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faStickyNote } from '@fortawesome/free-regular-svg-icons';
@@ -9,7 +9,7 @@ import { AlertButton, SegmentChangeEventDetail } from '@ionic/core';
 import { add, isBefore, isSameDay, set } from 'date-fns';
 import { orderBy } from 'lodash-es';
 import { combineLatest, take } from 'rxjs';
-import { SubSink } from 'subsink';
+
 import { SortOrderOption } from '../../app.beans';
 import { AuthService } from '../../auth/auth.service';
 import { HeaderComponent } from '../../shared/components/header/header.component';
@@ -26,7 +26,7 @@ import { TasksService } from '../tasks.service';
   standalone: true,
   imports: [IonItemOption, IonItemOptions, IonItemSliding, IonFabList, IonIcon, IonFabButton, IonFab, IonRow, IonGrid, IonCol, IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonContent, IonSegment, IonSegmentButton, CommonModule, FormsModule, FontAwesomeModule, HeaderComponent]
 })
-export class TaskListPage implements OnDestroy {
+export class TaskListPage {
 
   @ViewChild('alert') alert!: HTMLIonAlertElement;
 
@@ -36,8 +36,6 @@ export class TaskListPage implements OnDestroy {
   tasks: Task[] = [];
   sortOption = signal<TaskSortOption>({ sortProp: 'category', sortOrder: 'asc' });
   sortedTasks = signal<Category[]>([]);
-
-  private subs = new SubSink();
 
   // DI
   private authService = inject(AuthService);
@@ -53,7 +51,7 @@ export class TaskListPage implements OnDestroy {
   constructor() {
     effect(() => {
       if (this.authService.currentUser()) {
-        this.subs.sink = combineLatest([this.tasksService.getCategories(), this.tasksService.getTasks()]).subscribe({
+        combineLatest([this.tasksService.getCategories(), this.tasksService.getTasks()]).pipe(take(1)).subscribe({
           next: (results) => {
             this.categories = results[0];
             this.tasks = results[1];
@@ -232,9 +230,5 @@ export class TaskListPage implements OnDestroy {
         this.sortCategoriesAndTasks(this.sortOption());
       }
     });
-  }
-
-  ngOnDestroy(): void {
-    this.subs.unsubscribe();
   }
 }

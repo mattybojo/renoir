@@ -7,7 +7,6 @@ import { AlertController, IonContent, IonFab, IonFabButton, IonFabList, IonIcon,
 import { AlertButton } from '@ionic/core';
 import { orderBy } from 'lodash-es';
 import { take } from 'rxjs';
-import { SubSink } from 'subsink';
 import { SortOrderOption } from '../../app.beans';
 import { AuthService } from '../../auth/auth.service';
 import { HeaderComponent } from '../../shared/components/header/header.component';
@@ -33,8 +32,6 @@ export class GiftCardListPage {
   sortCol: string = 'avg';
   sortOrder: SortOrderOption = 'desc';
 
-  private subs = new SubSink();
-
   // DI
   private authService = inject(AuthService);
   private giftCardTrackerService = inject(GiftCardTrackerService);
@@ -51,7 +48,7 @@ export class GiftCardListPage {
   constructor() {
     effect(() => {
       if (this.authService.currentUser()) {
-        this.subs.sink = this.giftCardTrackerService.getGiftCards().subscribe({
+        this.giftCardTrackerService.getGiftCards().pipe(take(1)).subscribe({
           next: (results: GiftCard[]) => {
             this.filteredRowData = this.rowData = results;
           },
