@@ -1414,15 +1414,15 @@ SPEC CHECKSUMS:
   abseil: d121da9ef7e2ff4cab7666e76c5a3e0915ae08c3
   AppAuth: d4f13a8fe0baf391b2108511793e4b479691fb73
   BoringSSL-GRPC: ca6a8e5d04812fce8ffd6437810c2d46f925eaeb
-  Capacitor: 23fff43571a4d1e3ee7d67b5a3588c6e757c2913
-  CapacitorApp: 45cb7cbef4aa380b9236fd6980033eb5cde6fcd2
+  Capacitor: de199cba6c8b20995428ad0b7cb0bc6ca625ffd4
+  CapacitorApp: 9cb31064a6c6bb2b1438583733a7bf45557fc1da
   CapacitorCordova: 63d476958d5022d76f197031e8b7ea3519988c64
-  CapacitorFirebaseAuthentication: 871cec2966a90d5e4dd9c64088d9faffeead3757
-  CapacitorFirebaseFirestore: 49c499d87981de4a6df4c6e91899c82d89a4cf7f
-  CapacitorGeolocation: 0d4eeb930b58a6896ec0b495a0f638fb49df69db
-  CapacitorHaptics: 1fba3e460e7614349c6d5f868b1fccdc5c87b66d
-  CapacitorKeyboard: 2c26c6fccde35023c579fc37d4cae6326d5e6343
-  CapacitorStatusBar: 438e90beeeefa8276b24e6c5991cb02dd13e51bf
+  CapacitorFirebaseAuthentication: de12e87d5f163efbcd7e20e49e7d74a5482f9743
+  CapacitorFirebaseFirestore: 37c72998019448fbf5d467c8f1da731eaa882719
+  CapacitorGeolocation: 45d6fd8e4d2eab6dd7e15c027fab1c36661c2ce8
+  CapacitorHaptics: 7be406a91e4eb87287f321c6c68e1709d6837b3a
+  CapacitorKeyboard: 4db71e694e7afb5d7c0be09b05495c19f7d6c914
+  CapacitorStatusBar: a8c4c83ed2e973bdafb979e80e4b00d027832cb7
   FirebaseAppCheckInterop: 7bf86d55a2b7e9bd91464120eba3e52e4b63b2e2
   FirebaseAuth: 77e25aa24f3e1c626c5babd3338551fc1669ee0e
   FirebaseAuthInterop: 651756e70d9a0b9160db39ead71fd5507dbb6c84
@@ -1445,4 +1445,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 81d54f9da33965a65661d89027b8b955347a055e
 
-COCOAPODS: 1.14.2
+COCOAPODS: 1.16.2

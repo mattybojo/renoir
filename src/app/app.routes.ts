@@ -4,18 +4,12 @@ import { canActivateAuthGuard, canMatchAuthGuard } from './shared/guards/auth.gu
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'tasks',
+    redirectTo: 'pet-foods',
     pathMatch: 'full',
   },
   {
     path: 'auth',
     loadChildren: () => import('./auth/auth.routes').then(m => m.routes)
-  },
-  {
-    path: 'tasks',
-    loadChildren: () => import('./tasks/tasks.routes').then((m) => m.routes),
-    canMatch: [canMatchAuthGuard],
-    canActivate: [canActivateAuthGuard]
   },
   {
     path: 'unit-rate-calculator',

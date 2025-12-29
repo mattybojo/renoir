@@ -2,7 +2,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faCalculator, faClipboardList, faCreditCard, faPaw } from '@fortawesome/free-solid-svg-icons';
+import { faCalculator, faCreditCard, faPaw } from '@fortawesome/free-solid-svg-icons';
 import { IonApp, IonContent, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonNote, IonRouterLink, IonRouterOutlet, IonSplitPane } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { addOutline, chevronUpCircleOutline, closeOutline, logOutOutline, personCircleOutline } from 'ionicons/icons';
@@ -19,7 +19,6 @@ import { WeatherService } from './weather/weather.service';
 })
 export class AppComponent {
   protected menuItems: MenuItem[] = [
-    { title: 'Task List', url: '/tasks', icon: faClipboardList },
     { title: 'Unit Rate Calculator', url: '/unit-rate-calculator', icon: faCalculator },
     { title: 'Pet Food Prefs', url: '/pet-foods', icon: faPaw },
     { title: 'Gift Card Tracker', url: '/gift-cards', icon: faCreditCard },
